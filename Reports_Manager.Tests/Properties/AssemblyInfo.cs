@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Les informations générales relatives à un assembly dépendent de 
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
-[assembly: AssemblyTitle("Reports_Manager.Tests")]
+[assembly: AssemblyTitle("Reports_manager.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("Reports_Manager.Tests")]
+[assembly: AssemblyProduct("Reports_manager.Tests")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Le GUID suivant est pour l'ID de la typelib si ce projet est exposé à COM
-[assembly: Guid("cbb7d02f-95b1-4053-929b-ab2a3806ddcf")]
+[assembly: Guid("73807e2e-6506-447f-9853-229d4d5533d8")]
 
 // Les informations de version pour un assembly se composent des quatre valeurs suivantes :
 //

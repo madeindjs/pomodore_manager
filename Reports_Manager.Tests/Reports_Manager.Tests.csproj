@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CBB7D02F-95B1-4053-929B-AB2A3806DDCF}</ProjectGuid>
+    <ProjectGuid>{73807E2E-6506-447F-9853-229D4D5533D8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Reports_Manager.Tests</RootNamespace>
-    <AssemblyName>Reports_Manager.Tests</AssemblyName>
+    <RootNamespace>Reports_manager.Tests</RootNamespace>
+    <AssemblyName>Reports_manager.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

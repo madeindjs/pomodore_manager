@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Reports_Manager.Tests
+namespace Reports_manager.Tests
 {
     [TestClass]
     public class UnitTest1
@@ -9,6 +9,13 @@ namespace Reports_Manager.Tests
         [TestMethod]
         public void TestMethod1()
         {
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void AnotherTest()
+        {
+            Assert.IsTrue(false);
         }
     }
 }
