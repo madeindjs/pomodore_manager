@@ -5,9 +5,9 @@ namespace Reports_Manager.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class Model1 : DbContext
+    public partial class User : DbContext
     {
-        public Model1()
+        public User()
             : base("name=Carrier_data_connexion")
         {
         }
