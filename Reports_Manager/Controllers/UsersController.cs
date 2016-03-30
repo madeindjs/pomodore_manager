@@ -18,8 +18,16 @@ namespace Reports_Manager.Controllers
         public ActionResult Index()
         {
             var users_data = database.Users.ToList();
-            return View(users_data);
+            ViewBag.users = users_data;
+            return View();
         }
 
+        // GET: users/details/id
+        public ActionResult Details(int id)
+        {
+            var user_data = database.Users.Find(id) ;
+            ViewBag.user = user_data ;
+            return View();
+        }
     }
 }

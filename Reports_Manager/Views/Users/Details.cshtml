@@ -1,0 +1,7 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+    string complete_name = String.Format("{0} {1}", ViewBag.user.Firstname , ViewBag.user.Lastname);
+}
+
+<h2>@Html.ActionLink( complete_name, "Details", new { Id = ViewBag.user.Id } )</h2>

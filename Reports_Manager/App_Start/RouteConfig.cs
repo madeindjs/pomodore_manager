@@ -16,7 +16,7 @@ namespace Reports_Manager
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Pages", action = "Home", id = UrlParameter.Optional }
+                defaults: new { controller = "Users", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
