@@ -8,8 +8,8 @@
 <h2>Tests#Index</h2>
 
 <ul>
-    @foreach ( var test in Model )
+    @foreach (var test in Model)
     {
-        <li>@test.Name</li>
+        <li>@Html.ActionLink(test.Name , "Details",  new { Id = test.Id } )</li>
     }
 </ul>

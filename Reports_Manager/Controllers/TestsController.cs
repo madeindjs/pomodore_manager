@@ -15,8 +15,8 @@ namespace Reports_Manager.Controllers
         {
             var tests = new List<Test>
             {
-                new Test { Name = "Save world" },
-                new Test { Name = "Make a new world" }
+                new Test { Id = 1 , Name = "Save world" },
+                new Test { Id = 2 , Name = "Make a new world" }
             };
 
             return View(tests);
