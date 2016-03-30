@@ -1,28 +1,15 @@
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Web;
+
 namespace Reports_Manager.Models
 {
-    using System;
-    using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-
-    public partial class User : DbContext
+    public class User
     {
-        public User()
-            : base("name=Carrier_data_connexion")
-        {
-        }
-
-        public virtual DbSet<users> users { get; set; }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<users>()
-                .Property(e => e.firstname)
-                .IsFixedLength();
-
-            modelBuilder.Entity<users>()
-                .Property(e => e.lastname)
-                .IsFixedLength();
-        }
+        public int Id { get; set; }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
     }
 }
