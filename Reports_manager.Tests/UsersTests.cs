@@ -1,19 +1,13 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Reports_manager.Tests
+namespace Reports_manager
 {
     [TestClass]
-    public class UnitTest1
+    public class UsersTests
     {
         [TestMethod]
         public void TestMethod1()
-        {
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod]
-        public void AnotherTest()
         {
             Assert.IsTrue(false);
         }
