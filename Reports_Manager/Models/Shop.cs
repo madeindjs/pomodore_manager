@@ -8,15 +8,19 @@ namespace Reports_Manager.Models
 {
     public class Shop
     {
-        public int Article_id { get; set; }
-        public int Serie { get; set; }
-        [Key] public int Id { get; set;  }
-        public int Adresse { get; set; }
-        public int Code_postal { get; set; }
-        public int Ville { get; set; }
+        [Key]
+        public int Id { get; set; }
+        public string Article_id { get; set; }
+        public string Serie { get; set; }
+        public string Otp { get; set;  }
+        public string Magasin { get; set; }
+        public string Adresse { get; set; }
+        public string Code_postal { get; set; }
+        public string Ville { get; set; }
         public int N_sortie { get; set; }
-        public int Date_sm { get; set; }
-        public int Date_fact { get; set; }
+        public DateTime Date_sm { get; set; }
+        public DateTime Date_fact { get; set; }
+
 
     }
 }

@@ -1,7 +1,31 @@
 ﻿
 @{
-    ViewBag.Title = "Chantiers#Index";
+    ViewBag.Title = "Shops#Index";
 }
 
-<h2>Chantiers#Index</h2>
+<h2>Shops#index</h2>
 
+<table>
+
+    <thead>
+        <tr>
+            <th>OTP</th>
+            <th>Magasin</th>
+            <th>Ville</th>
+            <th>Facturation</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var shop in ViewBag.shops)
+        {
+            <tr>
+                <td>@Html.ActionLink("azerty", "Details", "Shops", new { id = (int)shop.Id } , null)</td>
+                <td>@shop.Magasin</td>
+                <td>@shop.Ville</td>
+                <td>@shop.Date_sm</td>
+            </tr>
+        }
+    </tbody>
+
+</table>
