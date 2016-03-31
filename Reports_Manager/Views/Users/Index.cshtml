@@ -6,10 +6,27 @@
 
 <h2>Users#index</h2>
 
-<ul>
-    @foreach (var user in ViewBag.users )
-    {
-        string complete_name = String.Format("{0} {1}", user.Firstname, user.Lastname);
-        <li>@Html.ActionLink(complete_name, "Details", new { Id = user.Id })</li>
-    }
-</ul>
+
+<table>
+
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Nb. rapport(s)</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var user in ViewBag.users)
+        {
+            string complete_name = String.Format("{0} {1}", user.Firstname, user.Lastname);
+            <tr>
+                <td>@Html.ActionLink(complete_name, "Details", new { Id = user.Id })</td>
+                <td>@complete_name</td>
+                <td>?</td>
+            </tr>
+        }
+    </tbody>
+
+</table>
