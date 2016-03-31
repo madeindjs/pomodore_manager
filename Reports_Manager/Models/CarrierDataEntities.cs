@@ -9,5 +9,6 @@ namespace Reports_Manager.Models
     public class CarrierDataEntities : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Shop> Shops { get; }
     }
 }

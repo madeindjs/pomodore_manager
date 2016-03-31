@@ -9,7 +9,7 @@ namespace Reports_Manager.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(Reports_Manager.Models.CarrierDataEntities context)
