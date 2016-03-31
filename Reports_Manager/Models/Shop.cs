@@ -17,9 +17,8 @@ namespace Reports_Manager.Models
         public string Adresse { get; set; }
         public string Code_postal { get; set; }
         public string Ville { get; set; }
-        public int N_sortie { get; set; }
-        public DateTime Date_sm { get; set; }
-        public DateTime Date_fact { get; set; }
+        public DateTime? Date_sm { get; set; }
+        public DateTime? Date_fact { get; set; }
 
 
     }
