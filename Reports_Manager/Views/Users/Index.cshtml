@@ -18,12 +18,11 @@
     </thead>
 
     <tbody>
-        @foreach (var user in ViewBag.users)
+        @foreach (Reports_Manager.Models.User user in ViewBag.users)
         {
-            string complete_name = String.Format("{0} {1}", user.Firstname, user.Lastname);
             <tr>
-                <td>@Html.ActionLink(complete_name, "Details", new { Id = user.Id })</td>
-                <td>@complete_name</td>
+                <td>@Html.ActionLink(user.Id.ToString(), "Details", new { Id = user.Id })</td>
+                <td>@String.Format("{0} {1}", user.Firstname, user.Lastname)</td>
                 <td>?</td>
             </tr>
         }

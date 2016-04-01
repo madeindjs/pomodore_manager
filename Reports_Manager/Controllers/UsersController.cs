@@ -4,9 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
-
 using Reports_Manager.Models;
-
+using System.Collections;
 
 namespace Reports_Manager.Controllers
 {
@@ -17,7 +16,7 @@ namespace Reports_Manager.Controllers
         // GET: users/index
         public ActionResult Index()
         {
-            var users_data = database.Users.ToList();
+            IEnumerable users_data = database.Users.ToList();
             ViewBag.users = users_data;
             return View();
         }

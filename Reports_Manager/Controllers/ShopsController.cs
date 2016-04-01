@@ -1,5 +1,6 @@
 ﻿using Reports_Manager.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,11 +15,12 @@ namespace Reports_Manager.Controllers
         // GET: Shops
         public ActionResult Index()
         {
-            var database_Shop = database.Shops;
+            var database_Shops = database.Shops;
             
-            if (database_Shop != null)
+            if (database_Shops != null)
             {
-                var shops_data = database_Shop.ToList();
+                IEnumerable shops_data = database_Shops.ToList();
+
                 ViewBag.shops = shops_data;
                 return View();
             }
