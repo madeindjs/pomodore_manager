@@ -26,6 +26,7 @@ namespace Reports_Manager.Controllers
             }
             else
             {
+                ViewBag.error = "La base de données est vide";
                 return View("./Error");
             }
         }

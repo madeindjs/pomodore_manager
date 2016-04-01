@@ -24,9 +24,18 @@ namespace Reports_Manager.Controllers
         // GET: users/details/id
         public ActionResult Details(int id)
         {
-            var user_data = database.Users.Find(id) ;
-            ViewBag.user = user_data ;
-            return View();
+            System.Data.Entity.DbSet<User> database_Users = database.Users;
+            ViewBag.user = database_Users.Find(id);
+
+            if (ViewBag.user != null)
+            {
+                return View();
+            }
+            else
+            {
+                ViewBag.error = "Cet utilisateur n'existe pas.";
+                return View("./Error");
+            }
         }
     }
 }
