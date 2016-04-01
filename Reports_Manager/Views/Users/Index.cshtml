@@ -11,7 +11,6 @@
 
     <thead>
         <tr>
-            <th>Id</th>
             <th>Nom</th>
             <th>Nb. rapport(s)</th>
         </tr>
@@ -21,8 +20,9 @@
         @foreach (Reports_Manager.Models.User user in ViewBag.users)
         {
             <tr>
-                <td>@Html.ActionLink(user.Id.ToString(), "Details", new { Id = user.Id })</td>
-                <td>@String.Format("{0} {1}", user.Firstname, user.Lastname)</td>
+                <td>@Html.ActionLink(
+                   String.Format("{0} {1}", user.Firstname, user.Lastname), 
+                   "Details", new { Id = user.Id })</td>
                 <td>?</td>
             </tr>
         }

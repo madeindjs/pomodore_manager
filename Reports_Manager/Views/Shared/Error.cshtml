@@ -2,6 +2,14 @@
 @{
     ViewBag.Title = "Erreur";
 }
+<h2>Une erreur est survenue</h2>
 
-<h2>Une erreur est survenue..</h2>
 
+@if (ViewBag.error != null)
+{
+    <p>@ViewBag.error</p>
+}
+else
+{
+    <p>Une erreur est survenue..</p>
+}

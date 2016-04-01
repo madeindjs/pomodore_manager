@@ -22,7 +22,7 @@
             if (shop.Otp != null && shop.Date_fact != null)
             {
                 <tr>
-                    <td>@Html.ActionLink(shop.Otp, "Details", "Shops", new { id = shop.Id }, null)</td>
+                    <td>@Html.ActionLink(shop.Otp, "Details", "Shops", new { id = shop.Otp }, null)</td>
                     <td>@shop.Magasin</td>
                     <td>@shop.Ville</td>
                     <td>@String.Format("{0:dd-MM-yyyy}", shop.Date_fact)</td>
