@@ -1,10 +1,8 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Shops#Index";
 }
 
 <h2>Shops#index</h2>
-
 
 <table>
 
@@ -18,19 +16,18 @@
     </thead>
 
     <tbody>
-        @foreach ( Reports_Manager.Models.Shop shop in ViewBag.shops)
+        @foreach (IEnumerable<Reports_Manager.Models.Shop> shop_group in ViewBag.shops_grouped)
         {
-            
-            <tr>
-                @if (shop.Otp != null && shop.Date_fact != null)
-                {
+            Reports_Manager.Models.Shop shop = shop_group.First();//to get only the first element
+            if (shop.Otp != null && shop.Date_fact != null)
+            {
+                <tr>
                     <td>@Html.ActionLink(shop.Otp, "Details", "Shops", new { id = shop.Id }, null)</td>
                     <td>@shop.Magasin</td>
                     <td>@shop.Ville</td>
                     <td>@String.Format("{0:dd-MM-yyyy}", shop.Date_fact)</td>
-                }
-                
-            </tr>
+                </tr>
+            }
         }
     </tbody>
 
