@@ -43,6 +43,7 @@ namespace Reports_Manager.Controllers
 
                 if (ViewBag.shop != null)
                 {
+                    ViewBag.cabinets = shops_list.Where(shop => shop.Otp == id);
                     return View();
                 }
                 else

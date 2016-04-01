@@ -8,3 +8,30 @@
 
 <h3>Informations</h3>
 <address>@String.Format("{0}, {1}, {2}", shop.Adresse, shop.Code_postal, shop.Ville)</address>
+
+<h3>Meubles</h3>
+<table>
+
+    <thead>
+        <tr>
+            <th>Désignation</th>
+            <th>Série</th>
+            <th>Date facturation</th>
+            <th>Nb. rapports</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (Reports_Manager.Models.Shop cabinet in ViewBag.cabinets)
+        {
+            <tr>
+                <td>?</td>
+                <td>@cabinet.Serie</td>
+                <td>@String.Format("{0:dd-MM-yyyy}", cabinet.Date_fact)</td>
+                <td>?</td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
