@@ -36,14 +36,13 @@ namespace Reports_Manager.Controllers
         {
             if(id != null)
             {
-                //search and Import shop infos (only the first data)
+
                 System.Data.Entity.DbSet<Shop> database_Shops = database.Shops;
-                List<Reports_Manager.Models.Shop> shops_list = database_Shops.Include("Article").ToList();
-                ViewBag.shop = shops_list.First(shop => shop.Otp == id);
+                ViewBag.shop = database_Shops.First(shop => shop.Otp == id);
 
                 if (ViewBag.shop != null)
                 {
-                    ViewBag.cabinets = shops_list.Where(shop => shop.Otp == id);
+                    ViewBag.cabinets = database_Shops.Where(shop => shop.Otp == id);
                     return View();
                 }
                 else
