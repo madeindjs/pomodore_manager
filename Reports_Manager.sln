@@ -5,11 +5,6 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reports_Manager", "Reports_Manager\Reports_Manager.csproj", "{C8DEBE9A-C3F8-4CB9-8362-D262455ED288}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reports_manager.Tests", "Reports_manager.Tests\Reports_manager.Tests.csproj", "{73807E2E-6506-447F-9853-229D4D5533D8}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C8DEBE9A-C3F8-4CB9-8362-D262455ED288} = {C8DEBE9A-C3F8-4CB9-8362-D262455ED288}
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,11 +16,6 @@ Global
 		{C8DEBE9A-C3F8-4CB9-8362-D262455ED288}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{C8DEBE9A-C3F8-4CB9-8362-D262455ED288}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8DEBE9A-C3F8-4CB9-8362-D262455ED288}.Release|Any CPU.Build.0 = Release|Any CPU
-		{73807E2E-6506-447F-9853-229D4D5533D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{73807E2E-6506-447F-9853-229D4D5533D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{73807E2E-6506-447F-9853-229D4D5533D8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{73807E2E-6506-447F-9853-229D4D5533D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{73807E2E-6506-447F-9853-229D4D5533D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

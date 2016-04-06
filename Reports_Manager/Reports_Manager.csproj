@@ -140,6 +140,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
     <Compile Include="Controllers\ShopsController.cs" />
@@ -151,8 +152,13 @@
     <Compile Include="Migrations\201603300901079_Initial.Designer.cs">
       <DependentUpon>201603300901079_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604060920451_add_articles_database.cs" />
+    <Compile Include="Migrations\201604060920451_add_articles_database.Designer.cs">
+      <DependentUpon>201604060920451_add_articles_database.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CarrierDataEntities.cs" />
+    <Compile Include="Models\Article.cs" />
     <Compile Include="Models\Shop.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -174,6 +180,8 @@
     <Content Include="Views\Shops\Index.cshtml" />
     <Content Include="Views\Shops\Details.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Articles\Index.cshtml" />
+    <Content Include="Views\Articles\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -187,6 +195,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201603300901079_Initial.resx">
       <DependentUpon>201603300901079_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604060920451_add_articles_database.resx">
+      <DependentUpon>201604060920451_add_articles_database.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

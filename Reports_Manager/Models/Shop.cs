@@ -20,6 +20,8 @@ namespace Reports_Manager.Models
         public DateTime? Date_sm { get; set; }
         public DateTime? Date_fact { get; set; }
 
+        public virtual Article Article { get; set; }
+
 
     }
 }
