@@ -4,3 +4,29 @@
 
 <h2>@ViewBag.Title</h2>
 
+<table>
+
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Nb. rapport(s)</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (Reports_Manager.Models.Article article in ViewBag.articles)
+        {
+            if (article.Designation != null)
+            {
+                <tr>
+                    <td>@Html.ActionLink( article.Id, "Details", new { Id = article.Id })</td>
+                    <td>@article.Designation</td>
+                </tr>
+            }
+
+        }
+    </tbody>
+
+</table>
+
+
