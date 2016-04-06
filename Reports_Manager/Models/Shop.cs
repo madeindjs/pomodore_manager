@@ -22,6 +22,17 @@ namespace Reports_Manager.Models
 
         public virtual Article Article { get; set; }
 
+        public Shop()
+        {
+            this.get_article();
+        }
+
+        public void get_article()
+        {
+            CarrierDataEntities database = new CarrierDataEntities();
+            System.Data.Entity.DbSet<Article> database_articles = database.Articles;
+            Article =  database_articles.First(article => article.Id == this.Article_id )  ;
+        }
 
     }
 }

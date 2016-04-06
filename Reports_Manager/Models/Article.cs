@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Reports_Manager.Models
 {
-    public class Article
+    public partial class Article
     {
         
         public string Id { get; set; }

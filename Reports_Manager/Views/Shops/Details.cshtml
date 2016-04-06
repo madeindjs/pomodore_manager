@@ -4,12 +4,14 @@
     Reports_Manager.Models.Shop shop = @ViewBag.shop;
 }
 
-<h2>@shop.Magasin # @shop.Otp</h2>
+<h2>@Html.ActionLink(String.Format("{0} # {1}" , shop.Magasin , shop.Otp ) , "Details", "Shops", new { id = shop.Otp }, null)</h2>
 
 <h3>Informations</h3>
 <address>@String.Format("{0}, {1}, {2}", shop.Adresse, shop.Code_postal, shop.Ville)</address>
 
+
 <h3>Meubles</h3>
+
 <table>
 
     <thead>
@@ -22,14 +24,20 @@
     </thead>
 
     <tbody>
+
         @foreach (Reports_Manager.Models.Shop cabinet in ViewBag.cabinets)
         {
-            <tr>
-                <td>?</td>
-                <td>@cabinet.Serie</td>
-                <td>@String.Format("{0:dd-MM-yyyy}", cabinet.Date_fact)</td>
-                <td>?</td>
-            </tr>
+            if (@cabinet.Article != null)
+            {
+                cabinet.get_article();
+                <tr>
+                    <td>@Html.ActionLink(cabinet.Article.Designation, "Details" , "Articles", new { Id = cabinet.Article.Id } , null)</td>
+                    <td>@cabinet.Serie</td>
+                    <td>@String.Format("{0:dd-MM-yyyy}", cabinet.Date_fact)</td>
+                    <td>?</td>
+                </tr>
+            }
+
         }
     </tbody>
 
