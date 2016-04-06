@@ -17,5 +17,8 @@ namespace Reports_Manager.Models
         [Key]
         public int Sql_id { get; set; }
 
+        public virtual List<Shop> Shops { get; set; }
+
+
     }
 }
