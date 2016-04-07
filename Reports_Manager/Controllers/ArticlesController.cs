@@ -35,7 +35,19 @@ namespace Reports_Manager.Controllers
         // GET: Articles/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            System.Data.Entity.DbSet<Article> database_Articles = database.Articles;
+            ViewBag.article = database_Articles.First(article => article.Id == id.ToString() );
+
+            if (ViewBag.article != null)
+            {
+                return View();
+            }
+            else
+            {
+                ViewBag.error = "Cet article n'existe pas.";
+                return View("./Error");
+            }
+
         }
 
     }

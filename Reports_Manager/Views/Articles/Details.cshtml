@@ -1,7 +1,26 @@
 ﻿
 @{
     ViewBag.Title = "Articles#Details";
+    Reports_Manager.Models.Article article = ViewBag.article;
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>@Html.ActionLink( article.Designation , "Details", "Articles", new { id = article.Id }, null)</h2>
 
+<h3>Détails</h3>
+
+<table>
+    <tr>
+        <th># article</th>
+        <th>gamme</th>
+        <th>Longueur</th>
+        <th>Usine</th>
+    </tr>
+    <tr>
+        <td>@article.Id</td>
+        <td>@article.Gamme</td>
+        <td>@article.Longueur</td>
+        <td>@article.Usine</td>
+    </tr>
+</table>
+
+<h3>Magasins</h3>
