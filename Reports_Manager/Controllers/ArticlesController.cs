@@ -36,7 +36,10 @@ namespace Reports_Manager.Controllers
         public ActionResult Details(int id)
         {
             System.Data.Entity.DbSet<Article> database_Articles = database.Articles;
-            ViewBag.article = database_Articles.First(article => article.Id == id.ToString() );
+            Article article = database_Articles.First(a => a.Id == id.ToString() );
+            article.get_shops();
+            ViewBag.article = database_Articles.First(a => a.Id == id.ToString() );
+
 
             if (ViewBag.article != null)
             {

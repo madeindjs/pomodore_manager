@@ -19,6 +19,17 @@ namespace Reports_Manager.Models
 
         public virtual List<Shop> Shops { get; set; }
 
+        public Article()
+        {
+            this.get_shops();
+        }
+
+        public void get_shops()
+        {
+            CarrierDataEntities database = new CarrierDataEntities();
+            System.Data.Entity.DbSet<Shop> database_Shops = database.Shops;
+            Shops = database_Shops.Where( shop => shop.Article_id == Id ).ToList() ;
+        }
 
     }
 }
