@@ -124,6 +124,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Cake.Generic.Table.css" />
+    <Content Include="Content\search_box.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -133,6 +134,7 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\search_form.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -183,6 +185,7 @@
     <Content Include="Views\Articles\Index.cshtml" />
     <Content Include="Views\Articles\Details.cshtml" />
     <Content Include="Views\Shops\_List.cshtml" />
+    <Content Include="Views\Shops\_Search_box.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

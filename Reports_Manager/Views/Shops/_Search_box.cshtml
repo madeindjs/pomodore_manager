@@ -1,0 +1,27 @@
+﻿
+@{Html.BeginForm("Index", "Shops", FormMethod.Get, new { id = "ChantierIndexForm" });}
+
+<fieldset>
+    <legend>magasin</legend>
+    @Html.TextBox("magasin", null, new { placeholder = "magasin" })
+    @Html.TextBox("otp", null, new { placeholder = "otp" })
+    @Html.TextBox("code_postal", null, new { placeholder = "code postal" })
+    @Html.TextBox("ville", null, new { placeholder = "ville" })
+</fieldset>
+
+<fieldset>
+    <legend>vitrine</legend>
+    @Html.TextBox("materiel", null, new { placeholder = "materiel" })
+    @Html.TextBox("serie", null, new { placeholder = "# série" })
+    @Html.TextBox("date1", "01/01/2013", new { placeholder = "date de début de recherche" })
+    @Html.TextBox("date2", "01/01/2017", new { placeholder = "date de fin de recherche" })
+</fieldset>
+<fieldset>
+    <legend>options</legend>
+    @Html.CheckBox("r_advance") afficher le nombre de résultats <small>(augmente considérément le temps de recherche)</small>
+    <input id="n_page" type="hidden" name="n_page" value=1 />
+</fieldset>
+
+<input type="submit" value="rechercher" />
+
+@{Html.EndForm();}

@@ -3,6 +3,11 @@
 }
 
 <h2>Shops#index</h2>
-@Html.Partial( 
-    "~/Views/Shops/_List.cshtml", 
-    new ViewDataDictionary { { "shops_grouped", ViewBag.shops_grouped } })
+
+<div id="result"> en cours de chargement </div>
+
+@Html.Partial("~/Views/Shops/_Search_box.cshtml" )
+
+<button id="test" >salout</button>
+
+<script src="~/Scripts/search_form.js"></script>

@@ -1,0 +1,44 @@
+﻿#recherche_but , #ChantierIndexForm{
+	position:fixed;
+}
+
+#recherche_but{
+	bottom: 0px;
+	right: 0px;
+}
+#recherche_but > img {
+	width:80px;
+}
+
+
+#ChantierIndexForm{
+	background: rgba(250,250,250,.8);
+	width: 300px;
+	display: block;
+	position:fixed;
+	bottom: 50px;
+	right: 0px;
+}
+
+#ChantierIndexForm input{
+    width: 100%;
+    font-size: 18px;
+    border: solid 1px black;
+}
+
+#ChantierIndexForm input[type=checkbox]{
+    width: 50px;
+    font-size: 18px;
+    border: solid 1px black;
+}
+
+.loader{
+	width:100% ; 
+	text-align:center
+}
+#loader{
+	position: fixed;
+	right: 50%;
+	top: 50%;
+	width: 100px;
+}

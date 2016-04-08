@@ -11,19 +11,22 @@ namespace Reports_Manager.Controllers
     public class ShopsController : Controller
     {
         private CarrierDataEntities database = new CarrierDataEntities();
+        private const int RESULTS_PER_PAGES = 10 ;
 
         // GET: Shops/index
         public ActionResult Index(int? page)
-        {
+        {/*
             System.Data.Entity.DbSet<Shop> database_Shops = database.Shops ;
 
             if (database_Shops != null)//I check if there are data into database
             {
 
+                int pageNumber = (page ?? 1);
+
                 ViewBag.shops_grouped = database_Shops
                     .Where(shop => shop.Date_fact != null)
                     .GroupBy(shop => shop.Otp)
-                    .Take(10) ;
+                    .Take( RESULTS_PER_PAGES * pageNumber ) ;
 
                 return View();
             }
@@ -31,7 +34,8 @@ namespace Reports_Manager.Controllers
             {
                 ViewBag.error = "La base de données est vide";
                 return View("./Error");
-            }
+            }*/
+            return View();
         }
 
         // GET: Shops/Details/5
@@ -60,6 +64,30 @@ namespace Reports_Manager.Controllers
                 return View("./Error");
             }
 
+        }
+
+
+        public ActionResult search()
+        {
+            System.Data.Entity.DbSet<Shop> database_Shops = database.Shops;
+
+            if (database_Shops != null)//I check if there are data into database
+            {
+
+                int pageNumber = 1;
+
+                ViewBag.shops_grouped = database_Shops
+                    .Where(shop => shop.Date_fact != null)
+                    .GroupBy(shop => shop.Otp)
+                    .Take(RESULTS_PER_PAGES * pageNumber);
+
+                return PartialView("_List");
+            }
+            else
+            {
+                ViewBag.error = "La base de données est vide";
+                return View("./Error");
+            }
         }
     }
 }
