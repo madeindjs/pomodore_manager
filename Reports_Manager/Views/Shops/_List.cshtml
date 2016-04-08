@@ -1,0 +1,28 @@
+﻿<table>
+
+    <thead>
+        <tr>
+            <th>OTP</th>
+            <th>Magasin</th>
+            <th>Ville</th>
+            <th>Facturation</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (IEnumerable<Reports_Manager.Models.Shop> shop_group in (dynamic)ViewData["shops_grouped"] )
+        {
+            Reports_Manager.Models.Shop shop = shop_group.First();//to get only the first element
+            if (shop.Otp != null && shop.Date_fact != null)
+            {
+                <tr>
+                    <td>@Html.ActionLink(shop.Otp, "Details", "Shops", new { id = shop.Otp }, null)</td>
+                    <td>@shop.Magasin</td>
+                    <td>@shop.Ville</td>
+                    <td>@String.Format("{0:dd-MM-yyyy}", shop.Date_fact)</td>
+                </tr>
+            }
+        }
+    </tbody>
+
+</table>
