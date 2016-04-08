@@ -13,15 +13,18 @@ namespace Reports_Manager.Controllers
         private CarrierDataEntities database = new CarrierDataEntities();
 
         // GET: Shops/index
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            System.Data.Entity.DbSet<Shop> database_Shops = database.Shops;
+            System.Data.Entity.DbSet<Shop> database_Shops = database.Shops ;
 
             if (database_Shops != null)//I check if there are data into database
             {
-                //I get shoplist from database & I group them by OTP
-                List<Reports_Manager.Models.Shop> shops_list = database_Shops.ToList();
-                ViewBag.shops_grouped = shops_list.GroupBy(shop => shop.Otp);
+
+                ViewBag.shops_grouped = database_Shops
+                    .Where(shop => shop.Date_fact != null)
+                    .GroupBy(shop => shop.Otp)
+                    .Take(10) ;
+
                 return View();
             }
             else
