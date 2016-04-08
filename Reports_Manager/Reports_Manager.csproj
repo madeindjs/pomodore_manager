@@ -194,6 +194,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\img\" />
     <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>
