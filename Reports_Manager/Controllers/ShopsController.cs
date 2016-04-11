@@ -63,16 +63,39 @@ namespace Reports_Manager.Controllers
                 ViewBag.post_data = post_data;
 
 
-                string search_magasin = !String.IsNullOrEmpty(post_data["magasin"]) ? post_data["magasin"] : " ";
+                string search_magasin = !String.IsNullOrEmpty(post_data["magasin"]) ? post_data["magasin"] : "";
                 string search_otp = !String.IsNullOrEmpty(post_data["otp"]) ? post_data["otp"] : "";
+                string search_code_postal = !String.IsNullOrEmpty(post_data["code_postal"]) ? post_data["code_postal"] : "";
+                string search_ville = !String.IsNullOrEmpty(post_data["ville"]) ? post_data["ville"] : "";
+
 
                 int pageNumber = int.Parse(post_data["n_page"]);
 
-
                 ViewBag.shops_grouped = database_Shops
-                    .Where(
-                        shop => shop.Date_fact != null &&
-                        shop.Magasin.ToUpper().Contains(search_magasin.ToUpper()) 
+                    .Where( shop =>
+                        shop.Date_fact != null &&
+
+                        (//shop's name
+                            string.IsNullOrEmpty(search_magasin) ||
+                            shop.Magasin.ToUpper().Contains( search_magasin.ToUpper() )
+                        )&&
+
+
+                        (//shop's otp
+                            string.IsNullOrEmpty(search_otp) ||
+                            shop.Otp.ToUpper().Contains(search_otp.ToUpper())
+                        )&&
+
+                        (//shop's zip code
+                            string.IsNullOrEmpty(search_code_postal) ||
+                            shop.Code_postal.ToUpper().Contains(search_code_postal.ToUpper())
+                        )&&
+
+                        (//shop's town
+                            string.IsNullOrEmpty(search_ville) ||
+                            shop.Ville.ToUpper().Contains(search_ville.ToUpper())
+                        )
+
                     )
                     .GroupBy(shop => shop.Otp)
                     .Take(RESULTS_PER_PAGES * pageNumber);
