@@ -17,6 +17,8 @@ namespace Reports_Manager.Models
         [Required, MaxLength(20)]
         public string Firstname { get; set; }
         public string Lastname { get; set; }
+        public string Password { get; set; }
+        
 
         public Boolean save()
         {
@@ -26,7 +28,10 @@ namespace Reports_Manager.Models
             {
                 sqlConnection.Open();
 
-                string sqlCommand_str = String.Format("INSERT INTO [Users] ( [Users].Firstname, [Users].Lastname ) VALUES ('{0}' , '{1}')", Firstname , Lastname);
+                string sqlCommand_str = String.Format(
+                    "INSERT INTO [Users] ([Users].Firstname, [Users].Lastname , [Users].Password) VALUES ('{0}' , '{1}', '{2}')", 
+                    Firstname , Lastname , Password);
+
                 SqlCommand sqlCommand = new SqlCommand(sqlCommand_str , sqlConnection);
 
                 sqlCommand.ExecuteNonQuery();
