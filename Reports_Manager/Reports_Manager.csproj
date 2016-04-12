@@ -117,10 +117,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\CarrierDataEntities.mdf" />
-    <Content Include="App_Data\CarrierDataEntities_log.ldf">
-      <DependentUpon>CarrierDataEntities.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Cake.Generic.Table.css" />
@@ -151,14 +147,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201603300901079_Initial.cs" />
-    <Compile Include="Migrations\201603300901079_Initial.Designer.cs">
-      <DependentUpon>201603300901079_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604060920451_add_articles_database.cs" />
-    <Compile Include="Migrations\201604060920451_add_articles_database.Designer.cs">
-      <DependentUpon>201604060920451_add_articles_database.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CarrierDataEntities.cs" />
     <Compile Include="Models\Article.cs" />
@@ -188,6 +176,7 @@
     <Content Include="Views\Shops\_List.cshtml" />
     <Content Include="Views\Shops\_Search_box.cshtml" />
     <Content Include="Views\Sessions\Create.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -196,17 +185,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Content\img\" />
     <Folder Include="Views\Default\" />
-    <Folder Include="Views\Session\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201603300901079_Initial.resx">
-      <DependentUpon>201603300901079_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604060920451_add_articles_database.resx">
-      <DependentUpon>201604060920451_add_articles_database.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

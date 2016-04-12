@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using Reports_Manager.Models;
 using System.Collections;
+using System.Collections.Specialized;
 
 namespace Reports_Manager.Controllers
 {
@@ -19,6 +20,33 @@ namespace Reports_Manager.Controllers
             IEnumerable users_data = database.Users.ToList();
             ViewBag.users = users_data;
             return View();
+        }
+
+
+        // GET: users/create & signup
+        public ActionResult Create()
+        {
+            if( Request.RequestType == "POST")
+            {
+                NameValueCollection post_data = Request.Form;
+
+                User new_user = new User() ;
+                new_user.Firstname = Request.Form["firstname"]; 
+                new_user.Lastname = Request.Form["lastname"];
+                if ( new_user.save() == true )
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.error = "Une erreur est survenue dans la création de vote compte";
+                    return View("./Error");
+                }
+            }
+            else
+            {
+                return View();
+            }
         }
 
         // GET: users/details/id

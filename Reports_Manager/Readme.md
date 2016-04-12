@@ -24,22 +24,77 @@ Report manager is **CMS** (
 * NuGet manager: *version 3.4.0*
 * SQL Server Data Tools: *version 14.0.50616.0*
 
-#shortcurts & commands
+#API
 
-##databases
+
+##User
+* `public void save()` to save proporties of User object in database
 
 ###insert `.csv` file
-    BULK
-    INSERT Articles
-    FROM 'C:\Users\rousseaua\! Projets\SQL\BDD\Base article\Base article_purged_with_SqlId.csv'
-    WITH
-    (
-        FIELDTERMINATOR = ';',
-        ROWTERMINATOR = '\n'
-    );
 
-###Migrations
+
+##Shop
+* `public void get_article()` to load `Article` object in this object
+
+##Articles
+* `public void get_shops()` to load `List<Shop>` in this object
+
+###insert `.csv` file
+
+~~~sql
+BULK
+INSERT Articles
+FROM 'C:\Users\rousseaua\! Projets\SQL\BDD\Base article\Base article_purged_with_SqlId.csv'
+WITH
+(
+   FIELDTERMINATOR = ';',
+   ROWTERMINATOR = '\n'
+);
+~~~
+    
+##Report
+
+##Category
+
+
+
+
+
+#Migrations
+##shortcurts
 `Add-Migration` to make migration from models  
 `update-database -Verbose` to update database
 
-`String alew = String.new`
+
+##migration example
+This is just an example founded [here](https://msdn.microsoft.com/fr-fr/data/jj591621.aspx)
+
+~~~c#
+public override void Up() 
+{ 
+   CreateTable( 
+       "Posts", 
+       c => new 
+       { 
+          PostId = c.Int(nullable: false, identity: true), 
+          Title = c.String(maxLength: 200), 
+          Content = c.String(), 
+          BlogId = c.Int(nullable: false), 
+       }
+   ) 
+    .PrimaryKey(t => t.PostId) 
+    .ForeignKey("Blogs", t => t.BlogId, cascadeDelete: true) 
+    .Index(t => t.BlogId) 
+    .Index(p => p.Title, unique: true); 
+    AddColumn("Blogs", "Rating", c => c.Int(nullable: false, defaultValue: 3)); 
+} 
+ 
+public override void Down() 
+{ 
+    DropIndex("Posts", new[] { "Title" }); 
+    DropIndex("Posts", new[] { "BlogId" }); 
+    DropForeignKey("Posts", "BlogId", "Blogs"); 
+    DropColumn("Blogs", "Rating"); 
+    DropTable("Posts"); 
+} 
+~~~

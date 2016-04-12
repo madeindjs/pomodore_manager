@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Signup";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@{Html.BeginForm("Create", "Users", FormMethod.Post );}
+
+
+    @Html.TextBox("firstname", null, new { placeholder = "nom" })
+
+    @Html.TextBox("lastname", null, new { placeholder = "prénom" })
+
+    <input id="submit" type="submit" value="créer" />
+
+@{Html.EndForm();}

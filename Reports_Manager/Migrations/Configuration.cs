@@ -10,7 +10,6 @@ namespace Reports_Manager.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            AutomaticMigrationDataLossAllowed = true;
 
         }
 
