@@ -5,7 +5,7 @@
 
 <h2>@ViewBag.Title</h2>
 
-@{Html.BeginForm("Create", "Users", FormMethod.Post );}
+@{Html.BeginForm("Create", "Users", FormMethod.Post, new { id = "CreateUserForm" });}
 
 
     @Html.TextBox("firstname", null, new { placeholder = "nom" })
@@ -13,7 +13,23 @@
     @Html.TextBox("lastname", null, new { placeholder = "prénom" })
 
     @Html.Password("password", null, new { placeholder = "mot de passe" })
+    @Html.Password("password_repeat", null, new { placeholder = "répetez votre mot de passe" })
+
+    <span id="alert">Il faut entrer un mot de passe</span>
 
     <input id="submit" type="submit" value="créer" />
 
 @{Html.EndForm();}
+
+<script>
+    //a simple script to prevent bad password
+    $("#CreateUserForm").submit(function (e) {
+        var password = $("#password").val() ;
+        var password_repeat = $("#password_repeat").val() ;
+        if (password != password_repeat || password == "") {
+            e.preventDefault();
+            alert("Le mot de passe n'est pas iddentique et/ou vous devez entrer un mot de passe");
+        } 
+    })
+
+</script>
