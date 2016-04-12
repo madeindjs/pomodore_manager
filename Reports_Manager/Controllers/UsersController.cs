@@ -32,7 +32,8 @@ namespace Reports_Manager.Controllers
                 NameValueCollection post_data = Request.Form;
 
                 User new_user = new User() ;
-                new_user.Firstname = Request.Form["firstname"]; 
+                new_user.Email = Request.Form["email"]; 
+                new_user.Firstname = Request.Form["firstname"];
                 new_user.Lastname = Request.Form["lastname"];
                 new_user.Password = EncryptPassword(Request.Form["password"]);
 

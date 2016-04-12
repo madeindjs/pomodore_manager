@@ -14,9 +14,11 @@ namespace Reports_Manager.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required, MaxLength(20)]
+        [Required]
+        public string Email { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
+        [Required]
         public string Password { get; set; }
         
 
@@ -29,8 +31,8 @@ namespace Reports_Manager.Models
                 sqlConnection.Open();
 
                 string sqlCommand_str = String.Format(
-                    "INSERT INTO [Users] ([Users].Firstname, [Users].Lastname , [Users].Password) VALUES ('{0}' , '{1}', '{2}')", 
-                    Firstname , Lastname , Password);
+                    "INSERT INTO [Users] ([Users].Email, [Users].Firstname, [Users].Lastname , [Users].Password) VALUES ('{0}' , '{1}', '{2}', '{3}')", 
+                    Email, Firstname , Lastname , Password);
 
                 SqlCommand sqlCommand = new SqlCommand(sqlCommand_str , sqlConnection);
 
