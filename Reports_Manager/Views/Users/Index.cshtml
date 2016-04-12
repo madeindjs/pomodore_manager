@@ -23,7 +23,7 @@
                 <td>@Html.ActionLink(
                    String.Format("{0} {1}", user.Firstname, user.Lastname), 
                    "Details", new { Id = user.Id })</td>
-                <td>?</td>
+                <td>@user.Password</td>
             </tr>
         }
     </tbody>

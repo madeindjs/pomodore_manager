@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Signup";
+    ViewBag.Title = "Créer un compte";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -18,6 +18,9 @@
     <input id="submit" type="submit" value="créer" />
 
 @{Html.EndForm();}
+
+<p>Déjà inscrit? @Html.ActionLink("Connectez-vous", "Create", "Sessions")</p>
+
 
 <script>
     //a simple script to prevent bad password

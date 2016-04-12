@@ -1,0 +1,28 @@
+﻿
+#CreateUserForm , 
+#SigninForm
+{
+    width: 600px;
+    margin: auto ;
+}
+
+#CreateUserForm input, 
+#SigninForm input
+{
+    margin: 10px ;
+    display: block ;
+    min-width: 100% ;
+    height: 30px;
+    font-size: 24px;
+    line-height: 30px;
+    text-align: center ;
+    border: none ;
+    border-bottom: 1px solid black ;
+}
+
+#CreateUserForm input[type=submit], 
+#SigninForm input[type=submit]
+{
+    border: none ;
+    background-color: lightgreen ;
+}

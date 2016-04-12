@@ -1,5 +1,16 @@
 ﻿@{
-    ViewBag.Title = "Signin";
+    ViewBag.Title = "Connexion";
 }
 
 <h2>@ViewBag.Title</h2>
+
+@{Html.BeginForm("Create", "Sessions", FormMethod.Post, new { id = "SigninForm" });}
+
+    @Html.TextBox("email", null, new { placeholder = "email" })
+    @Html.Password("password", null, new { placeholder = "mot de passe" })
+
+    <input id="submit" type="submit" value="se connecter" />
+
+@{Html.EndForm();}
+
+<p>Pas encore inscrit? @Html.ActionLink("Inscrivez-vous" , "Create", "Users" )</p>
