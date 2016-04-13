@@ -1,4 +1,15 @@
-﻿<!DOCTYPE html>
+﻿@{
+    string session_id = null ;
+    try
+    {
+        session_id = Session["id"].ToString();
+    }
+    catch
+    {
+        session_id = "" ;
+    }
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -9,6 +20,7 @@
     <link href="~/Content/Cake.Generic.Table.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/search_box.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/form.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/header.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
@@ -26,12 +38,19 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Accueil", "Home", "Pages")</li>
                     <li>@Html.ActionLink("Users", "Index", "Users")</li>
                     <li>@Html.ActionLink("Chantier", "Index", "Shops")</li>
                     <li>@Html.ActionLink("Articles", "Index", "Articles")</li>
                     <li><a href="#">Rapports</a></li>
                     <li><a href="#">Problèmes</a></li>
+                    @if (string.IsNullOrEmpty(session_id))
+                    {
+                        <li>@Html.ActionLink("connexion", "Create", "Sessions")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("mon compte", "Details", "Users", new { id = session_id }, null)</li>
+                    }
                 </ul>
             </div>
         </div>

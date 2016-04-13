@@ -27,24 +27,29 @@ namespace Reports_Manager.Controllers
                 {
                     user = database_Users.First(users => users.Email == email_input);
                 }
-                catch(Exception e)
+                catch
                 {
-                    ViewBag.error = e.Message;
-                    //ViewBag.error = "Cet email n'est pas présent dans la database";
+                    ViewBag.error = "Cet email n'est pas présent dans la database";
                     return View("./Error");
                 }
 
                 if (DecryptPassword(user.Password) == post_data["password"])
                 {
+                    HttpContext.Session["id"] = user.Id ;
                     return RedirectToAction("Index", "Shops", new { area = "" });
                 }
-                else
+                else 
                 {
                     ViewBag.error = "Le mot de passe ne correspond pas";
                     return View("./Error");
                 }
 
 
+            }
+            else if (HttpContext.Session["id"] != null)
+            {
+                ViewBag.error = "Vous êtes déjà connecté sous " + HttpContext.Session["id"];
+                return View("./Error");
             }
             else
             {
@@ -58,7 +63,8 @@ namespace Reports_Manager.Controllers
         // GET: Session/Delete/5
         public ActionResult Delete()
         {
-            return Redirect("/" );
+            HttpContext.Session.RemoveAll();
+            return RedirectToAction("Index", "Shops", new { area = "" });
         }
 
         private string DecryptPassword(string encryptedPassword)
