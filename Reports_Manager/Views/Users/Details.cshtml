@@ -1,7 +1,6 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Details";
-    string complete_name = String.Format("{0} {1}", ViewBag.user.Firstname , ViewBag.user.Lastname);
+    Reports_Manager.Models.User user = ViewBag.user ;
 }
 
-<h2>@Html.ActionLink( complete_name, "Details", new { Id = ViewBag.user.Id } )</h2>
+<h2>@Html.Partial("~/Views/Users/_Link.cshtml", user)</h2>

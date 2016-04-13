@@ -49,7 +49,6 @@ namespace Reports_Manager.Models
                 sqlConnection.Close();
             }
             return true;
-
         }
 
     }

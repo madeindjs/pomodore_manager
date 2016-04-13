@@ -76,7 +76,7 @@ namespace Reports_Manager.Controllers
             {
                 Report new_report = new Report();
                 new_report.User_id = Convert.ToInt16(Session["id"].ToString());
-                new_report.Shop_id = Request.Form["otp"];
+                new_report.Shop_otp = Request.Form["otp"];
                 new_report.Serie = Request.Form["RapportSeries"];
 
                 if (new_report.save() == true)
