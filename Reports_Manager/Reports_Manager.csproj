@@ -153,6 +153,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CarrierDataEntities.cs" />
     <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\Report.cs" />
     <Compile Include="Models\Shop.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
