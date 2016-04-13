@@ -1,5 +1,6 @@
 ﻿using Reports_Manager.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -15,13 +16,26 @@ namespace Reports_Manager.Controllers
         // GET: Reports
         public ActionResult Index()
         {
+            IEnumerable reports_data = database.Reports.ToList();
+            ViewBag.reports = reports_data;
             return View();
         }
 
         // GET: Reports/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            System.Data.Entity.DbSet<Report> database_Reports = database.Reports;
+            ViewBag.user = database_Reports.Find(id);
+
+            if (ViewBag.user != null)
+            {
+                return View();
+            }
+            else
+            {
+                ViewBag.error = "Cet utilisateur n'existe pas.";
+                return View("./Error");
+            }
         }
 
         // GET: Reports/Create

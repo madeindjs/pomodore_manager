@@ -3,3 +3,25 @@
 }
 
 <h2>@ViewBag.Title</h2>
+
+<table>
+
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>user</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (Reports_Manager.Models.Report report in ViewBag.reports)
+        {
+            report.get_user();
+            <tr>
+                <td>@Html.ActionLink( report.Id.ToString() , "Details" , "Reports" , new { Id = report.Id }  )</td>
+                <td>@Html.ActionLink( String.Format("{0} {1}", report.User.Firstname, report.User.Lastname), "Details" , "Users" , new { Id = report.User.Id } , null)</td>
+            </tr>
+        }
+    </tbody>
+
+</table>

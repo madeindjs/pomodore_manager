@@ -29,6 +29,17 @@ namespace Reports_Manager.Models
         public string Facts { get; set; }
         public string Forecast { get; set; }
 
+        public virtual User User { get; set; }
+        public virtual List<Shop> Shops { get; set; }
+
+
+        public void get_user()
+        {
+            CarrierDataEntities database = new CarrierDataEntities();
+            System.Data.Entity.DbSet<User> database_users = database.Users;
+            User = database_users.First(user => user.Id == this.User_id);
+        }
+
         public Boolean save()
         {
             SqlConnection sqlConnection = new SqlConnection("Data Source=AH734716\\SQLEXPRESS;Initial Catalog=Reports_Manager.Models.CarrierDataEntities;Integrated Security=True");
