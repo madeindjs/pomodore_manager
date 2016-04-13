@@ -183,6 +183,7 @@
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Reports\Create.cshtml" />
     <Content Include="Views\Reports\Index.cshtml" />
+    <Content Include="Views\Users\_Link.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

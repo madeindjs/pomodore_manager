@@ -20,9 +20,7 @@
         @foreach (Reports_Manager.Models.User user in ViewBag.users)
         {
             <tr>
-                <td>@Html.ActionLink(
-                   String.Format("{0} {1}", user.Firstname, user.Lastname), 
-                   "Details", new { Id = user.Id })</td>
+                <td>@Html.Partial("~/Views/Users/_Link.cshtml" , user )</td>
                 <td>@user.Password</td>
             </tr>
         }

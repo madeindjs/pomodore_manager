@@ -1,0 +1,6 @@
+﻿
+@{ 
+    Reports_Manager.Models.User user = Model   ;
+}
+
+@Html.ActionLink(String.Format("{0} {1}", user.Firstname, user.Lastname), "Details", "Users", new { Id = user.Id }, null)

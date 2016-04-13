@@ -39,17 +39,17 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Users", "Index", "Users")</li>
-                    <li>@Html.ActionLink("Chantier", "Index", "Shops")</li>
-                    <li>@Html.ActionLink("Articles", "Index", "Articles")</li>
-                    <li>@Html.ActionLink("Rapports", "Index", "Reports")</li>
-                    <li><a href="#">Problèmes</a></li>
                     @if (string.IsNullOrEmpty(session_id))
                     {
                         <li>@Html.ActionLink("connexion", "Create", "Sessions")</li>
                     }
                     else
                     {
+                        <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                        <li>@Html.ActionLink("Chantier", "Index", "Shops")</li>
+                        <li>@Html.ActionLink("Articles", "Index", "Articles")</li>
+                        <li>@Html.ActionLink("Rapports", "Index", "Reports")</li>
+                        <li><a href="#">Problèmes</a></li>
                         <li>@Html.ActionLink("mon compte", "Details", "Users", new { id = session_id }, null)</li>
                     }
                 </ul>
