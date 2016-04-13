@@ -43,7 +43,8 @@
 @{Html.BeginForm("Create", "Reports", FormMethod.Post, new { id = "CreateReportForm" });}
 
 
-    @Html.TextBox("RapportSeries" )
+    @Html.Hidden("otp" , shop.Otp)
+    @Html.Hidden("RapportSeries" )
     @Html.TextArea("firstname", null, new { placeholder = "nom" })
 
 

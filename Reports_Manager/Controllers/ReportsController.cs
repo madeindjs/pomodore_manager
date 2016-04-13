@@ -1,6 +1,7 @@
 ﻿using Reports_Manager.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -52,17 +53,32 @@ namespace Reports_Manager.Controllers
 
         // POST: Reports/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create()
         {
+            NameValueCollection post_data = Request.Form;
+
+
             try
             {
-                // TODO: Add insert logic here
+                Report new_report = new Report();
+                new_report.User_id = Convert.ToInt16(Session["id"].ToString());
+                new_report.Shop_id = Request.Form["otp"];
+                new_report.Serie = Request.Form["RapportSeries"];
 
-                return RedirectToAction("Index");
+                if (new_report.save() == true)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.error = "Une erreur est survenue dans la création du rapport";
+                    return View("./Error");
+                }
             }
             catch
             {
-                return View();
+                ViewBag.error = "Une erreur est survenue dans la connexion à la database";
+                return View("./Error");
             }
         }
 

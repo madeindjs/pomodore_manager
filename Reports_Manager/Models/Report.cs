@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -27,6 +28,35 @@ namespace Reports_Manager.Models
         public string Analysis { get; set; }
         public string Facts { get; set; }
         public string Forecast { get; set; }
+
+        public Boolean save()
+        {
+            SqlConnection sqlConnection = new SqlConnection("Data Source=AH734716\\SQLEXPRESS;Initial Catalog=Reports_Manager.Models.CarrierDataEntities;Integrated Security=True");
+
+            try
+            {
+                sqlConnection.Open();
+
+                string sqlCommand_str = String.Format(
+                    "INSERT INTO [Reports] ([Reports].User_id, [Reports].Serie, [Reports].Shop_id ) VALUES ('{0}' , '{1}', '{2}')",
+                    User_id, Serie, Shop_id);
+
+                SqlCommand sqlCommand = new SqlCommand(sqlCommand_str, sqlConnection);
+
+                sqlCommand.ExecuteNonQuery();
+
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.Message);
+                return false;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+            return true;
+        }
 
     }
 }
