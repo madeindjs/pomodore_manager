@@ -27,17 +27,34 @@ Report manager is **CMS** (
 #API
 
 
-##User
-* `public void save()` to save proporties of User object in database
+##Shop
+
 
 ###insert `.csv` file
+~~~sql
+BULK
+INSERT Shops
+FROM 'C:\Users\rousseaua\! Projets\SQL\BDD\exports_SAP\C#\2016.01.csv'
+WITH
+(
+   FIELDTERMINATOR = ';',
+   ROWTERMINATOR = '\n'
+);
+~~~
 
+...with .csv file in this format:
 
-##Shop
-* `public void get_article()` to load `Article` object in this object
+~~~csv
+1;13073;4062048;47Y0613;SUPER U LE PALAIS SUR VIENNE;AVENUE DE LIMOGES;87410;LE PALAIS SUR VIENNE;06/01/2016;06/01/2016;0
+2;11735;16027278;47Y0613;SUPER U LE PALAIS SUR VIENNE;AVENUE DE LIMOGES;87410;LE PALAIS SUR VIENNE;06/01/2016;06/01/2016;0
+3;11735;16027278;47Y0613;SUPER U LE PALAIS SUR VIENNE;AVENUE DE LIMOGES;87410;LE PALAIS SUR VIENNE;06/01/2016;06/01/2016;0
+~~~
+
+* Try to make improvement with [this method](http://stackoverflow.com/questions/36593116/insert-csv-file-into-sql-server-with-bulk-insert-and-reorder-columns/36594073#36594073)
 
 ##Articles
-* `public void get_shops()` to load `List<Shop>` in this object
+
+
 
 ###insert `.csv` file
 
