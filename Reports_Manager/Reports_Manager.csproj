@@ -142,6 +142,7 @@
     <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SessionsController.cs" />
     <Compile Include="Controllers\ShopsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -178,6 +179,8 @@
     <Content Include="Views\Shops\_Search_box.cshtml" />
     <Content Include="Views\Sessions\Create.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Reports\Create.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

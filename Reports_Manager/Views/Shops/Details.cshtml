@@ -9,6 +9,8 @@
 <h3>Informations</h3>
 <address>@String.Format("{0}, {1}, {2}", shop.Adresse, shop.Code_postal, shop.Ville)</address>
 
+@Html.ActionLink("créer un rapport", "Create", "Reports", new { Id = shop.Otp } , null)
+
 
 <h3>Meubles</h3>
 
