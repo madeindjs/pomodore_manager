@@ -1,5 +1,55 @@
 ﻿@{
     ViewBag.Title = "Reports#Create";
+    Reports_Manager.Models.Shop shop = @ViewBag.shop;
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>Créer un rapport</h2>
+
+<h3>Chantier</h3>
+@Html.ActionLink(String.Format("{0} # {1}", shop.Magasin, shop.Otp), "Details", "Shops", new { id = shop.Otp }, null)
+<address>@String.Format("{0}, {1}, {2}", shop.Adresse, shop.Code_postal, shop.Ville)</address>
+
+<h3>User</h3>
+
+<h3>Meubles</h3>
+<table id="table_meubles">
+
+    <thead>
+        <tr>
+            <th></th>
+            <th>Désignation</th>
+            <th>Série</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (Reports_Manager.Models.Shop cabinet in ViewBag.cabinets)
+        {
+            if (@cabinet.Article != null)
+            {
+                cabinet.get_article();
+                <tr>
+                    <td>@Html.CheckBox("select")</td>
+                    <td>@cabinet.Article.Designation</td>
+                    <td>@cabinet.Serie</td>
+                </tr>
+            }
+
+        }
+    </tbody>
+
+</table>
+@{Html.BeginForm("Create", "Reports", FormMethod.Post, new { id = "CreateReportForm" });}
+
+
+    @Html.TextBox("RapportSeries" )
+    @Html.TextArea("firstname", null, new { placeholder = "nom" })
+
+
+<input id="submit" type="submit" value="créer" />
+
+@{Html.EndForm();}
+<script src="~/Scripts/rapport_select_meuble.js"></script>
+
+<h3>Infos</h3>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reports_Manager.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,8 @@ namespace Reports_Manager.Controllers
 {
     public class ReportsController : Controller
     {
+        private CarrierDataEntities database = new CarrierDataEntities();
+
         // GET: Reports
         public ActionResult Index()
         {
@@ -21,9 +24,30 @@ namespace Reports_Manager.Controllers
         }
 
         // GET: Reports/Create
-        public ActionResult Create(string otp)
+        public ActionResult Create(string id)
         {
-            return View();
+            if (id != null)
+            {
+
+                System.Data.Entity.DbSet<Shop> database_Shops = database.Shops;
+                ViewBag.shop = database_Shops.First(shop => shop.Otp == id);
+
+                if (ViewBag.shop != null)
+                {
+                    ViewBag.cabinets = database_Shops.Where(shop => shop.Otp == id);
+                    return View();
+                }
+                else
+                {
+                    ViewBag.error = "Cet OTP n'est pas dans la base de données...";
+                    return View("./Error");
+                }
+            }
+            else
+            {
+                ViewBag.error = "Erreur lors de la récupration du paramètre GET";
+                return View("./Error");
+            }
         }
 
         // POST: Reports/Create
