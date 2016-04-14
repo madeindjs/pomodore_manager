@@ -40,17 +40,52 @@
     </tbody>
 
 </table>
+
+<h3>Rapport</h3>
 @{Html.BeginForm("Create", "Reports", FormMethod.Post, new { id = "CreateReportForm" });}
 
 
     @Html.Hidden("otp" , shop.Otp)
     @Html.Hidden("RapportSeries" )
-    @Html.TextArea("firstname", null, new { placeholder = "nom" })
 
+    <section class="report">
+        <h4>infos générales</h4>
+        @Html.TextBox("Description", null, new { placeholder = "notes" })
+        @Html.TextBox("categoriy_id", null, new { placeholder = "category id" })
+        @Html.TextBox("asked_by", null, new { placeholder = "Intervention demandée par" })
+    </section>
 
-<input id="submit" type="submit" value="créer" />
+    <section class="report">
+        <h4>Temps intervention</h4>
+        <ul>
+            <li>@Html.TextBox("t_spend", null, new { placeholder = "temps passé sur place" })</li>
+            <li>@Html.TextBox("t_travel", null, new { placeholder = "temps passé sur le trajet" })</li>
+            <li>@Html.TextBox("t_plus", null, new { placeholder = "temps à prévoir" })</li>
+        </ul>
+    </section>
+
+    <section class="report">
+        <h4>Rédaction</h4>
+        <p>Expliquez le problème que vous avez rencontré sur place:</p>
+        @Html.TextArea("analysis", null, new { placeholder = "Analyse du problème" })
+
+        <p>Decrivez les actions réalisées sur place:</p>
+        @Html.TextArea("facts", null, new { placeholder = "Actions menées sur place" })
+
+        <p>Précisez les éventuelles actions nécessaires après l'intervention:</p>
+        @Html.TextArea("forecast", null, new { placeholder = "actiosn à prévoir" })
+            
+        <p>autre</p>
+        @Html.TextBox("notes", null, new { placeholder = "notes supplémentaires" })
+            
+    </section>
+
+    
+
+    <hr />
+
+   <input id="submit" type="submit" value="créer" />
 
 @{Html.EndForm();}
-<script src="~/Scripts/rapport_select_meuble.js"></script>
 
-<h3>Infos</h3>
+<script src="~/Scripts/rapport_select_meuble.js"></script>

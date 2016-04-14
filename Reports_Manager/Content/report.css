@@ -1,0 +1,22 @@
+﻿section.report{
+    border-left: solid lightgray 10px;
+    padding: 5px ;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    width: 100%;
+}
+    section.report h4{ color: cornflowerblue;}
+    section.report div{ width: 100%; }  
+        section.report ul{ list-style-type: none ; padding:0}
+        section.report li{ list-style-type: none ;}
+
+    section.report input , textarea{
+        min-width: 100%;
+        display: block;
+        border: solid 1px;
+        margin: 5px;
+    }
+
+textarea{
+    height: 200px;
+}
