@@ -31,7 +31,7 @@ namespace Reports_Manager.Controllers
 
                 if (ViewBag.shop != null)
                 {
-                    ViewBag.cabinets = database_Shops.Where(shop => shop.Otp == id);
+                    ViewBag.cabinets = database_Shops.Where(shop => shop.Otp == id).ToList();
                     return View();
                 }
                 else

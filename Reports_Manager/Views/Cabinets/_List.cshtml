@@ -1,0 +1,30 @@
+﻿
+
+<table>
+
+    <thead>
+        <tr>
+            <th>Désignation</th>
+            <th>Série</th>
+            <th>Date facturation</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (Reports_Manager.Models.Shop cabinet in Model)
+        {
+            if (@cabinet.Article != null)
+            {
+                cabinet.get_article();
+                <tr>
+                    <td>@Html.ActionLink(cabinet.Article.Designation, "Details", "Articles", new { Id = cabinet.Article.Id }, null)</td>
+                    <td>@cabinet.Serie</td>
+                    <td>@String.Format("{0:dd-MM-yyyy}", cabinet.Date_fact)</td>
+                </tr>
+            }
+
+        }
+    </tbody>
+
+</table>

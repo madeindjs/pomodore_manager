@@ -48,6 +48,17 @@ namespace Reports_Manager.Models
             Shop = database_shops.First(shop => shop.Otp == Shop_otp);
         }
 
+        public void get_cabinets()
+        {
+            CarrierDataEntities database = new CarrierDataEntities();
+            System.Data.Entity.DbSet<Shop> database_shops = database.Shops;
+            string[] separators = { "_" };
+            string[] serial_numbers = Serie.Split( separators , StringSplitOptions.RemoveEmptyEntries );
+            foreach(string serial_number in serial_numbers)
+            {
+                Cabinets.Add(database_shops.First(shop => shop.Serie == serial_number));
+            }
+        }
 
 
         public Boolean save()

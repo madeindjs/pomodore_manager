@@ -9,39 +9,8 @@
 <h3>Informations</h3>
 <address>@shop.print_adress()</address>
 
-@Html.ActionLink("créer un rapport", "Create", "Reports", new { Id = shop.Otp } , null)
+@Html.ActionLink("créer un rapport", "Create", "Reports", new { Id = shop.Otp }, null)
 
 
 <h3>Meubles</h3>
-
-<table>
-
-    <thead>
-        <tr>
-            <th>Désignation</th>
-            <th>Série</th>
-            <th>Date facturation</th>
-            <th>Nb. rapports</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-        @foreach (Reports_Manager.Models.Shop cabinet in ViewBag.cabinets)
-        {
-            if (@cabinet.Article != null)
-            {
-                cabinet.get_article();
-                <tr>
-                    <td>@Html.ActionLink(cabinet.Article.Designation, "Details" , "Articles", new { Id = cabinet.Article.Id } , null)</td>
-                    <td>@cabinet.Serie</td>
-                    <td>@String.Format("{0:dd-MM-yyyy}", cabinet.Date_fact)</td>
-                    <td>?</td>
-                </tr>
-            }
-
-        }
-    </tbody>
-
-</table>
-
+@Html.Partial("~/Views/Cabinets/_List.cshtml", (List<Reports_Manager.Models.Shop>)ViewBag.cabinets)
