@@ -121,6 +121,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Cake.Generic.Table.css" />
     <Content Include="Content\form.css" />
+    <Content Include="Content\report.css" />
     <Content Include="Content\search_box.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -185,6 +186,7 @@
     <Content Include="Views\Reports\Index.cshtml" />
     <Content Include="Views\Users\_Link.cshtml" />
     <Content Include="Views\Shops\_Link.cshtml" />
+    <Content Include="Views\Reports\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -25,15 +25,15 @@ namespace Reports_Manager.Controllers
         public ActionResult Details(int id)
         {
             System.Data.Entity.DbSet<Report> database_Reports = database.Reports;
-            ViewBag.user = database_Reports.Find(id);
+            ViewBag.report = database_Reports.Find(id);
 
-            if (ViewBag.user != null)
+            if (ViewBag.report != null)
             {
                 return View();
             }
             else
             {
-                ViewBag.error = "Cet utilisateur n'existe pas.";
+                ViewBag.error = "Ce rapport n'existe pas.";
                 return View("./Error");
             }
         }

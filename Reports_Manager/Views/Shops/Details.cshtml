@@ -7,7 +7,7 @@
 <h2>@Html.Partial("~/Views/Shops/_Link.cshtml", shop)</h2>
 
 <h3>Informations</h3>
-<address>@String.Format("{0}, {1}, {2}", shop.Adresse, shop.Code_postal, shop.Ville)</address>
+<address>@shop.print_adress()</address>
 
 @Html.ActionLink("créer un rapport", "Create", "Reports", new { Id = shop.Otp } , null)
 

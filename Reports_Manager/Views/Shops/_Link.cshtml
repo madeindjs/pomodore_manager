@@ -1,4 +1,4 @@
 ﻿@{
     Reports_Manager.Models.Shop shop = Model;
 }
-@Html.ActionLink(String.Format("{0} # {1}", shop.Magasin, shop.Otp), "Details", "Shops", new { id = shop.Otp }, null)
+@Html.ActionLink(String.Format("{1} # {0}", shop.Magasin, shop.Otp), "Details", "Shops", new { id = shop.Otp }, null)

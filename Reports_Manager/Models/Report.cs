@@ -48,6 +48,8 @@ namespace Reports_Manager.Models
             Shop = database_shops.First(shop => shop.Otp == Shop_otp);
         }
 
+
+
         public Boolean save()
         {
             SqlConnection sqlConnection = new SqlConnection("Data Source=AH734716\\SQLEXPRESS;Initial Catalog=Reports_Manager.Models.CarrierDataEntities;Integrated Security=True");
@@ -57,7 +59,7 @@ namespace Reports_Manager.Models
                 sqlConnection.Open();
 
                 string sqlCommand_str = String.Format(
-                    "INSERT INTO [Reports] ([Reports].User_id, [Reports].Serie, [Reports].Shop_otp ) VALUES ('{0}' , '{1}', '{2}')",
+                    "INSERT INTO [Reports] (User_id, Serie, Shop_otp , Updated_at ) VALUES ('{0}' , '{1}', '{2}' , GETDATE()  )",
                     User_id, Serie, Shop_otp);
 
                 SqlCommand sqlCommand = new SqlCommand(sqlCommand_str, sqlConnection);

@@ -34,5 +34,10 @@ namespace Reports_Manager.Models
             Article =  database_articles.First(article => article.Id == this.Article_id )  ;
         }
 
+        public string print_adress()
+        {
+            return @String.Format("{0}, {1}, {2}", Adresse, Code_postal, Ville);
+        }
+
     }
 }
