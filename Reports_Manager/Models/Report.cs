@@ -70,8 +70,9 @@ namespace Reports_Manager.Models
                 sqlConnection.Open();
 
                 string sqlCommand_str = String.Format(
-                    "INSERT INTO [Reports] (User_id, Serie, Shop_otp , Updated_at ) VALUES ('{0}' , '{1}', '{2}' , GETDATE()  )",
-                    User_id, Serie, Shop_otp);
+                    "INSERT INTO [Reports] (User_id, Serie, Shop_otp , T_spend , T_travel , T_plus, Categoriy_id , Description , Asked_by , Analysis , Facts , Forecast , Notes , Updated_at )" +
+                    " VALUES ('{0}' , '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}', '{12}' , GETDATE()  );",
+                    User_id, Serie, Shop_otp, T_spend, T_travel, T_plus, Categoriy_id , Description, Asked_by, Analysis, Facts, Forecast, Notes);
 
                 SqlCommand sqlCommand = new SqlCommand(sqlCommand_str, sqlConnection);
 

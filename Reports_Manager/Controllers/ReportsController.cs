@@ -75,9 +75,25 @@ namespace Reports_Manager.Controllers
             try
             {
                 Report new_report = new Report();
-                new_report.User_id = Convert.ToInt16(Session["id"].ToString());
-                new_report.Shop_otp = Request.Form["otp"];
-                new_report.Serie = Request.Form["RapportSeries"];
+
+                new_report.User_id =        Convert.ToInt16(Session["id"].ToString());
+                new_report.Shop_otp =       Request.Form["otp"];
+                new_report.Serie =          Request.Form["RapportSeries"];
+
+                new_report.Description =    Request.Form["description"];
+                new_report.Categoriy_id =   String.IsNullOrEmpty(Request.Form["categoriy_id"]) ? 0 : Convert.ToInt32(Request.Form["categoriy_id"]);
+                new_report.Asked_by =       Request.Form["asked_by"];
+
+                new_report.T_spend =        String.IsNullOrEmpty(Request.Form["t_spend"]) ? TimeSpan.Parse("0:0:0") : TimeSpan.Parse( Request.Form["t_spend"] );
+                new_report.T_travel =       String.IsNullOrEmpty(Request.Form["t_travel"]) ? TimeSpan.Parse("0:0:0") : TimeSpan.Parse(Request.Form["t_travel"]);
+                new_report.T_plus =         String.IsNullOrEmpty(Request.Form["t_plus"]) ? TimeSpan.Parse("0:0:0") : TimeSpan.Parse(Request.Form["t_plus"]);
+
+                new_report.Analysis =       Request.Form["analysis"];
+                new_report.Facts =          Request.Form["facts"];
+                new_report.Forecast =       Request.Form["forecast"];
+
+                new_report.Notes =          Request.Form["notes"];
+
 
                 if (new_report.save() == true)
                 {
@@ -89,8 +105,9 @@ namespace Reports_Manager.Controllers
                     return View("./Error");
                 }
             }
-            catch
+            catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.Message);
                 ViewBag.error = "Une erreur est survenue dans la connexion à la database";
                 return View("./Error");
             }
