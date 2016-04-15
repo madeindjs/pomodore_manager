@@ -4,17 +4,80 @@
     report.get_shop();
     report.get_user();
     report.get_cabinets();
+
+
+    //TimeSpan[] times = { (TimeSpan)report.T_spend , (TimeSpan)report.T_travel , (TimeSpan)report.T_plus } ;
+
 }
 
 <h2>Rapport n°@report.Id</h2>
 
 <ul>
-    <li><b>Magasin</b>: @Html.Partial("~/Views/Shops/_Link.cshtml", report.Shop)</li>
-    <li><b>adresse</b>: <address>@report.Shop.print_adress()</address></li>
+    <li><b>Magasin</b>: @Html.Partial("~/Views/Shops/_Link.cshtml", report.Shop)
+        <address>@report.Shop.print_adress()</address></li>
+    <li><b>Description</b>: @report.Description</li>
+    <li><b>Categoriy_id</b>: @report.Categoriy_id</li>
+    <li>Intervention demandée par @report.Asked_by</li>
+    <li>Crée par @Html.Partial("~/Views/Users/_Link.cshtml", report.User) le @report.Updated_at</li>
 </ul>
 
 
-<p>Crée par @Html.Partial("~/Views/Users/_Link.cshtml", report.User) le @report.Updated_at</p>
+
 
 <h3>Meubles</h3>
 @Html.Partial("~/Views/Cabinets/_List.cshtml", report.Cabinets)
+
+
+<h3>Temps intervention</h3>
+@if (report.T_spend != TimeSpan.Parse("00:00:00") || report.T_spend != TimeSpan.Parse("00:00:00") || report.T_spend != TimeSpan.Parse("00:00:00"))
+{
+    <ul>
+        @if (@report.T_spend != TimeSpan.Parse("00:00:00"))
+        {
+            <li><b>temps passé sur place</b>: @report.T_spend</li> 
+        }
+        @if (@report.T_spend != TimeSpan.Parse("00:00:00"))
+        {
+            <li><b>temps passé sur le trajet</b>: @report.T_travel</li> 
+        }
+        @if (@report.T_spend != TimeSpan.Parse("00:00:00"))
+        {
+            <li><b>temps à prévoir</b>: @report.T_spend</li>
+        }
+    </ul>
+}
+else
+{
+    <p>Aucun temps n'a été renseigné.</p>
+}
+
+
+
+<h3>Rédaction</h3>
+
+@if (!String.IsNullOrEmpty(@report.Analysis))
+{
+    <h4>Analyse du problème</h4>
+    <p>@report.Analysis</p>
+}
+
+@if (!String.IsNullOrEmpty(@report.Facts))
+{
+    <h4>Actions menées sur place</h4>
+    <p>@report.Facts</p>
+}
+
+@if (!String.IsNullOrEmpty(@report.Forecast))
+{
+    <h4>Actions à prévoir</h4>
+    <p>@report.Forecast</p>
+}
+
+@if (!String.IsNullOrEmpty(@report.Notes))
+{
+    <h4>Notes supplémentaires</h4>
+    <p>@report.Notes</p>
+}
+
+
+
