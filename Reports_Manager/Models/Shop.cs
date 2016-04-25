@@ -31,8 +31,13 @@ namespace Reports_Manager.Models
         public void get_article()
         {
             CarrierDataEntities database = new CarrierDataEntities();
-            System.Data.Entity.DbSet<Article> database_articles = database.Articles;
-            Article =  database_articles.First(article => article.Id == this.Article_id )  ;
+            this.Article = database.Articles.First(article => article.Id == this.Article_id);
+        }
+
+        public void get_reports()
+        {
+            CarrierDataEntities database = new CarrierDataEntities();
+            this.Reports = database.Reports.Where( report => report.Shop_otp == Otp).ToList() ;
         }
 
         public string print_adress()

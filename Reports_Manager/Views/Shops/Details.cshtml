@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Chantiers#Details";
     Reports_Manager.Models.Shop shop = @ViewBag.shop;
+    shop.get_reports();
 }
 
 <h2>@Html.Partial("~/Views/Shops/_Link.cshtml", shop)</h2>
