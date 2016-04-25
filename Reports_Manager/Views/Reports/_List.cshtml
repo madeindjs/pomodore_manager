@@ -1,0 +1,28 @@
+﻿@{
+    List<Reports_Manager.Models.Report> reports = Model ;
+}
+
+<table>
+
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>user</th>
+            <th>chantier</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (Reports_Manager.Models.Report report in Model)
+        {
+            report.get_user();
+            report.get_shop();
+            <tr>
+                <td>@Html.ActionLink(report.Id.ToString(), "Details", "Reports", new { Id = report.Id }, null)</td>
+                <td>@Html.Partial("~/Views/Users/_Link.cshtml", report.User)</td>
+                <td>@Html.Partial("~/Views/Shops/_Link.cshtml", report.Shop)</td>
+            </tr>
+        }
+    </tbody>
+
+</table>

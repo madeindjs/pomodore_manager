@@ -21,6 +21,7 @@ namespace Reports_Manager.Models
         public DateTime? Date_fact { get; set; }
 
         public virtual Article Article { get; set; }
+        public virtual List<Report> Reports { get; set; }
 
         public Shop()
         {

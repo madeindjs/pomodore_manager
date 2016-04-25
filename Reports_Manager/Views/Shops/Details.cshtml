@@ -8,9 +8,13 @@
 
 <h3>Informations</h3>
 <address>@shop.print_adress()</address>
+<p>Total temps passé sur site:</p>
 
 @Html.ActionLink("créer un rapport", "Create", "Reports", new { Id = shop.Otp }, null)
 
 
 <h3>Meubles</h3>
 @Html.Partial("~/Views/Cabinets/_List.cshtml", (List<Reports_Manager.Models.Shop>)ViewBag.cabinets)
+
+<h3>Rapports</h3>
+@Html.Partial("~/Views/Reports/_List.cshtml", shop.Reports )

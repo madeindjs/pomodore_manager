@@ -190,6 +190,7 @@
     <Content Include="Views\Shops\_Link.cshtml" />
     <Content Include="Views\Reports\Details.cshtml" />
     <Content Include="Views\Cabinets\_List.cshtml" />
+    <Content Include="Views\Reports\_List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
