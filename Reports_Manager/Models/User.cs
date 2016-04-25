@@ -20,7 +20,14 @@ namespace Reports_Manager.Models
         public string Lastname { get; set; }
         [Required]
         public string Password { get; set; }
-        
+
+        public virtual List<Report> Reports { get; set; }
+
+        public void get_reports()
+        {
+            CarrierDataEntities database = new CarrierDataEntities();
+            this.Reports = database.Reports.Where(report => report.User_id == this.Id).ToList();
+        }
 
         public Boolean save()
         {

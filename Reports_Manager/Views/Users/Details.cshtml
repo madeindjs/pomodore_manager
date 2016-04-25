@@ -4,3 +4,6 @@
 }
 
 <h2>@Html.Partial("~/Views/Users/_Link.cshtml", user)</h2>
+
+<h3>Rapports</h3>
+@Html.Partial("~/Views/Reports/_List.cshtml", user.Reports)
