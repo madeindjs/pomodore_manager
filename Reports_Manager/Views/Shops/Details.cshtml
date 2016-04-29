@@ -1,15 +1,17 @@
 ﻿
 @{
-    ViewBag.Title = "Chantiers#Details";
-    Reports_Manager.Models.Shop shop = @ViewBag.shop;
-    shop.get_reports();
-}
 
+    Reports_Manager.Models.Shop shop = @ViewBag.shop;
+    ViewBag.Title = shop.Magasin ;
+    shop.get_reports();
+
+
+}
 <h2>@Html.Partial("~/Views/Shops/_Link.cshtml", shop)</h2>
 
 <h3>Informations</h3>
 <address>@shop.print_adress()</address>
-<p>Total temps passé sur site:</p>
+<p>Total temps passé sur site: @shop.time_spend() (soit @shop.expense() de cout)</p>
 
 @Html.ActionLink("créer un rapport", "Create", "Reports", new { Id = shop.Otp }, null)
 
