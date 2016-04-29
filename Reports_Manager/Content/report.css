@@ -20,3 +20,24 @@
 textarea{
     height: 200px;
 }
+
+#resume_reports{
+    width: 100% ;
+}
+
+    #resume_reports p{
+        text-align: center;
+        font-size: 30px;
+    }
+
+    #resume_reports time{
+        font-family: "Lucida Console", Monaco, monospace ;
+    }
+
+    #resume_reports time , strong {
+        color: #428bca;
+        font-weight: inherit ;
+
+    }
+
+

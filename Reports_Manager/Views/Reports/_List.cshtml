@@ -17,8 +17,9 @@
         {
             report.get_user();
             report.get_shop();
+            string complete_id = String.Format("{2}{1}_{0}", report.Id , report.User.Firstname[0], report.User.Lastname[0]);
             <tr>
-                <td>@Html.ActionLink(report.Id.ToString(), "Details", "Reports", new { Id = report.Id }, null)</td>
+                <td>@Html.ActionLink(complete_id, "Details", "Reports", new { Id = report.Id }, null)</td>
                 <td>@Html.Partial("~/Views/Users/_Link.cshtml", report.User)</td>
                 <td>@Html.Partial("~/Views/Shops/_Link.cshtml", report.Shop)</td>
             </tr>

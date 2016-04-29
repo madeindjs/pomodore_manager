@@ -11,7 +11,6 @@
 
 <h3>Informations</h3>
 <address>@shop.print_adress()</address>
-<p>Total temps passé sur site: @shop.time_spend() (soit @shop.expense() de cout)</p>
 
 @Html.ActionLink("créer un rapport", "Create", "Reports", new { Id = shop.Otp }, null)
 
@@ -20,4 +19,12 @@
 @Html.Partial("~/Views/Cabinets/_List.cshtml", (List<Reports_Manager.Models.Shop>)ViewBag.cabinets)
 
 <h3>Rapports</h3>
+
 @Html.Partial("~/Views/Reports/_List.cshtml", shop.Reports )
+
+<div id="resume_reports">
+    <p>Total: <time>@shop.time_spend()</time></p>
+
+    <p><small>(soit <strong>@shop.expense()</strong> de cout)</small></p>
+
+</div>
