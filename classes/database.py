@@ -1,6 +1,13 @@
 import sqlite3
 
 class Database:
+	"""
+	This is a Parent class for:
+		* Categoy
+		* Task
+		* Pomodore
+	She is used to reduce similar code between theses classes and make cleaner code
+	"""
 
 	DATABASE_NAME = None
 
