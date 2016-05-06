@@ -1,4 +1,6 @@
 import sqlite3
+from classes.drawer import Drawer
+
 
 class Database:
 	"""
@@ -59,11 +61,9 @@ class Database:
 		print("Can't set up database. Ensure you use a child of database")
 
 	def list(self):
-		print('----------')
-		print(self.DATABASE_NAME)
-		print('----------')
+		Drawer().subheader(self.DATABASE_NAME)
 		self.cursor.execute( "SELECT * FROM {}".format( self.DATABASE_NAME ) )
 		for row in self.cursor:
 			print( row )
-		print('----------')
+		Drawer().line()
 

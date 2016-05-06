@@ -26,4 +26,5 @@ class Timer:
 			sys.stdout.write('\r[{0}] {1}'.format( self.PROGRESS_CHAR*size, string_rest_time ))
 			i += 1
 
-		sys.stdout.write('\r{0}COMPLETED{0}'.format(' '*34))
+		sys.stdout.write('\r{0}COMPLETED{0}\n'.format(' '*34))
+		return True

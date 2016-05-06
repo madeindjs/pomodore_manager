@@ -1,5 +1,7 @@
 from classes.database import Database
 from classes.category import Category
+from classes.drawer import Drawer
+
 
 
 class Task(Database):
@@ -12,7 +14,7 @@ class Task(Database):
 			"CREATE TABLE IF NOT EXISTS tasks( " + 
 				"id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, "+
 				"category_id INTERGER NOT NULL, "+
-				"name TEXT NOT NULL , description TEXT ) ")
+				"name TEXT NOT NULL  ) ")
 
 
 	def add(self ,  name , category):
@@ -41,12 +43,10 @@ class Task(Database):
 		return "Task #{} named *{}* on category *{}*".format(self.id, self.name , self.category.name)
 
 	def list(self):
-		print('----------')
-		print(self.DATABASE_NAME)
-		print('----------')
+		Drawer().subheader(self.DATABASE_NAME)
 		self.cursor.execute( "SELECT * FROM {}".format( self.DATABASE_NAME ) )
 		for row in self.cursor:
 			task_temp = Task().set(row)
 			print("Task N°{} # {}".format(task_temp.id , task_temp.category.name))
 			print("    {}".format(task_temp.name))
-		print('----------')
+		Drawer().line()
