@@ -18,5 +18,20 @@ class Category(Database):
 			data = { "name" : name }
 			self.cursor.execute("INSERT INTO categories(name) VALUES( :name)" , data )
 			self.connection.commit()
+			#set up & check if saved succesfully
+			if self.find_by_name(name):
+				return True
+			else:
+				return False
+
 		else:
-			print('This category already exists')
+			return False
+
+
+	def set(self, data):
+		self.id = data[0]
+		self.name = data[1]
+		return True
+
+	def describe(self):
+		return "Category #{} named *{}*".format(self.id, self.name) 

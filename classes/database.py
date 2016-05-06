@@ -42,7 +42,14 @@ class Database:
 		if result is None:
 			return False
 		else:
+			# if data exists, we set the object with values
+			self.set(result)
 			return True
+
+	# we can't set database object with this method
+	# this method is reserved for child (cetgory, tasks, etc..)
+	def set():
+		print("Can't set up database. Ensure you use a child of database")
 
 	def list(self):
 		print('----------')
