@@ -1,6 +1,9 @@
 from classes.database import Database
+from classes.task import Task
 
 class Pomodore(Database):
+
+	DATABASE_NAME = 'pomodores'
 
 	def __init__(self):
 		Database.__init__(self)
@@ -12,16 +15,15 @@ class Pomodore(Database):
 				"date DATETIME ) ")
 
 
-	def find(self):
-		print("hello world")
-
-
-	# def add(self ,  name ):
-	# 	data = { "name" : name }
-	# 	self.cursor.execute("INSERT INTO categories( name) VALUES( :name)" , data )
-	# 	self.connection.commit()
-
-	def list(self):
-		self.cursor.execute( "SELECT * FROM pomodores" )
-		for row in self.cursor:
-			print( row )
+	def add():
+		#ask wich task
+		task = Task()
+		task.list()
+		try:
+			answer = int( input('Wich task do you work with (Enter nly the number)? ') )
+			task.find_by_id(answer)
+			print("You chose {}".format( task.describe()) )
+		except:
+			print("Please enter a valid value")
+		#start the prompt
+		#add to database

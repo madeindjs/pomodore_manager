@@ -1,21 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from classes.category import Category
-from classes.task import Task
+# from classes.pomodore import Pomodore
+from classes.timer import Timer
 
+# Pomodore.add()
 
-category = Category()
-category.add('PYT')
-# category.add(input('Write a name for your category: '))
-
-task = Task()
-task.add("Build a plugin only with Python" , category )
-print(task.describe())
-
-print(task.list())
-
-# category.find_by_name('YT')
-# category.find_by_name('WEB')
-
-
-# category.list()
+loader = Timer(20)
+loader.start()
