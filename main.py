@@ -9,8 +9,10 @@ category.add('PYT')
 # category.add(input('Write a name for your category: '))
 
 task = Task()
-task.add("Build a plugin" , category )
+task.add("Build a plugin only with Python" , category )
 print(task.describe())
+
+print(task.list())
 
 # category.find_by_name('YT')
 # category.find_by_name('WEB')

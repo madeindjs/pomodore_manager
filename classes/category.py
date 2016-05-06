@@ -20,7 +20,7 @@ class Category(Database):
 			self.connection.commit()
 			#set up & check if saved succesfully
 			if self.find_by_name(name):
-				return True
+				return self
 			else:
 				return False
 

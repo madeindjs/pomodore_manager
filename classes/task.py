@@ -23,7 +23,7 @@ class Task(Database):
 			self.connection.commit()
 			#set up & check if saved succesfully
 			if self.find_by_name(name):
-				return True
+				return self
 			else:
 				return False
 
@@ -33,11 +33,10 @@ class Task(Database):
 
 	def set(self, data):
 		self.id = data[0]
-		category = Category()
-		category.find_by_id(data[1])
-		self.category = category
+		self.category = Category().find_by_id(data[1])
 		self.name = data[2]
 		return True
 
 	def describe(self):
-		return "Task #{} named *{}* on category *{}*".format(self.id, self.name , self.category.name) 
+		return "Task #{} named *{}* on category *{}*".format(self.id, self.name , self.category.name)
+

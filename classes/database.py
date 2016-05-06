@@ -44,7 +44,7 @@ class Database:
 		else:
 			# if data exists, we set the object with values
 			self.set(result)
-			return True
+			return self
 
 	# we can't set database object with this method
 	# this method is reserved for child (cetgory, tasks, etc..)
