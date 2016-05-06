@@ -1,6 +1,10 @@
 from classes.database import Database
+from classes.category import Category
+
 
 class Task(Database):
+
+	DATABASE_NAME = 'tasks'
 
 	def __init__(self):
 		Database.__init__(self)
@@ -11,16 +15,29 @@ class Task(Database):
 				"name TEXT NOT NULL , description TEXT ) ")
 
 
-	def find(self):
-		print("hello world")
+	def add(self ,  name , category):
+		# check before if this category already exist
+		if self.find_by_name(name) == False:
+			data = { "name" : name , "category_id" : category.id }
+			self.cursor.execute("INSERT INTO tasks(category_id, name) VALUES(:category_id, :name)" , data )
+			self.connection.commit()
+			#set up & check if saved succesfully
+			if self.find_by_name(name):
+				return True
+			else:
+				return False
+
+		else:
+			return False
 
 
-	# def add(self ,  name ):
-	# 	data = { "name" : name }
-	# 	self.cursor.execute("INSERT INTO categories( name) VALUES( :name)" , data )
-	# 	self.connection.commit()
+	def set(self, data):
+		self.id = data[0]
+		category = Category()
+		category.find_by_id(data[1])
+		self.category = category
+		self.name = data[2]
+		return True
 
-	def list(self):
-		self.cursor.execute( "SELECT * FROM tasks" )
-		for row in self.cursor:
-			print( row )
+	def describe(self):
+		return "Task #{} named *{}* on category *{}*".format(self.id, self.name , self.category.name) 
