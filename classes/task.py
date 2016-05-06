@@ -35,8 +35,18 @@ class Task(Database):
 		self.id = data[0]
 		self.category = Category().find_by_id(data[1])
 		self.name = data[2]
-		return True
+		return self
 
 	def describe(self):
 		return "Task #{} named *{}* on category *{}*".format(self.id, self.name , self.category.name)
 
+	def list(self):
+		print('----------')
+		print(self.DATABASE_NAME)
+		print('----------')
+		self.cursor.execute( "SELECT * FROM {}".format( self.DATABASE_NAME ) )
+		for row in self.cursor:
+			task_temp = Task().set(row)
+			print("Task N°{} # {}".format(task_temp.id , task_temp.category.name))
+			print("    {}".format(task_temp.name))
+		print('----------')
