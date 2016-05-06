@@ -40,3 +40,23 @@ class Pomodore(Database):
 
 		else:
 			return False
+
+
+	def set(self , data):
+		self.id = data[0]
+		self.task = Task().find_by_id(data[1])
+		self.date = data[2]
+		return self
+
+	def describe(self):
+		return("Pomodore about {} did {}".format(self.task.name , self.date  )) 
+
+
+
+	def list(self):
+		Drawer().subheader(self.DATABASE_NAME)
+		self.cursor.execute( "SELECT * FROM {}".format( self.DATABASE_NAME ) )
+		for row in self.cursor:
+			pomodore_temp = Pomodore().find_by_id(  row[0] )
+			print( pomodore_temp.describe() )
+		Drawer().line()

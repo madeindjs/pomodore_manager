@@ -24,11 +24,15 @@ def start():
 
 	Drawer().subheader("menu")
 
-	choices = { 1: "Begin a Pomodore"  , 2: "add a task" , 3: "create a category" , 4: "add a task"}
+	choices = { 1: "Begin a Pomodore"  , 2: "add a task" , 3: "create a category" , 4: "add a task" , 5: "list pomodore"}
 	result = ask_user(choices) 
 
 	if result == 1:
 		Pomodore().add()
+	elif result == 5 :
+		Pomodore().list()
+
+
 
 # Pomodore().add()
 
