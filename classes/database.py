@@ -67,3 +67,18 @@ class Database:
 			print( row )
 		Drawer().line()
 
+
+	# a function to ask user to select user in database
+	def select(self):
+		self.list()
+		try:
+			choice = int( input('Wich item choose? ') )
+		except:
+			print("Are you stupid?")
+
+		if self.find_by_id(choice):
+			return self
+		else:
+			return False
+
+

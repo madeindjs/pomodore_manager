@@ -23,6 +23,7 @@ class Category(Database):
 			self.connection.commit()
 			#set up & check if saved succesfully
 			if self.find_by_name(name):
+				Drawer().success_msg()
 				return self
 			else:
 				return False

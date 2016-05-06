@@ -25,6 +25,7 @@ class Task(Database):
 			self.connection.commit()
 			#set up & check if saved succesfully
 			if self.find_by_name(name):
+				Drawer().success_msg()
 				return self
 			else:
 				return False
@@ -42,11 +43,22 @@ class Task(Database):
 	def describe(self):
 		return "Task #{} named *{}* on category *{}*".format(self.id, self.name , self.category.name)
 
+
+	def count_pomodores(self):
+
+		if not self.id is None:
+			data = { 'task_id' : self.id }
+			self.cursor.execute("SELECT COUNT(*) from pomodores WHERE task_id = :task_id " , data )
+			result = self.cursor.fetchone()
+			return result[0]
+		else:
+			return False
+
 	def list(self):
 		Drawer().subheader(self.DATABASE_NAME)
 		self.cursor.execute( "SELECT * FROM {}".format( self.DATABASE_NAME ) )
 		for row in self.cursor:
 			task_temp = Task().set(row)
-			print("Task N°{} # {}".format(task_temp.id , task_temp.category.name))
-			print("    {}".format(task_temp.name))
+			print("Task N°{} # {}   | {}".format( task_temp.id , task_temp.category.name , 'o'*task_temp.count_pomodores() ))
+			print("    {}\n".format(task_temp.name))
 		Drawer().line()
