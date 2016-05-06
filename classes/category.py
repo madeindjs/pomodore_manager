@@ -13,21 +13,14 @@ class Category(Database):
 	def find_by_id(self,  id ):
 		data = { "id" : id }
 		self.cursor.execute( "SELECT * FROM categories WHERE id = :id LIMIT 1" , data )
-		result = self.cursor.fetchone()
-		if result is None:
-			return False
-		else:
-			return True
+		return Database.is_data_exists( self.cursor )
+
 
 
 	def find_by_name(self,  name ):
 		data = { "name" : name }
 		self.cursor.execute( "SELECT * FROM categories WHERE name = :name LIMIT 1" , data )
-		result = self.cursor.fetchone()
-		if result is None:
-			return False
-		else:
-			return True
+		return Database.is_data_exists( self.cursor )
 
 
 	def add(self ,  name ):

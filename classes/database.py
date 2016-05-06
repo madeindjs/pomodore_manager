@@ -18,4 +18,10 @@ class Database:
 		self.cursor = self.connection.cursor()
 
 
-		
+	# to check if cursor have at less one row
+	def is_data_exists(cursor):
+		result = cursor.fetchone()
+		if result is None:
+			return False
+		else:
+			return True
