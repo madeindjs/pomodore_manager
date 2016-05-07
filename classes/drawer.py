@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 class Drawer:
 	MAX_SIZE = 70
 	SEPARATOR_CHAR = '_'
