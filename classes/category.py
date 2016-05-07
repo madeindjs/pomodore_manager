@@ -32,7 +32,7 @@ class Category(Database):
 				return False
 
 		else:
-			return False
+			return self
 
 
 	def set(self, data):

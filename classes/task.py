@@ -44,7 +44,10 @@ class Task(Database):
 		return self
 
 	def describe(self):
-		return "Task #{} named *{}* on category *{}*".format(self.id, self.name , self.category.name)
+		if self.category is None:
+			return False
+		else:
+			return "#{} in {}: {} = {} pomodores".format( self.id, self.category.name, self.name,  self.count_pomodores() )
 
 
 	def count_pomodores(self):
@@ -58,10 +61,14 @@ class Task(Database):
 			return False
 
 	def list(self):
-		Drawer().subheader(self.DATABASE_NAME)
+		# Drawer().subheader(self.DATABASE_NAME)
 		self.cursor.execute( "SELECT * FROM {}".format( self.DATABASE_NAME ) )
+		tasks = [] 
+
 		for row in self.cursor:
 			task_temp = Task().set(row)
-			print("Task N°{} # {}   | {}".format( task_temp.id , task_temp.category.name , 'o'*task_temp.count_pomodores() ))
-			print("    {}\n".format(task_temp.name))
-		Drawer().line()
+			tasks.append(task_temp.describe())
+			# print("Task N°{} # {}   | {}".format( task_temp.id , task_temp.category.name , 'o'*task_temp.count_pomodores() ))
+			# print("    {}\n".format(task_temp.name))
+
+		return tasks
