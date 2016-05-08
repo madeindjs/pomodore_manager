@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from classes.database import Database
-from classes.category import Category
+from classes.database import *
+from classes.category import *
 
 
 

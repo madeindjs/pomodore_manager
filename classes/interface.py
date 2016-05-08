@@ -12,7 +12,8 @@ except ImportError:
     import tkMessageBox
 
 
-import ttk
+import ttk # for tree view
+import re # for regex
 
 from classes.task import Task
 from classes.category import Category
@@ -23,6 +24,7 @@ class Interface(Frame):
 	WIDTH = 300
 	HEIGHT = 300
 
+
 	def __init__(self):
 		self.fenetre = Tk()
 		self.fenetre.title("Pomodores manager")
@@ -31,6 +33,11 @@ class Interface(Frame):
 		Frame.__init__(self)
 		self.pack()
 		self._init_menu()
+
+		self.view_categories()
+
+
+
 
 	def title(self, string):
 		self.label( string , ("Helvetica", 16) )
@@ -172,32 +179,34 @@ class Interface(Frame):
 
 
 	def _load_categories(self):
-		tree = ttk.Treeview(self)
-		tree["columns"]=(1, 2)
+		tree_categories = ttk.Treeview(self)
+		tree_categories["columns"]=(0, 1)
 
-		tree.column(1, width=100)
-		tree.column(2, width=100)
+		tree_categories.column(0, width=100)
+		tree_categories.column(1, width=100)
 
-		tree.heading(1, text="name")
-		tree.heading(2, text="Nb tasks")
+		tree_categories.heading(0, text="name")
 
 		def double_click(event):
-			print('double click on {}'.format(event.widget.selection()))
-
-		def simple_click(event):
-			print('simple click on {}'.format(event.widget.selection()))
-
+			print('double click on {}'.format(tree_categories.selection() ))
+			category_id = int(re.findall('\d+', tree_categories.selection()[0])[0])
+			category = Category().find_by_id(category_id)
+			print(category.name)
 
 
 		i=0
 		for id in Category().all_ids():
 			category = Category().find_by_id(id)
-			tree.insert( "" , i, text=category.id, values=(category.name,"This is a description"))
+			
+			id_inserted = tree_categories.insert('', 'end', text=category.id, values=(category.name))
+
+			for task_id in category.tasks_id():
+				task = Task().find_by_id(task_id[0])
+				tree_categories.insert( id_inserted , category.id , text=task.name, values=(category.id) )
 			
 			i+=1
-		tree.bind('<Double-Button-1>' , double_click )
-		tree.bind('<Button-1>' , simple_click )
-		tree.pack()
+		tree_categories.bind('<Double-Button-1>' , double_click )
+		tree_categories.pack()
 
 
 
