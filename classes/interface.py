@@ -153,34 +153,35 @@ class Interface(Frame):
 
 
 	def _load_categories(self):
-		tree_categories = ttk.Treeview(self)
-		tree_categories["columns"]=(0, 1)
-
-		tree_categories.column(0, width=100)
-		tree_categories.column(1, width=100)
-
-		tree_categories.heading(0, text="name")
-
-		
-		def double_click(event):
-			print('double click on {}'.format(tree_categories.selection() ))
-			category_id = int(re.findall('\d+', tree_categories.selection()[0])[0])
-			category = Category().find_by_id(category_id)
-			print(category.name)
+		tree = ttk.Treeview(self)
+		tree["columns"]=(0, 1)
 
 
-		i=0
+		tree.heading(0, text="name")
+
+
+		def callback(event):
+			tree_selection = tree.selection()
+			print('double click on {}'.format( tree_selection[0] ))
+			# category_id = int(re.findall('\d+', tree.selection()[0])[0])
+			# category = Category().find_by_id(category_id)
+			print('selection {}'.format(tree.selection()))
+			print('focus {}'.format(tree.focus()))
+			print(tree.item(tree.focus()))
+
+
+		i=1
 		for id in Category().all_ids():
 			category = Category().find_by_id(id)
 			
-			id_inserted = tree_categories.insert('', 'end', text=category.id, values=(category.name))
+			id_inserted = tree.insert('', 'end', text=category.name)
 
 			for task_id in category.tasks_id():
 				task = Task().find_by_id(task_id[0])
-				tree_categories.insert( id_inserted , category.id , text=task.name, values=(category.id) )
+				tree.insert( id_inserted , 'end' , text=task.name, values=(category.id) )
 
-			tree_categories.insert( id_inserted , category.id , text='add a Task' )
+			tree.insert( id_inserted , 'end' , text='add a Task' )
 			
 			i+=1
-		tree_categories.bind('<Double-Button-1>' , double_click )
-		tree_categories.pack()
+		tree.bind('<Double-Button-1>' , callback )
+		tree.pack()
