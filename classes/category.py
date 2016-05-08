@@ -2,8 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from classes.database import Database
-from classes.drawer import Drawer
-
 
 
 class Category(Database):
@@ -26,19 +24,18 @@ class Category(Database):
 			self.connection.commit()
 			#set up & check if saved succesfully
 			if self.find_by_name(name):
-				Drawer().success_msg()
 				return self
 			else:
 				return False
 
 		else:
-			return self
+			return False
 
 
 	def set(self, data):
 		self.id = data[0]
 		self.name = data[1]
-		return True
+		return self
 
 	def describe(self):
 		return "Category #{} named *{}*".format(self.id, self.name) 

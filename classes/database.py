@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import sqlite3
-from classes.drawer import Drawer
 
 
 class Database:
@@ -16,12 +15,15 @@ class Database:
 
 	DATABASE_NAME = None
 
-	def __init__(self):
+	def __init__(self , id = None):
 		try:
 			self.connection = sqlite3.connect('databases.sqlite')
 			self.cursor = self.connection.cursor()
 		except:
 			print('error in database connection')
+
+		if id is not None:
+			self.find_by_id(id)
 
 
 	def __del__(self):
@@ -33,19 +35,19 @@ class Database:
 
 
 
-	def find_by_(self, database, column, column_data ):
+	def find_by_(self, column, column_data ):
 		data = { column : column_data }
-		sql_command = "SELECT * FROM {} WHERE {} = :{} LIMIT 1".format( database , column , column )
+		sql_command = "SELECT * FROM {} WHERE {} = :{} LIMIT 1".format( self.DATABASE_NAME , column , column )
 		self.cursor.execute( sql_command , data )
 		return self.is_data_exists( self.cursor )
 
 
 	def find_by_id(self,  id_to_find ):
-		return Database.find_by_(self, self.DATABASE_NAME, 'id', id_to_find )
+		return Database.find_by_(self, 'id', id_to_find )
 
 
 	def find_by_name(self,  name_to_find ):
-		return Database.find_by_( self, self.DATABASE_NAME,  'name', name_to_find )
+		return Database.find_by_( self, 'name', name_to_find )
 
 
 	# to check if cursor have at less one row
@@ -55,33 +57,21 @@ class Database:
 			return False
 		else:
 			# if data exists, we set the object with values
-			self.set(result)
-			return self
-
-	# we can't set database object with this method
-	# this method is reserved for child (cetgory, tasks, etc..)
-	def set():
-		print("Can't set up database. Ensure you use a child of database")
-
-	def list(self):
-		Drawer().subheader(self.DATABASE_NAME)
-		self.cursor.execute( "SELECT * FROM {}".format( self.DATABASE_NAME ) )
-		for row in self.cursor:
-			print( row )
-		Drawer().line()
+			return self.set(result)
 
 
-	# a function to ask user to select user in database
-	def select(self):
-		self.list()
-		try:
-			choice = int( input('Wich item choose? ') )
-		except:
-			print("Are you stupid?")
 
-		if self.find_by_id(choice):
-			return self
-		else:
-			return False
+	def all(self):
+		all_item = []
+		self.cursor.execute( "SELECT id FROM {}".format( self.DATABASE_NAME ) )
+		
+		data = self.cursor.fetchall()
+
+		for row in data :
+			print( self.find_by_id(row[0]).describe() )
+			# problem here
+			all_item.append( self.find_by_id(row[0]) )
+
+		return all_item
 
 

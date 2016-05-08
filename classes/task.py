@@ -3,7 +3,6 @@
 
 from classes.database import Database
 from classes.category import Category
-from classes.drawer import Drawer
 
 
 
@@ -28,7 +27,6 @@ class Task(Database):
 			self.connection.commit()
 			#set up & check if saved succesfully
 			if self.find_by_name(name):
-				Drawer().success_msg()
 				return self
 			else:
 				return False

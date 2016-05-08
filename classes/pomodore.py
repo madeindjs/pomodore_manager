@@ -4,7 +4,6 @@
 from classes.database import Database
 from classes.task import Task
 from classes.timer import Timer
-from classes.drawer import Drawer
 import datetime
 
 class Pomodore(Database):
