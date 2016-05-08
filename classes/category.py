@@ -27,10 +27,10 @@ class Category(Database):
 			if self.find_by_name(name):
 				return self
 			else:
-				return False
+				return self
 
 		else:
-			return False
+			return self
 
 
 	def set(self, data):

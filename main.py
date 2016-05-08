@@ -7,13 +7,15 @@ from classes.drawer import Drawer
 from classes.interface import Interface
 
 category = Category().add("WEB")
+Task().add("Continue Raspberry Cook" , category )
+
 category = Category().add("PYT")
-category = Category().add("TEST")
-category = Category().add("HELL")
-
-
-Task().add("Use Tkinter" , category )
 Task().add("Play with Tkinter" , category )
+Task().add("Use Tkinter" , category )
+
+category = Category().add("GIT")
+Task().add("Update on Github" , category )
+
 
 
 

@@ -42,10 +42,6 @@ class Interface(Frame):
 	def title(self, string):
 		self.label( string , ("Helvetica", 16) )
 
-	def text(self , string ):
-		new_text = Text(self)
-		new_text.insert(INSERT, string)
-		new_text.pack()
 
 	def input(self ):
 		new_input = Entry(self)
@@ -59,19 +55,6 @@ class Interface(Frame):
 	def label(self , string , font=("Helvetica", 12) ):
 		new_label = Label( self , text=string , font=font)
 		new_label.pack()
-
-	def checkbox(self, string):
-		checkbutton = Checkbutton( self, text=string )
-		checkbutton.pack()
-
-	def list(self, list):
-		new_list = Listbox(self)
-		i=1
-		for item in list:
-			new_list.insert(i,item)
-			i+=1
-		new_list.pack()
-
 
 
 	def show(self):
@@ -93,10 +76,6 @@ class Interface(Frame):
 		|
 		+--Edit
 		|	+--Settings
-		|
-		+--View
-		|	+--categories
-		|	+--tasks
 		|
 		+--?
 			+--about
@@ -122,11 +101,6 @@ class Interface(Frame):
 		menu_edit.add_command(label="settings", command=self.clean )
 		menubar.add_cascade(label="Edit", menu=menu_edit)
 
-		menu_view = Menu(menubar, tearoff=0)
-		menu_view.add_command(label="pomodores")
-		menu_view.add_command(label="tasks", command=self.view_tasks)
-		menu_view.add_command(label="categories", command=self.view_categories)
-		menubar.add_cascade(label="View", menu=menu_view)
 
 		menu_help = Menu(menubar, tearoff=0)
 		menu_help.add_command(label="A propos")
@@ -187,6 +161,7 @@ class Interface(Frame):
 
 		tree_categories.heading(0, text="name")
 
+		
 		def double_click(event):
 			print('double click on {}'.format(tree_categories.selection() ))
 			category_id = int(re.findall('\d+', tree_categories.selection()[0])[0])
@@ -203,38 +178,9 @@ class Interface(Frame):
 			for task_id in category.tasks_id():
 				task = Task().find_by_id(task_id[0])
 				tree_categories.insert( id_inserted , category.id , text=task.name, values=(category.id) )
+
+			tree_categories.insert( id_inserted , category.id , text='add a Task' )
 			
 			i+=1
 		tree_categories.bind('<Double-Button-1>' , double_click )
 		tree_categories.pack()
-
-
-
-		
-
-	def view_tasks(self):
-		tree = ttk.Treeview(self)
-		 
-		tree["columns"]=("one","two")
-		tree.column("one", width=100 )
-		tree.column("two", width=100)
-		tree.heading("one", text="coulmn A")
-		tree.heading("two", text="column B")
-		 
-		tree.insert("" , 0,    text="Line 1", values=("1A","1b"))
-		 
-		id2 = tree.insert("", 1, "dir2", text="Dir 2")
-		tree.insert(id2, "end", "dir 2", text="sub dir 2", values=("2A","2B"))
-		 
-		##alternatively:
-		tree.insert("", 3, "dir3", text="Dir 3")
-		tree.insert("dir3", 3, text=" sub dir 3",values=("3A"," 3B"))
-		 
-		tree.pack()
-		self.mainloop()
-		self.list(Task().list())
-
-	def view_task(self):
-		pass
-
-
