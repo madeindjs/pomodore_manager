@@ -87,6 +87,10 @@ class Interface(Frame):
 		+--Edit
 		|	+--Settings
 		|
+		+--View
+		|	+--categories
+		|	+--tasks
+		|
 		+--?
 			+--about
 
@@ -177,10 +181,12 @@ class Interface(Frame):
 		tree.heading(1, text="name")
 		tree.heading(2, text="Nb tasks")
 
-		def double_click_three(event):
-			print(dir(event))
-			print(event.widget)
-			print(event.widget.selection())
+		def double_click(event):
+			print('double click on {}'.format(event.widget.selection()))
+
+		def simple_click(event):
+			print('simple click on {}'.format(event.widget.selection()))
+
 
 
 		i=0
@@ -189,10 +195,11 @@ class Interface(Frame):
 			tree.insert( "" , i, text=category.id, values=(category.name,"This is a description"))
 			
 			i+=1
-		tree.bind('<Double-Button-1>' , double_click_three )
+		tree.bind('<Double-Button-1>' , double_click )
+		tree.bind('<Button-1>' , simple_click )
 		tree.pack()
 
-	
+
 
 		
 
