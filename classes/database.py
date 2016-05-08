@@ -13,17 +13,30 @@ class Database:
 	She is used to reduce similar code between theses classes and make cleaner code
 	"""
 
-	DATABASE_NAME = None
-
-	def __init__(self , id = None):
+	def __init__(self , name ):
 		try:
-			self.connection = sqlite3.connect('databases.sqlite')
-			self.cursor = self.connection.cursor()
+			self._open()
 		except:
 			print('error in database connection')
 
-		if id is not None:
-			self.find_by_id(id)
+		self.name = name
+
+	def find_by_(self, column, column_data ):
+		data = { column : column_data }
+		sql_command = "SELECT * FROM {0} WHERE {1} = :{1} LIMIT 1".format( self.name, column )
+		self.cursor.execute( sql_command , data )
+		return self.cursor.fetchall()
+
+
+
+	def add_task():
+		pass
+
+	def add_pomodore():
+		pass
+
+	def add_category():
+		pass
 
 
 	def __del__(self):
@@ -33,45 +46,8 @@ class Database:
 		self.connection = sqlite3.connect('databases.sqlite')
 		self.cursor = self.connection.cursor()
 
-
-
-	def find_by_(self, column, column_data ):
-		data = { column : column_data }
-		sql_command = "SELECT * FROM {} WHERE {} = :{} LIMIT 1".format( self.DATABASE_NAME , column , column )
-		self.cursor.execute( sql_command , data )
-		return self.is_data_exists( self.cursor )
-
-
-	def find_by_id(self,  id_to_find ):
-		return Database.find_by_(self, 'id', id_to_find )
-
-
-	def find_by_name(self,  name_to_find ):
-		return Database.find_by_( self, 'name', name_to_find )
-
-
-	# to check if cursor have at less one row
-	def is_data_exists(self , cursor):
-		result = cursor.fetchone()
-		if result is None:
-			return False
-		else:
-			# if data exists, we set the object with values
-			return self.set(result)
-
-
-
-	def all(self):
-		all_item = []
-		self.cursor.execute( "SELECT id FROM {}".format( self.DATABASE_NAME ) )
-		
-		data = self.cursor.fetchall()
-
-		for row in data :
-			print( self.find_by_id(row[0]).describe() )
-			# problem here
-			all_item.append( self.find_by_id(row[0]) )
-
-		return all_item
-
-
+	def _create_databases(self):
+		self.cursor.execute(
+			"CREATE TABLE IF NOT EXISTS categories( " + 
+				"id INTEGER PRIMARY KEY , "+
+				"name TEXT NOT NULL UNIQUE) ")
