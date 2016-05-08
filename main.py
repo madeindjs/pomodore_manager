@@ -16,10 +16,6 @@ Task().add("Use Tkinter" , category )
 Task().add("Play with Tkinter" , category )
 
 
-categories = Category().all()
-print('-------')
-for category in categories:
-	print(category.describe())
 
 interface = Interface()
 

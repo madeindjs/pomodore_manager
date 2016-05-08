@@ -150,8 +150,11 @@ class Interface(Frame):
 	def add_task(self):
 		self.clean()
 		self.title("Create a new task")
-		self.label("Please enter the name of your new category")
+		self.label("Please enter the name of your new category...")
 		self.input()
+		self.label("...and select a category")
+		self._load_categories()
+
 
 		def callback():
 			print('okay #2')
@@ -161,7 +164,10 @@ class Interface(Frame):
 
 	def view_categories(self):
 		self.clean()
+		self._load_categories()
 
+
+	def _load_categories(self):
 		tree = ttk.Treeview(self)
 		tree["columns"]=(1, 2)
 
@@ -171,12 +177,23 @@ class Interface(Frame):
 		tree.heading(1, text="name")
 		tree.heading(2, text="Nb tasks")
 
+		def double_click_three(event):
+			print(dir(event))
+			print(event.widget)
+			print(event.widget.selection())
+
+
 		i=0
-		for category in Category().all():
-			print(category.describe())
+		for id in Category().all_ids():
+			category = Category().find_by_id(id)
 			tree.insert( "" , i, text=category.id, values=(category.name,"This is a description"))
+			
 			i+=1
+		tree.bind('<Double-Button-1>' , double_click_three )
 		tree.pack()
+
+	
+
 		
 
 	def view_tasks(self):
@@ -200,5 +217,8 @@ class Interface(Frame):
 		tree.pack()
 		self.mainloop()
 		self.list(Task().list())
+
+	def view_task(self):
+		pass
 
 

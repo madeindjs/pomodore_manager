@@ -61,16 +61,14 @@ class Database:
 
 
 
-	def all(self):
+	def all_ids( self ):
 		all_item = []
 		self.cursor.execute( "SELECT id FROM {}".format( self.DATABASE_NAME ) )
 		
 		data = self.cursor.fetchall()
 
 		for row in data :
-			print( self.find_by_id(row[0]).describe() )
-			# problem here
-			all_item.append( self.find_by_id(row[0]) )
+			all_item.append( row[0] )
 
 		return all_item
 
