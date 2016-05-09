@@ -22,6 +22,22 @@ class Database:
 		except:
 			print('error in database connection')
 
+		self.cursor.execute(
+			"""
+			CREATE TABLE IF NOT EXISTS tasks( 
+				id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+				category_id INTERGER NOT NULL,
+				name TEXT NOT NULL  ) """ )
+		self.cursor.execute(
+			"""CREATE TABLE IF NOT EXISTS pomodores(
+				id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+				task_id INTERGER NOT NULL,
+				date DATETIME ) """)
+		self.cursor.execute(
+			"""CREATE TABLE IF NOT EXISTS categories( 
+				id INTEGER PRIMARY KEY , 
+				name TEXT NOT NULL) """)
+
 		if id is not None:
 			self.find_by_id(id)
 

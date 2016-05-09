@@ -4,7 +4,7 @@
 #import tkinter interface
 try:
     from Tkinter import *
-    from Tkinter import ttk
+    import ttk
 except ImportError:
     from tkinter import *
     from tkinter import ttk

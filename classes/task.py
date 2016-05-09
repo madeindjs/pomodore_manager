@@ -10,14 +10,6 @@ class Task(Database):
 
 	DATABASE_NAME = 'tasks'
 
-	def __init__(self):
-		Database.__init__(self)
-		self.cursor.execute(
-			"CREATE TABLE IF NOT EXISTS tasks( " + 
-				"id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, "+
-				"category_id INTERGER NOT NULL, "+
-				"name TEXT NOT NULL  ) ")
-
 
 	def add(self ,  name , category):
 		# check before if this category already exist

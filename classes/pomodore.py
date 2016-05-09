@@ -11,14 +11,6 @@ class Pomodore(Database):
 	DATABASE_NAME = 'pomodores'
 	POMODORE_TIME = 5
 
-	def __init__(self):
-		Database.__init__(self)
-		self.cursor.execute(
-			"CREATE TABLE IF NOT EXISTS pomodores( " + 
-				"id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, "+
-				"task_id INTERGER NOT NULL, "+
-				"date DATETIME ) ")
-
 
 	def add(self):
 		#ask wich task

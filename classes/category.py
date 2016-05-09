@@ -9,13 +9,6 @@ class Category(Database):
 
 	DATABASE_NAME = 'categories'
 
-	def __init__(self):
-		Database.__init__(self)
-		self.cursor.execute(
-			"CREATE TABLE IF NOT EXISTS categories( " + 
-				"id INTEGER PRIMARY KEY , "+
-				"name TEXT NOT NULL) ")
-
 
 	def add(self ,  name ):
 		# check before if this category already exist
