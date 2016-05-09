@@ -27,6 +27,10 @@ class Interface(Frame):
 	WIDTH = 300
 	HEIGHT = 300
 
+	TITLE = ("Helvetica", 16)
+	TEXT = ("Helvetica", 12)
+
+
 
 	def __init__(self):
 		self.fenetre = Tk()
@@ -43,21 +47,17 @@ class Interface(Frame):
 
 
 	def title(self, string):
-		self.label( string , ("Helvetica", 16) )
+		Label( string , self.TITLE ).pack()
 
 
 	def input(self ):
-		new_input = Entry(self)
-		new_input.pack()
-		return new_input
+		new_input = Entry(self).pack()
 
 	def button(self, string , command):
-		new_button = Button(self, text =string, command=command)
-		new_button.pack()
+		Button(self, text =string, command=command).pack()
 
-	def label(self , string , font=("Helvetica", 12) ):
-		new_label = Label( self , text=string , font=font)
-		new_label.pack()
+	def label(self , string  ):
+		Label( self , text=string , font=self.TEXT).pack()
 
 
 	def show(self):
@@ -141,7 +141,7 @@ class Interface(Frame):
 		self.label("Please enter the name of your new category...")
 		self.input()
 		self.label("...and select a category")
-		self._load_categories()
+		# self._load_categories()
 
 
 		def callback():
@@ -152,39 +152,50 @@ class Interface(Frame):
 
 	def view_categories(self):
 		self.clean()
-		self._load_categories()
 
-
-	def _load_categories(self):
+		
 		tree = ttk.Treeview(self)
 		tree["columns"]=(0, 1)
 
-
 		tree.heading(0, text="name")
 
+		buttons = Frame(self)
 
-		def callback(event):
-			tree_selection = tree.selection()
-			print('double click on {}'.format( tree_selection[0] ))
-			# category_id = int(re.findall('\d+', tree.selection()[0])[0])
-			# category = Category().find_by_id(category_id)
-			print('selection {}'.format(tree.selection()))
-			print('focus {}'.format(tree.focus()))
-			print(tree.item(tree.focus()))
+		def callback(event, frame=buttons):
+
+			#I clean old buttons
+			for old_button in frame.winfo_children():
+				old_button.destroy()
+
+			# I retrive what object selected is
+			item_properties = tree.item( tree.focus() )
+			item_tag = item_properties['tags'][0]
+
+			#if it's a category, we insert start, edit, delete button
+			if item_tag == 'task':
+				Button( frame , text ='start', command=callback ).pack()
+				Button( frame , text ='edit', command=callback ).pack()
+				Button( frame , text ='delete', command=callback ).pack()
+
+			#if it's a task, we insert add, edit, delete button
+			elif item_tag == 'category':
+				Button( frame , text ='add a new task', command=callback ).pack()
+				Button( frame , text ='edit', command=callback ).pack()
+				Button( frame , text ='delete', command=callback ).pack()
+
+			frame.pack()
+		#CALLBACK END
 
 
-		i=1
+		# I insert all categoriesin tree
 		for id in Category().all_ids():
 			category = Category().find_by_id(id)
-			
-			id_inserted = tree.insert('', 'end', text=category.name)
+			id_inserted = tree.insert('', 'end', text=category.name , tags='category')
 
+			#in each category I insert tasks
 			for task_id in category.tasks_id():
 				task = Task().find_by_id(task_id[0])
-				tree.insert( id_inserted , 'end' , text=task.name, values=(category.id) )
+				tree.insert( id_inserted , 'end' , text=task.name, values=(category.id) , tags='task' )
 
-			tree.insert( id_inserted , 'end' , text='add a Task' )
-			
-			i+=1
 		tree.bind('<Double-Button-1>' , callback )
 		tree.pack()
