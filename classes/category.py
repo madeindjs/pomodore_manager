@@ -14,23 +14,20 @@ class Category(Database):
 		self.cursor.execute(
 			"CREATE TABLE IF NOT EXISTS categories( " + 
 				"id INTEGER PRIMARY KEY , "+
-				"name TEXT NOT NULL UNIQUE) ")
+				"name TEXT NOT NULL) ")
 
 
 	def add(self ,  name ):
 		# check before if this category already exist
-		if self.find_by_name(name) == False:
-			data = { "name" : name }
-			self.cursor.execute("INSERT INTO categories(name) VALUES( :name)" , data )
-			self.connection.commit()
-			#set up & check if saved succesfully
-			if self.find_by_name(name):
-				return self
-			else:
-				return self
-
-		else:
+		data = { "name" : name }
+		self.cursor.execute("INSERT INTO categories(name) VALUES( :name)" , data )
+		self.connection.commit()
+		#set up & check if saved succesfully
+		if self.find_by_name(name):
 			return self
+		else:
+			return False #error occur
+
 
 
 	def set(self, data):
