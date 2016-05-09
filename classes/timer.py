@@ -3,7 +3,6 @@
 
 import time
 import sys
-from classes.drawer import Drawer
 
 class Timer:
 	MAX_SIZE = 70

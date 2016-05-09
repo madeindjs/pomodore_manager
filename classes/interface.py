@@ -1,18 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+#import tkinter interface
 try:
-    from Tkinter import *   ## notice capitalized T in Tkinter 
+    from Tkinter import *
+    from Tkinter import ttk
 except ImportError:
-    from tkinter import *   ## notice here too
+    from tkinter import *
+    from tkinter import ttk
+
 
 try:
     import tkMessageBox
 except ImportError:
-    import tkMessageBox
+    from tkinter import messagebox
 
 
-import ttk # for tree view
 import re # for regex
 
 from classes.task import Task
