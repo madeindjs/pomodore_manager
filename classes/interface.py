@@ -50,7 +50,8 @@ class Interface(Frame):
 		self._init_menu()
 		self._init_context_menu()
 
-		self._view()
+		self._build_tree()
+		self.fenetre.mainloop()
 
 
 	def _init_menu(self):
@@ -79,55 +80,7 @@ class Interface(Frame):
 	def _init_context_menu(self):
 		self.context_menu = Menu(self.fenetre, tearoff=0)
 
-
-	def show(self):
-		self.fenetre.mainloop()
-
-
-	def clean(self):
-		for widget in self.winfo_children():
-			widget.destroy()
-
-
-	def add_category(self):
-		category = Category().add('new category')
-		if category:
-			self._view()
-		else:
-			messagebox.showerror('Error')
-
-	def edit_category(self):
-		messagebox.showInfos('Soon ;)')
-
-		
-
-	def show_context_menu(self ,e):
-
-		self.context_menu.post(e.x_root, e.y_root)
-
-		self.context_menu.delete(0,2)
-
-		# I retrive what object selected is
-		item_properties = self.tree.item( self.tree.focus() )
-		item_tag = item_properties['tags'][0]
-
-		#if it's a category, we insert start, edit, delete button
-		if item_tag == 'task':
-			self.context_menu.add_command( label ='start', command=self.fenetre.quit)
-			self.context_menu.add_command( label ='edit', command=self.fenetre.quit)
-			self.context_menu.add_command( label ='delete', command=self.fenetre.quit)
-			self.pack()
-
-		#if it's a task, we insert add, edit, delete button
-		elif item_tag == 'category':
-			self.context_menu.add_command( label ='add a new task', command=self.fenetre.quit)
-			self.context_menu.add_command( label ='edit', command=self.edit_category)
-			self.context_menu.add_command( label ='delete', command=self.fenetre.quit)
-			self.pack()
-
-
-
-	def _view(self):
+	def _build_tree(self):
 		self.clean()
 
 		
@@ -151,3 +104,85 @@ class Interface(Frame):
 
 		self.tree.bind('<Button-3>' , self.show_context_menu )
 		self.tree.pack()
+
+		
+
+
+	def clean(self):
+		for widget in self.winfo_children():
+			widget.destroy()
+
+
+
+	def show_context_menu(self ,e):
+
+		self.context_menu.delete(0,2)
+
+		# I retrive what object selected is
+		item_tag = self.get_item_tag()
+
+		def callback():
+			print('ok')
+
+
+		#if it's a category, we insert start, edit, delete button
+		if item_tag == 'task':
+			self.context_menu.add_command( label ='start', command=self.start_task)
+			self.context_menu.add_command( label ='edit', command=self.edit_task)
+			self.context_menu.add_command( label ='delete', command=self.delete_task)
+			self.pack()
+
+		#if it's a task, we insert add, edit, delete button
+		elif item_tag == 'category':
+			self.context_menu.add_command( label ='add a new task', command=self.add_task)
+			self.context_menu.add_command( label ='edit', command=self.edit_category)
+			self.context_menu.add_command( label ='delete', command=self.delete_category)
+			self.pack()
+
+		self.context_menu.post(e.x_root, e.y_root)
+
+
+
+	def add_category(self):
+		category = Category().add('new category')
+		if category:
+			self._view()
+		else:
+			messagebox.showerror('Error')
+
+	def edit_category(self):
+		messagebox.showinfo('Soon ;)')
+
+	def delete_category(self):
+		messagebox.showinfo('Soon ;)')
+
+
+	def start_task(self):
+		messagebox.showinfo('Soon ;)')
+
+
+	def add_task(self):
+		# I retrive what object selected is
+		item_tag = self.get_item_tag()
+		#if it's a category, we can insert a task
+		if item_tag == 'category':
+			print("added")
+
+		else:
+			print("Can't insert a task beacause it's not a categoyr!")
+
+
+	def delete_task(self):
+		messagebox.showinfo('Soon ;)')
+		
+
+
+
+	def get_item_tag(self):
+		# I retrive what object selected is
+		item_properties = self.tree.item( self.tree.focus() )
+		return item_properties['tags'][0]
+
+
+
+

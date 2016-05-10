@@ -7,4 +7,3 @@ from classes.interface import Interface
 
 
 interface = Interface()
-interface.show()
