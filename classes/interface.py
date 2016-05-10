@@ -27,7 +27,7 @@ except:
 import re # for regex
 
 from classes.task import Task
-from classes.category import Category
+from classes.node import Node
 
 
 
@@ -104,20 +104,15 @@ class Interface(Frame):
 
 		self.buttons = Frame(self)
 
-		# id_inserted = self.tree.insert('', 'end', text='hello' )
-		# id_inserted = self.tree.insert( id_inserted, 'end' , text='hello')
-		# id_inserted = self.tree.insert( id_inserted, 'end' , text='hello')
-		# id_inserted = self.tree.insert( id_inserted, 'end' , text='hello')
 
-		# I insert all categoriesin tree
-		for id in Category().all_ids():
-			category = Category().find_by_id(id)
-			id_inserted = self.tree.insert('', 'end', text=category.name , tags=('category' , category.id))
+		for node in Node().all():
+			self.tree.insert( '', 'end' , "node_{}".format(node.id) , text='node')
 
-			#in each category I insert tasks
-			for task_id in category.tasks_id():
-				task = Task().find_by_id(task_id[0])
-				self.tree.insert( id_inserted , 'end' , text=task.name , tags=('task', task.id) )
+			for task in node.tasks():
+				self.tree.insert( '', 'end' , "task_{}".format(task.id) , text=task.name)
+				self.tree.move("task_{}".format(task.id), "node_{}".format(node.id), 'end')
+
+
 
 		self.tree.bind('<Button-3>' , self.show_context_menu )
 		self.tree.pack(fill=BOTH)

@@ -1,63 +1,60 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from classes.database import *
-from classes.category import *
+from classes.database import Database
 
 
 
-class Task(Database):
-
-	DATABASE_NAME = 'tasks'
+class Task():
 
 
-	def add(self ,  name , category):
-		# check before if this category already exist
-		data = { "name" : name , "category_id" : category.id }
-		self.cursor.execute("INSERT INTO tasks(category_id, name) VALUES(:category_id, :name)" , data )
-		self.connection.commit()
+	def __init__(self , id=None, name="no_name", node_id=0):
+		self.database = Database()
+
+		if id is not None:#if id is set, we retreive it from database
+			self.find('id' , id)
+		
+		else:#else, we add it into database
+			self.name = name
+			self.node_id = node_id
+			self.add()
+
+
+	def add(self):
+		# add the item
+		data = { "name" : self.name , "node_id" : self.node_id }
+		self.database.cursor.execute("INSERT INTO tasks(node_id, name) VALUES(:node_id, :name)" , data )
+		self.database.connection.commit()
+
+		# I retreive the id saved
+		self.database.cursor.execute("SELECT id FROM tasks ORDER BY id DESC LIMIT 1" )
+		self.id = self.database.cursor.fetchone()[0]
+
 		#set up & check if saved succesfully
-		if self.find_by_name(name):
+		if self.find('id' , self.id):
 			return self
 		else:
 			return False
 
 
+	def find(self, column, column_data ):
+		data = { column : column_data }
+		sql_command = "SELECT * FROM tasks WHERE {0} = :{0} LIMIT 1".format(column)
+		self.database.cursor.execute( sql_command , data )
 
-
-
-	def set(self, data):
-		self.id = data[0]
-		self.category = Category().find_by_id(data[1])
-		self.name = data[2]
-		return self
+		result = self.database.cursor.fetchone()
+		if result is None:
+			return False
+		else:
+			self.id = result[0]
+			self.folder_id = result[1]
+			self.name = result[2]
+			return self
 
 	def describe(self):
-		if self.category is None:
-			return False
-		else:
-			return "#{} in {}: {} = {} pomodores".format( self.id, self.category.name, self.name,  self.count_pomodores() )
+		try:
+			return "Task #{} named {}".format(self.id, self.name)
+		except AttributeError:
+			print('object not set')
 
 
-	def count_pomodores(self):
-
-		if not self.id is None:
-			data = { 'task_id' : self.id }
-			self.cursor.execute("SELECT COUNT(*) from pomodores WHERE task_id = :task_id " , data )
-			result = self.cursor.fetchone()
-			return result[0]
-		else:
-			return False
-
-	def list(self):
-		# Drawer().subheader(self.DATABASE_NAME)
-		self.cursor.execute( "SELECT * FROM {}".format( self.DATABASE_NAME ) )
-		tasks = [] 
-
-		for row in self.cursor:
-			task_temp = Task().set(row)
-			tasks.append(task_temp.describe())
-			# print("Task N°{} # {}   | {}".format( task_temp.id , task_temp.category.name , 'o'*task_temp.count_pomodores() ))
-			# print("    {}\n".format(task_temp.name))
-
-		return tasks

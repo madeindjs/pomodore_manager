@@ -13,89 +13,18 @@ class Database:
 	She is used to reduce similar code between theses classes and make cleaner code
 	"""
 
-	DATABASE_NAME = None
-
-	def __init__(self , id = None):
+	def __init__(self):
 		try:
 			self.connection = sqlite3.connect('databases.sqlite')
 			self.cursor = self.connection.cursor()
+			self.cursor.execute(
+				""" CREATE TABLE IF NOT EXISTS tasks( 
+					id INTEGER PRIMARY KEY,
+					node_id INTERGER NOT NULL default 0,
+					name TEXT NOT NULL  ) """ )
 		except:
 			print('error in database connection')
-
-		self.cursor.execute(
-			"""
-			CREATE TABLE IF NOT EXISTS tasks( 
-				id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
-				category_id INTERGER NOT NULL,
-				name TEXT NOT NULL  ) """ )
-		self.cursor.execute(
-			"""CREATE TABLE IF NOT EXISTS pomodores(
-				id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
-				task_id INTERGER NOT NULL,
-				date DATETIME ) """)
-		self.cursor.execute(
-			"""CREATE TABLE IF NOT EXISTS categories( 
-				id INTEGER PRIMARY KEY , 
-				name TEXT NOT NULL) """)
-
-		if id is not None:
-			self.find_by_id(id)
 
 
 	def __del__(self):
 		self.cursor.close()
-
-	def _open(self):
-		self.connection = sqlite3.connect('databases.sqlite')
-		self.cursor = self.connection.cursor()
-
-
-
-	def find_by_(self, column, column_data ):
-		data = { column : column_data }
-		sql_command = "SELECT * FROM {} WHERE {} = :{} LIMIT 1".format( self.DATABASE_NAME , column , column )
-		self.cursor.execute( sql_command , data )
-		return self.is_data_exists( self.cursor )
-
-
-	def find_by_id(self,  id_to_find ):
-		return Database.find_by_(self, 'id', id_to_find )
-
-
-	def find_by_name(self,  name_to_find ):
-		return Database.find_by_( self, 'name', name_to_find )
-
-
-	# to check if cursor have at less one row
-	def is_data_exists(self , cursor):
-		result = cursor.fetchone()
-		if result is None:
-			return False
-		else:
-			# if data exists, we set the object with values
-			return self.set(result)
-
-
-
-	def all_ids( self ):
-		all_item = []
-		self.cursor.execute( "SELECT id FROM {}".format( self.DATABASE_NAME ) )
-		
-		data = self.cursor.fetchall()
-
-		for row in data :
-			all_item.append( row[0] )
-
-		return all_item
-
-
-	def rename(self, new_name):
-		if self.id is not None:
-			data = {'id' : self.id , 'name' : new_name }
-			sql_query = "UPDATE {} SET name = :name WHERE id = :id ".format( self.DATABASE_NAME )
-			self.cursor.execute(sql_query , data)
-			self.connection.commit()
-		else:
-			print('object not set')
-
-
