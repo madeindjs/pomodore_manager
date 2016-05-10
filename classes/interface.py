@@ -9,7 +9,6 @@ except ImportError:
     from tkinter import *
     from tkinter import ttk
 
-
 try:
 	import tkMessageBox
 except:
@@ -17,6 +16,7 @@ except:
 
 try:
 	from tkinter import messagebox
+	from tkinter.simpledialog import askstring
 	# messagebox.askquestion('title','question')
 except:
 	print('messagebox not initialize..')
@@ -46,7 +46,7 @@ class Interface(Frame):
 		self.fenetre.geometry("{}x{}".format(self.WIDTH , self.HEIGHT))
 
 		Frame.__init__(self)
-		self.pack()
+		self.pack(fill=BOTH)
 		self._init_menu()
 		self._init_context_menu()
 
@@ -76,6 +76,9 @@ class Interface(Frame):
 
 		self.fenetre.config(menu=menubar)
 
+	def _init_toolbar(self):
+		toolbar = Frame(self.parent, bd=1, relief=RAISED)
+
 
 	def _init_context_menu(self):
 		self.context_menu = Menu(self.fenetre, tearoff=0)
@@ -100,10 +103,10 @@ class Interface(Frame):
 			#in each category I insert tasks
 			for task_id in category.tasks_id():
 				task = Task().find_by_id(task_id[0])
-				self.tree.insert( id_inserted , 'end' , text=task.name, values=(category.id) , tags='task' )
+				self.tree.insert( id_inserted , 'end' , text=task.name , tags=('task', task.id) )
 
 		self.tree.bind('<Button-3>' , self.show_context_menu )
-		self.tree.pack()
+		self.tree.pack(fill=BOTH)
 
 		
 
@@ -128,14 +131,14 @@ class Interface(Frame):
 		#if it's a category, we insert start, edit, delete button
 		if item_tag == 'task':
 			self.context_menu.add_command( label ='start', command=self.start_task)
-			self.context_menu.add_command( label ='edit', command=self.edit_task)
+			self.context_menu.add_command( label ='rename', command=self.renam_item)
 			self.context_menu.add_command( label ='delete', command=self.delete_task)
 			self.pack()
 
 		#if it's a task, we insert add, edit, delete button
 		elif item_tag == 'category':
 			self.context_menu.add_command( label ='add a new task', command=self.add_task)
-			self.context_menu.add_command( label ='edit', command=self.edit_category)
+			self.context_menu.add_command( label ='rename', command=self.renam_item)
 			self.context_menu.add_command( label ='delete', command=self.delete_category)
 			self.pack()
 
@@ -167,7 +170,7 @@ class Interface(Frame):
 		item_type = item_properties['tags'][0]
 
 		#if it's a category, we can insert a task
-		if item_properties['tags'][0] == 'category':
+		if item_type == 'category':
 			item_id = item_properties['tags'][1]
 			category = Category(item_id)
 			new_task = Task().add('new task', category)
@@ -178,10 +181,26 @@ class Interface(Frame):
 			self._build_tree()
 
 		else:
-			messagebox.showerror('Error' , "Can't insert a task beacause it's not a categoyr!")
+			messagebox.showerror('Error' , "Can't insert a task beacause it's not a category!")
 
-	def edit_task(self):
-		messagebox.showinfo('Soon ;)')
+	def renam_item(self):
+		new_name = askstring('hello', "prompt")
+
+		item_properties = self.tree.item( self.tree.focus() )
+		item_type = item_properties['tags'][0]
+		item_id = item_properties['tags'][1]
+
+		if item_type == 'category' and item_id != None :
+			category = Category(item_id)
+			category.rename(new_name)
+		elif item_type == 'task' and item_id != None :
+			task = Task(item_id)
+			task.rename(new_name)
+		else:
+			messagebox.showerror('Error' , "Nothing selected")
+
+		self._build_tree()
+
 
 
 	def delete_task(self):

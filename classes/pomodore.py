@@ -54,3 +54,6 @@ class Pomodore(Database):
 			pomodore_temp = Pomodore().find_by_id(  row[0] )
 			print( pomodore_temp.describe() )
 		Drawer().line()
+
+	def rename(self):
+		print("you can't rename a pomodore")

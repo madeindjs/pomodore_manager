@@ -89,3 +89,13 @@ class Database:
 		return all_item
 
 
+	def rename(self, new_name):
+		if self.id is not None:
+			data = {'id' : self.id , 'name' : new_name }
+			sql_query = "UPDATE {} SET name = :name WHERE id = :id ".format( self.DATABASE_NAME )
+			self.cursor.execute(sql_query , data)
+			self.connection.commit()
+		else:
+			print('object not set')
+
+
