@@ -13,18 +13,16 @@ class Task(Database):
 
 	def add(self ,  name , category):
 		# check before if this category already exist
-		if self.find_by_name(name) == False:
-			data = { "name" : name , "category_id" : category.id }
-			self.cursor.execute("INSERT INTO tasks(category_id, name) VALUES(:category_id, :name)" , data )
-			self.connection.commit()
-			#set up & check if saved succesfully
-			if self.find_by_name(name):
-				return self
-			else:
-				return False
-
+		data = { "name" : name , "category_id" : category.id }
+		self.cursor.execute("INSERT INTO tasks(category_id, name) VALUES(:category_id, :name)" , data )
+		self.connection.commit()
+		#set up & check if saved succesfully
+		if self.find_by_name(name):
+			return self
 		else:
 			return False
+
+
 
 
 	def set(self, data):
