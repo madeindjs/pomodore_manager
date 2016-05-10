@@ -95,7 +95,7 @@ class Interface(Frame):
 		# I insert all categoriesin tree
 		for id in Category().all_ids():
 			category = Category().find_by_id(id)
-			id_inserted = self.tree.insert('', 'end', text=category.name , tags='category')
+			id_inserted = self.tree.insert('', 'end', text=category.name , tags=('category' , category.id))
 
 			#in each category I insert tasks
 			for task_id in category.tasks_id():
@@ -146,7 +146,7 @@ class Interface(Frame):
 	def add_category(self):
 		category = Category().add('new category')
 		if category:
-			self._view()
+			self._build_tree()
 		else:
 			messagebox.showerror('Error')
 
@@ -163,13 +163,25 @@ class Interface(Frame):
 
 	def add_task(self):
 		# I retrive what object selected is
-		item_tag = self.get_item_tag()
+		item_properties = self.tree.item( self.tree.focus() )
+		item_type = item_properties['tags'][0]
+
 		#if it's a category, we can insert a task
-		if item_tag == 'category':
-			print("added")
+		if item_properties['tags'][0] == 'category':
+			item_id = item_properties['tags'][1]
+			category = Category(item_id)
+			new_task = Task().add('new task', category)
+			if new_task:
+				print(new_task)
+			else:
+				print('Error {}'.format(new_task) )
+			self._build_tree()
 
 		else:
-			print("Can't insert a task beacause it's not a categoyr!")
+			messagebox.showerror('Error' , "Can't insert a task beacause it's not a categoyr!")
+
+	def edit_task(self):
+		messagebox.showinfo('Soon ;)')
 
 
 	def delete_task(self):
