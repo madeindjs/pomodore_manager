@@ -25,6 +25,7 @@ class Task(Database):
 
 
 
+
 	def set(self, data):
 		self.id = data[0]
 		self.category = Category().find_by_id(data[1])

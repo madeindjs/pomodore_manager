@@ -83,6 +83,16 @@ class Interface(Frame):
 	def _init_context_menu(self):
 		self.context_menu = Menu(self.fenetre, tearoff=0)
 
+		self.context_menu.add_command( label ='rename', command=self.renam_item)
+		self.context_menu.add_command( label ='delete', command=self.delete_task)
+		self.context_menu.add_separator()
+
+		submenu = Menu(self.context_menu)
+		submenu.add_command( label ='folder', command=self.add_category)
+		submenu.add_command( label ='task', command=self.add_task)
+		self.context_menu.add_cascade(label='new', menu=submenu)
+		self.pack()
+
 	def _build_tree(self):
 		self.clean()
 
@@ -94,6 +104,10 @@ class Interface(Frame):
 
 		self.buttons = Frame(self)
 
+		# id_inserted = self.tree.insert('', 'end', text='hello' )
+		# id_inserted = self.tree.insert( id_inserted, 'end' , text='hello')
+		# id_inserted = self.tree.insert( id_inserted, 'end' , text='hello')
+		# id_inserted = self.tree.insert( id_inserted, 'end' , text='hello')
 
 		# I insert all categoriesin tree
 		for id in Category().all_ids():
@@ -118,30 +132,6 @@ class Interface(Frame):
 
 
 	def show_context_menu(self ,e):
-
-		self.context_menu.delete(0,2)
-
-		# I retrive what object selected is
-		item_tag = self.get_item_tag()
-
-		def callback():
-			print('ok')
-
-
-		#if it's a category, we insert start, edit, delete button
-		if item_tag == 'task':
-			self.context_menu.add_command( label ='start', command=self.start_task)
-			self.context_menu.add_command( label ='rename', command=self.renam_item)
-			self.context_menu.add_command( label ='delete', command=self.delete_task)
-			self.pack()
-
-		#if it's a task, we insert add, edit, delete button
-		elif item_tag == 'category':
-			self.context_menu.add_command( label ='add a new task', command=self.add_task)
-			self.context_menu.add_command( label ='rename', command=self.renam_item)
-			self.context_menu.add_command( label ='delete', command=self.delete_category)
-			self.pack()
-
 		self.context_menu.post(e.x_root, e.y_root)
 
 
