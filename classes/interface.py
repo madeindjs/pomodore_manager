@@ -114,8 +114,8 @@ class Interface(Frame):
 			if task.node_id != 0:
 				self.tree.move("task_{}".format(task.id), "task_{}".format(task.node_id), 'end')
 
-		self.tree.bind('<Button-3>' , self.show_context_menu )
-		self.tree.bind('<Button-1>' , self.show_details )
+		self.tree.bind('<ButtonRelease-3>' , self.show_context_menu )
+		self.tree.bind('<ButtonRelease-1>' , self.show_details )
 		self.tree.pack(fill=X)
 
 	def show_details(self, e):
@@ -133,6 +133,7 @@ class Interface(Frame):
 			task = Task(id)
 
 			self.details = LabelFrame(self, text=task.describe(), 
+				relief=FLAT,
 				padx=self.STYLE_PAD, pady=self.STYLE_PAD, 
 				font=self.STYLE_TITLE ,
 				foreground=self.TXT_COLOR, background=self.BKG_COLOR
