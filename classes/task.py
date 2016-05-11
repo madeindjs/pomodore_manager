@@ -16,6 +16,9 @@ class Task():
 			self.node_id = node_id
 			self.add()
 
+	def __del__(self):
+		del(self)
+
 
 	def all():
 		tasks=[]
@@ -51,6 +54,14 @@ class Task():
 		self.database.cursor.execute("UPDATE tasks SET name=:name WHERE id = :id" , data )
 		self.database.connection.commit()
 
+	def delete(self):
+		data = { "id" : self.id}
+		sql_query = "DELETE FROM tasks WHERE id = :id OR node_id = :id"
+		self.database.cursor.execute( sql_query , data )
+		self.database.connection.commit()
+
+		self.__del__()
+
 
 
 	def find(self, column, column_data ):
@@ -66,6 +77,7 @@ class Task():
 			self.node_id = result[1]
 			self.name = result[2]
 			return self
+
 
 	def describe(self):
 		try:

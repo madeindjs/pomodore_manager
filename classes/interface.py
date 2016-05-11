@@ -154,4 +154,10 @@ class Interface(Frame):
 
 
 	def delete(self):
-		messagebox.showinfo('Soon ;)')
+		item_properties = self.tree.item( self.tree.focus() )
+
+		id = int(item_properties['values'][0])
+		Task(id).delete()
+
+		self._build_tree()
+		
