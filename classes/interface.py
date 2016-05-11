@@ -4,10 +4,13 @@
 #import tkinter interface
 try:
     from Tkinter import *
-    import ttk
+    from ttk import *
+    print('import Tkinter')
 except ImportError:
     from tkinter import *
     from tkinter import ttk
+    print('import tkinter')
+
 
 try:
 	import tkMessageBox
@@ -35,20 +38,28 @@ class Interface(Frame):
 	STYLE_TEXT = ("Helvetica", 12)
 
 	STYLE_PAD = 5
-
+	BKG_COLOR= '#34495E'
+	TXT_COLOR= '#ECF0F1'
+	INP_COLOR='#22313F'
 
 
 	def __init__(self):
+
 		self.fenetre = Tk()
+		self.fenetre.configure(background=self.BKG_COLOR)
 		self.fenetre.title("Pomodores manager")
+
 		self.fenetre.geometry("{}x{}".format(self.WIDTH , self.HEIGHT))
 
 		Frame.__init__(self, padx=self.STYLE_PAD, pady=self.STYLE_PAD)
 		self.pack(fill=BOTH)
+
 		self._init_menu()
 		self._init_context_menu()
-
 		self._tree()
+
+		
+
 		self.fenetre.mainloop()
 
 
@@ -78,7 +89,6 @@ class Interface(Frame):
 	def _init_context_menu(self):
 		self.context_menu = Menu(self.fenetre, tearoff=0)
 
-
 		self.context_menu.add_command( label ='add', command=self.add)
 		self.context_menu.add_separator()
 		self.context_menu.add_command( label ='delete', command=self.delete)
@@ -88,14 +98,18 @@ class Interface(Frame):
 	def _tree(self):
 		self.clean()
 
+		ttk.Style().configure(
+			"Treeview", 
+			background=self.BKG_COLOR, 
+			foreground=self.TXT_COLOR, 
+			fieldbackground=self.BKG_COLOR)
 		
 		self.tree = ttk.Treeview(self)
-
 
 		self.buttons = Frame(self)
 
 		for task in Task.all():
-			self.tree.insert( '', 'end' , "task_{}".format(task.id) , value=task.id , text=task.name)
+			self.tree.insert( '', 'end' , "task_{}".format(task.id) , value=task.id , text=task.name, tag='font')
 
 			if task.node_id != 0:
 				self.tree.move("task_{}".format(task.id), "task_{}".format(task.node_id), 'end')
@@ -118,10 +132,16 @@ class Interface(Frame):
 			id = int(item_properties['values'][0])
 			task = Task(id)
 
-			self.details = LabelFrame(self, text=task.describe(), padx=self.STYLE_PAD, pady=self.STYLE_PAD, font=self.STYLE_TITLE )
-
+			self.details = LabelFrame(self, text=task.describe(), 
+				padx=self.STYLE_PAD, pady=self.STYLE_PAD, 
+				font=self.STYLE_TITLE ,
+				foreground=self.TXT_COLOR, background=self.BKG_COLOR
+			)
 			if task:
-				self.details.description = Text(self.details, font=self.STYLE_TEXT)
+				self.details.description = Text(self.details, 
+					font=self.STYLE_TEXT , 
+					foreground=self.TXT_COLOR, 
+					background=self.INP_COLOR)
 				self.details.description.insert("1.0", task.description)
 				self.details.description.pack(fill=X)
 
