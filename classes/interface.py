@@ -116,7 +116,6 @@ class Interface(Frame):
 			widget.destroy()
 
 
-
 	def show_context_menu(self ,e):
 		self.context_menu.post(e.x_root, e.y_root)
 
@@ -140,20 +139,15 @@ class Interface(Frame):
 
 
 	def rename(self):
-		new_name = askstring('hello', "prompt")
+		# I get value
+		new_name = askstring('Set a new name', "prompt")
+		item_properties = self.tree.item( self.tree.focus() )
 
-		# item_properties = self.tree.item( self.tree.focus() )
-		# item_type = item_properties['tags'][0]
-		# item_id = item_properties['tags'][1]
-
-		# if item_type == 'category' and item_id != None :
-		# 	category = Category(item_id)
-		# 	category.rename(new_name)
-		# elif item_type == 'task' and item_id != None :
-		# 	task = Task(item_id)
-		# 	task.rename(new_name)
-		# else:
-		# 	messagebox.showerror('Error' , "Nothing selected")
+		try:
+			id = int(item_properties['values'][0])
+			Task(id).rename(new_name)
+		except:
+			messagebox.showerror('Error','An error occur..')
 
 		self._build_tree()
 

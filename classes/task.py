@@ -43,6 +43,15 @@ class Task():
 		else:
 			return False
 
+	def rename(self, new_name):
+		self.name = new_name
+		# add the item
+		data = { "name" : self.name , "id" : self.id}
+		
+		self.database.cursor.execute("UPDATE tasks SET name=:name WHERE id = :id" , data )
+		self.database.connection.commit()
+
+
 
 	def find(self, column, column_data ):
 		data = { column : column_data }
