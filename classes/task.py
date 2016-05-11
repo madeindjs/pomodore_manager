@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 from classes.database import Database
-
-
 
 class Task():
 
@@ -18,6 +15,16 @@ class Task():
 			self.name = name
 			self.node_id = node_id
 			self.add()
+
+
+	def all():
+		tasks=[]
+		database = Database()
+
+		for id in database.cursor.execute("SELECT id FROM tasks").fetchall():
+			tasks.append( Task(id[0]) )
+
+		return tasks
 
 
 	def add(self):
@@ -47,7 +54,7 @@ class Task():
 			return False
 		else:
 			self.id = result[0]
-			self.folder_id = result[1]
+			self.node_id = result[1]
 			self.name = result[2]
 			return self
 
@@ -56,5 +63,3 @@ class Task():
 			return "Task #{} named {}".format(self.id, self.name)
 		except AttributeError:
 			print('object not set')
-
-
