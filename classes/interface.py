@@ -114,6 +114,8 @@ class Interface(Frame):
 			if task.node_id != 0:
 				self.tree.move("task_{}".format(task.id), "task_{}".format(task.node_id), 'end')
 
+		self.tree.tag_configure('font', font=self.STYLE_TEXT)
+
 		self.tree.bind('<ButtonRelease-3>' , self.show_context_menu )
 		self.tree.bind('<ButtonRelease-1>' , self.show_details )
 		self.tree.pack(fill=X)
