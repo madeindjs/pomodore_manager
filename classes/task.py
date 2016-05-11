@@ -46,12 +46,10 @@ class Task():
 		else:
 			return False
 
-	def rename(self, new_name):
-		self.name = new_name
-		# add the item
-		data = { "name" : self.name , "id" : self.id}
-		
-		self.database.cursor.execute("UPDATE tasks SET name=:name WHERE id = :id" , data )
+	def update(self):
+		data = { "id" : self.id , "name" : self.name , 'description' : self.description }
+		sql_query = "UPDATE tasks SET name=:name , description = :description WHERE id = :id"
+		self.database.cursor.execute( sql_query , data )
 		self.database.connection.commit()
 
 	def delete(self):
@@ -61,7 +59,6 @@ class Task():
 		self.database.connection.commit()
 
 		self.__del__()
-
 
 
 	def find(self, column, column_data ):
@@ -76,11 +73,13 @@ class Task():
 			self.id = result[0]
 			self.node_id = result[1]
 			self.name = result[2]
+			self.description = result[3]
 			return self
 
 
 	def describe(self):
 		try:
-			return "Task #{} named {}".format(self.id, self.name)
+			return self.name
+			# return "{} # {}".format(self.id, self.name)
 		except AttributeError:
 			print('object not set')

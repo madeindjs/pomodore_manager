@@ -31,8 +31,10 @@ class Interface(Frame):
 	WIDTH = 300
 	HEIGHT = 300
 
-	TITLE = ("Helvetica", 16)
-	TEXT = ("Helvetica", 12)
+	STYLE_TITLE = ("Helvetica", 16)
+	STYLE_TEXT = ("Helvetica", 12)
+
+	STYLE_PAD = 5
 
 
 
@@ -41,12 +43,12 @@ class Interface(Frame):
 		self.fenetre.title("Pomodores manager")
 		self.fenetre.geometry("{}x{}".format(self.WIDTH , self.HEIGHT))
 
-		Frame.__init__(self)
+		Frame.__init__(self, padx=self.STYLE_PAD, pady=self.STYLE_PAD)
 		self.pack(fill=BOTH)
 		self._init_menu()
 		self._init_context_menu()
 
-		self._build_tree()
+		self._tree()
 		self.fenetre.mainloop()
 
 
@@ -71,8 +73,6 @@ class Interface(Frame):
 
 		self.fenetre.config(menu=menubar)
 
-	def _init_toolbar(self):
-		toolbar = Frame(self.parent, bd=1, relief=RAISED)
 
 
 	def _init_context_menu(self):
@@ -85,14 +85,12 @@ class Interface(Frame):
 		self.context_menu.add_command( label ='rename', command=self.rename)
 		self.pack()
 
-	def _build_tree(self):
+	def _tree(self):
 		self.clean()
 
 		
 		self.tree = ttk.Treeview(self)
-		self.tree["columns"]=(0, 1)
 
-		self.tree.heading(0, text="name")
 
 		self.buttons = Frame(self)
 
@@ -103,13 +101,47 @@ class Interface(Frame):
 				self.tree.move("task_{}".format(task.id), "task_{}".format(task.node_id), 'end')
 
 		self.tree.bind('<Button-3>' , self.show_context_menu )
-		self.tree.bind('<Button-1>' , self.get_item_properties )
-		self.tree.pack(fill=BOTH)
+		self.tree.bind('<Button-1>' , self.show_details )
+		self.tree.pack(fill=X)
+
+	def show_details(self, e):
+		#refresh the view
+		try:
+			self.details.destroy()
+		except AttributeError:
+			pass
+			
+
+		#found & initialize item
+		try:
+			item_properties = self.tree.item( self.tree.focus() )
+			id = int(item_properties['values'][0])
+			task = Task(id)
+
+			self.details = LabelFrame(self, text=task.describe(), padx=self.STYLE_PAD, pady=self.STYLE_PAD, font=self.STYLE_TITLE )
+
+			if task:
+				self.details.description = Text(self.details, font=self.STYLE_TEXT)
+				self.details.description.insert("1.0", task.description)
+				self.details.description.pack(fill=X)
+
+				# Checkbutton(self.details, text="done").grid(row=1, sticky=W)
+
+				def callback(e):
+					task.description = self.details.description.get("1.0",END)
+					task.update()
+
+				self.details.description.bind('<Key>' , callback )
+
+
+
+		except IndexError:
+			print('No item selected')
 
 		
-	def get_item_properties(self , e):
-		item_properties = self.tree.item( self.tree.focus() )
-		print(item_properties)
+		self.details.pack(fill=X )
+
+
 
 	def clean(self):
 		for widget in self.winfo_children():
@@ -135,21 +167,22 @@ class Interface(Frame):
 			node_id = 0
 
 		Task(node_id=node_id)
-		self._build_tree()
+		self._tree()
 
 
 	def rename(self):
 		# I get value
-		new_name = askstring('Set a new name', "prompt")
 		item_properties = self.tree.item( self.tree.focus() )
 
 		try:
 			id = int(item_properties['values'][0])
-			Task(id).rename(new_name)
+			task = Task(id)
+			task.name = askstring('Rename', 'set a new name:' , initialvalue=task.name)
+			task.update()
 		except:
 			messagebox.showerror('Error','An error occur..')
 
-		self._build_tree()
+		self._tree()
 
 
 
@@ -159,4 +192,4 @@ class Interface(Frame):
 		id = int(item_properties['values'][0])
 		Task(id).delete()
 
-		self._build_tree()
+		self._tree()

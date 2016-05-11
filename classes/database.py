@@ -20,7 +20,9 @@ class Database:
 				""" CREATE TABLE IF NOT EXISTS tasks( 
 					id INTEGER PRIMARY KEY,
 					node_id INTERGER NOT NULL default 0,
-					name TEXT NOT NULL  ) """ )
+					name TEXT NOT NULL, 
+					description TEXT default ''
+					) """ )
 		except:
 			print('error in database connection')
 

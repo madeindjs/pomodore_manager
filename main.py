@@ -3,4 +3,6 @@
 from classes.task import Task
 from classes.interface import Interface
 
-interface = Interface()
+
+if __name__ == '__main__':
+	interface = Interface()
