@@ -160,4 +160,3 @@ class Interface(Frame):
 		Task(id).delete()
 
 		self._build_tree()
-		
