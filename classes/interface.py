@@ -3,11 +3,14 @@
 
 #import tkinter interface
 try:
-    from Tkinter import *
-    import ttk
+	from Tkinter import *
+	import Tix
 except ImportError:
-    from tkinter import *
-    from tkinter import ttk
+	from tkinter import *
+	from tkinter import ttk
+	from tkinter import tix
+
+
 
 try:
 	import tkMessageBox
@@ -88,23 +91,39 @@ class Interface(Frame):
 	def _build_tree(self):
 		self.clean()
 
-		
-		self.tree = ttk.Treeview(self)
-		self.tree["columns"]=(0, 1)
+		# self.tree = ttk.Treeview(self)
+		# self.tree["columns"]=(0, 1)
 
-		self.tree.heading(0, text="name")
+		# self.tree.heading(0, text="name")
 
-		self.buttons = Frame(self)
+		# self.buttons = Frame(self)
 
-		for task in Task.all():
-			self.tree.insert( '', 'end' , "task_{}".format(task.id) , value=task.id , text=task.name)
+		# for task in Task.all():
+		# 	self.tree.insert( '', 'end' , "task_{}".format(task.id) , value=task.id , text=task.name)
 
-			if task.node_id != 0:
-				self.tree.move("task_{}".format(task.id), "task_{}".format(task.node_id), 'end')
+		# 	if task.node_id != 0:
+		# 		self.tree.move("task_{}".format(task.id), "task_{}".format(task.node_id), 'end')
 
-		self.tree.bind('<Button-3>' , self.show_context_menu )
-		self.tree.bind('<Button-1>' , self.get_item_properties )
-		self.tree.pack(fill=BOTH)
+		# self.tree.bind('<Button-3>' , self.show_context_menu )
+		# self.tree.bind('<Button-1>' , self.get_item_properties )
+		# self.tree.pack(fill=BOTH)
+
+
+
+		self.cl = tix.CheckList(self.fenetre , browsecmd=self.fenetre.quit)
+		self.cl.pack()
+		self.cl.hlist.add("CL1", text="checklist1")
+		self.cl.hlist.add("CL1.Item1", text="subitem1")
+		self.cl.hlist.add("CL2", text="checklist2")
+		self.cl.hlist.add("CL2.Item1", text="subitem1")
+		self.cl.setstatus("CL2", "on")
+		self.cl.setstatus("CL2.Item1", "on")
+		self.cl.setstatus("CL1", "off")
+		self.cl.setstatus("CL1.Item1", "off")
+		self.cl.autosetmode()
+
+
+
 
 		
 	def get_item_properties(self , e):
