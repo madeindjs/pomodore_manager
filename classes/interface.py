@@ -4,7 +4,7 @@
 #import tkinter interface
 try:
     from Tkinter import *
-    from ttk import *
+    import ttk
     print('import Tkinter')
 except ImportError:
     from tkinter import *
@@ -60,7 +60,7 @@ class Interface(Frame):
 		self.fenetre.title("Pomodores manager")
 		self.fenetre.geometry("{}x{}".format(self.WIDTH , self.HEIGHT))
 
-		Frame.__init__(self)
+		Frame.__init__(self , background=self.COLOR_BKG)
 		self.pack(fill=BOTH)
 		self._init_menu()
 		self._init_context_menu()
