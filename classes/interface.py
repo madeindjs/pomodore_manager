@@ -46,17 +46,23 @@ class Interface(Frame):
 
 	def __init__(self):
 
+		#init the main view
 		self.fenetre = Tk()
 		self.fenetre.configure(background=self.BKG_COLOR)
 		self.fenetre.title("Pomodores manager")
-
 		self.fenetre.geometry("{}x{}".format(self.WIDTH , self.HEIGHT))
 
 		Frame.__init__(self)
 		self.pack(fill=BOTH)
-
 		self._init_menu()
 		self._init_context_menu()
+
+		#init the tree
+		ttk.Style().configure(
+			"Treeview", 
+			background=self.BKG_COLOR, 
+			foreground=self.TXT_COLOR, 
+			fieldbackground=self.BKG_COLOR)
 		self.tree_holder = Frame(self)
 		self.tree_holder.pack(fill=BOTH)
 		self._tree()
@@ -76,7 +82,7 @@ class Interface(Frame):
 
 		menu_edit = Menu(menubar, tearoff=0)
 		menu_edit.add_separator()
-		menu_edit.add_command(label="settings", command=self.clean )
+		menu_edit.add_command(label="settings" )
 		menubar.add_cascade(label="Edit", menu=menu_edit)
 
 		menu_help = Menu(menubar, tearoff=0)
@@ -89,7 +95,6 @@ class Interface(Frame):
 
 	def _init_context_menu(self):
 		self.context_menu = Menu(self.fenetre, tearoff=0)
-
 		self.context_menu.add_command( label ='add', command=self.add)
 		self.context_menu.add_separator()
 		self.context_menu.add_command( label ='delete', command=self.delete)
@@ -97,34 +102,28 @@ class Interface(Frame):
 		self.pack()
 
 	def _tree(self):
-		# try:
-		# 	self.tree.destroy()
-		# except:
-		# 	pass
 
+		#I begin to destroy the old treeview if he exist
 		for widget in self.tree_holder.winfo_children():
 			widget.destroy()
 		
-
-		ttk.Style().configure(
-			"Treeview", 
-			background=self.BKG_COLOR, 
-			foreground=self.TXT_COLOR, 
-			fieldbackground=self.BKG_COLOR)
-		
 		self.tree = ttk.Treeview(self.tree_holder)
 
+		# and each tasks in cascade
 		for task in Task.all():
-			self.tree.insert( '', 'end' , "task_{}".format(task.id) , value=task.id , text=task.name, tag='status_{}'.format(task.status), open=True)
+			self.tree.insert( '', 'end', "task_{}".format(task.id), 
+				value=task.id, text=task.name, tag='status_{}'.format(task.status), open=True)
 
 			if task.node_id != 0:
 				self.tree.move("task_{}".format(task.id), "task_{}".format(task.node_id), 'end')
 
+		#I begin to apply different style for different status
 		self.tree.tag_configure('status_0', font=self.STYLE_TEXT)
 		self.tree.tag_configure('status_1', font=self.STYLE_TASK_DONE )
 
 		self.tree.bind('<ButtonRelease-3>' , self.show_context_menu )
 		self.tree.bind('<ButtonRelease-1>' , self.show_details )
+
 		self.tree.pack(fill=X , side=TOP)
 
 	def show_details(self, e):
@@ -135,63 +134,66 @@ class Interface(Frame):
 			pass
 			
 
-		#found & initialize item
 		try:
+			#found the item
 			item_properties = self.tree.item( self.tree.focus() )
 			id = int(item_properties['values'][0])
 			task = Task(id)
 
-			self.details = LabelFrame(self, text=task.describe(), 
-				relief=FLAT,
-				padx=self.STYLE_PAD, pady=self.STYLE_PAD, 
-				font=self.STYLE_TITLE ,
-				foreground=self.TXT_COLOR, background=self.BKG_COLOR
-			)
+
 			if task:
+
+				#add variables values for checkbox & entry
 				status_value = IntVar()
+				name_value = StringVar()
 				status_value.set(task.status)
+				name_value.set(task.name)
 
-
-				def callback(e=None):
+				#call back when something changed
+				#when somthing change, we update the treeView & the object
+				def callback(a=None,b=None,c=None):
+					task.name = name_value.get()
 					task.description = self.details.description.get("1.0",END)
 					task.status = status_value.get()
-					print('task status changed, now its {}'.format(status_value.get()))
 					task.update()
 					self._tree()
 
 
-				# status_value.set(task.status)
+				self.details = LabelFrame(self, text='Details', 
+					relief=FLAT,
+					padx=self.STYLE_PAD, pady=self.STYLE_PAD, 
+					font=self.STYLE_TITLE ,
+					foreground=self.TXT_COLOR, background=self.BKG_COLOR)
 
+				#checkbox for task.status
 				self.details.status = Checkbutton(self.details, text="done", variable=status_value, 
 					font=self.STYLE_TEXT , 
 					fg=self.TXT_COLOR, 
 					background=self.BKG_COLOR, selectcolor='red' , command=callback).pack(side=LEFT)
 
+				#Entry for task.name
+				self.details.name = Entry(self.details, textvariable=name_value,
+					font=self.STYLE_TITLE , 
+					foreground=self.TXT_COLOR, 
+					background=self.INP_COLOR )
+				self.details.name.pack(fill=X)
+
+				#Text for task.description
 				self.details.description = Text(self.details, 
 					font=self.STYLE_TEXT , 
 					foreground=self.TXT_COLOR, 
-					background=self.INP_COLOR, 
-					# height=5
+					background=self.INP_COLOR,  # height=5
 					)
 				self.details.description.insert("1.0", task.description)
 				self.details.description.pack(fill=X)
 
-
+				name_value.trace("w", callback )
 				self.details.description.bind('<Key>' , callback )
-
-
-
+				self.details.pack(fill=X )
+			else:
+				print('task not found')
 		except IndexError:
 			print('No item selected')
-
-		
-		self.details.pack(fill=X )
-
-
-
-	def clean(self):
-		for widget in self.winfo_children():
-			widget.destroy()
 
 
 	def show_context_menu(self ,e):
