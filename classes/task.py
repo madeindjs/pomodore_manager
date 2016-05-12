@@ -59,12 +59,23 @@ class Task():
 		self.database.connection.commit()
 
 	def delete(self):
+		for task in self.subtasks():
+			task.delete()
+
 		data = { "id" : self.id}
 		sql_query = "DELETE FROM tasks WHERE id = :id OR node_id = :id"
 		self.database.cursor.execute( sql_query , data )
 		self.database.connection.commit()
-
 		self.__del__()
+
+	def subtasks(self):
+		data = { "id" : self.id}
+		tasks = []
+		sql_query = "SELECT id FROM tasks WHERE node_id = :id"
+		result = self.database.cursor.execute( sql_query , data ).fetchall()
+		for id in result:
+			tasks.append(Task(id[0]))
+		return tasks
 
 
 	def find(self, column, column_data ):
