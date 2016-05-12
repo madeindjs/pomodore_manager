@@ -36,6 +36,7 @@ class Interface(Frame):
 
 	STYLE_TITLE = ("Helvetica", 16)
 	STYLE_TEXT = ("Helvetica", 12)
+	STYLE_TASK_DONE = ("Helvetica", 10 , 'overstrike')
 
 	STYLE_PAD = 5
 	BKG_COLOR= '#34495E'
@@ -51,11 +52,13 @@ class Interface(Frame):
 
 		self.fenetre.geometry("{}x{}".format(self.WIDTH , self.HEIGHT))
 
-		Frame.__init__(self, padx=self.STYLE_PAD, pady=self.STYLE_PAD)
+		Frame.__init__(self)
 		self.pack(fill=BOTH)
 
 		self._init_menu()
 		self._init_context_menu()
+		self.tree_holder = Frame(self)
+		self.tree_holder.pack(fill=BOTH)
 		self._tree()
 
 		self.fenetre.mainloop()
@@ -94,7 +97,14 @@ class Interface(Frame):
 		self.pack()
 
 	def _tree(self):
-		self.clean()
+		# try:
+		# 	self.tree.destroy()
+		# except:
+		# 	pass
+
+		for widget in self.tree_holder.winfo_children():
+			widget.destroy()
+		
 
 		ttk.Style().configure(
 			"Treeview", 
@@ -102,19 +112,20 @@ class Interface(Frame):
 			foreground=self.TXT_COLOR, 
 			fieldbackground=self.BKG_COLOR)
 		
-		self.tree = ttk.Treeview(self)
+		self.tree = ttk.Treeview(self.tree_holder)
 
 		for task in Task.all():
-			self.tree.insert( '', 'end' , "task_{}".format(task.id) , value=task.id , text=task.name, tag='font', open=True)
+			self.tree.insert( '', 'end' , "task_{}".format(task.id) , value=task.id , text=task.name, tag='status_{}'.format(task.status), open=True)
 
 			if task.node_id != 0:
 				self.tree.move("task_{}".format(task.id), "task_{}".format(task.node_id), 'end')
 
-		self.tree.tag_configure('font', font=self.STYLE_TEXT)
+		self.tree.tag_configure('status_0', font=self.STYLE_TEXT)
+		self.tree.tag_configure('status_1', font=self.STYLE_TASK_DONE )
 
 		self.tree.bind('<ButtonRelease-3>' , self.show_context_menu )
 		self.tree.bind('<ButtonRelease-1>' , self.show_details )
-		self.tree.pack(fill=X)
+		self.tree.pack(fill=X , side=TOP)
 
 	def show_details(self, e):
 		#refresh the view
@@ -144,7 +155,10 @@ class Interface(Frame):
 				def callback(e=None):
 					task.description = self.details.description.get("1.0",END)
 					task.status = status_value.get()
+					print('task status changed, now its {}'.format(status_value.get()))
 					task.update()
+					self._tree()
+
 
 				# status_value.set(task.status)
 
@@ -161,16 +175,6 @@ class Interface(Frame):
 					)
 				self.details.description.insert("1.0", task.description)
 				self.details.description.pack(fill=X)
-
-
-				def cb_callback(a,b,c):
-
-					task.update()
-
-
-
-				
-
 
 
 				self.details.description.bind('<Key>' , callback )
