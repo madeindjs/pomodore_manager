@@ -20,7 +20,6 @@ except:
 try:
 	from tkinter import messagebox
 	from tkinter.simpledialog import askstring
-	# messagebox.askquestion('title','question')
 except:
 	print('messagebox not initialize..')
 
@@ -45,8 +44,6 @@ class Interface(Frame):
 	COLOR_BKG='#34495E'
 	COLOR_TXT='#ECF0F1'
 	COLOR_INP='#22313F'
-
-
 
 	COLOR_DONE='#1E824C'
 	COLOR_UNDONE=''
@@ -183,7 +180,7 @@ class Interface(Frame):
 					fg=self.COLOR_TXT, 
 					background=self.COLOR_BKG, selectcolor=self.COLOR_INP , command=callback).pack()
 
-				Button(self.details.actions, text="start").pack(fill=X)
+				Button(self.details.actions, text="start", command=self.start).pack(fill=X)
 				Button(self.details.actions, text="subtask", command=self.add).pack(fill=X)
 				Button(self.details.actions, text="delete", command=self.delete).pack(fill=X)
 
@@ -225,7 +222,7 @@ class Interface(Frame):
 
 
 	def start_task(self):
-		messagebox.showinfo('Soon ;)')
+		pomodore = Pomodore()
 
 
 	def add(self):
