@@ -32,7 +32,7 @@ from classes.task import Task
 
 class Interface(Frame):
 	WIDTH = 300
-	HEIGHT = 300
+	HEIGHT = 400
 
 	FONT_TITLE = ("Helvetica", 16)
 	FONT_TEXT = ("Helvetica", 12)
@@ -106,7 +106,6 @@ class Interface(Frame):
 		self.context_menu.add_command( label ='add', command=self.add)
 		self.context_menu.add_separator()
 		self.context_menu.add_command( label ='delete', command=self.delete)
-		self.context_menu.add_command( label ='rename', command=self.rename)
 		self.pack()
 
 	def _tree(self):
@@ -177,7 +176,7 @@ class Interface(Frame):
 				self.details.status = Checkbutton(self.details, text="done", variable=status_value, 
 					font=self.FONT_TEXT , 
 					fg=self.COLOR_TXT, 
-					background=self.COLOR_BKG, selectcolor=self.COLOR_INP , command=callback).pack(side=LEFT)
+					background=self.COLOR_BKG, selectcolor=self.COLOR_INP , command=callback).pack(side=BOTTOM)
 
 				#Entry for task.name
 				self.details.name = Entry(self.details, textvariable=name_value,
