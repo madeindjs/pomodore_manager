@@ -21,7 +21,8 @@ class Database:
 					id INTEGER PRIMARY KEY,
 					node_id INTERGER NOT NULL default 0,
 					name TEXT NOT NULL, 
-					description TEXT default ''
+					description TEXT default '',
+					status INTEGER DEFAULT 0
 					) """ )
 		except:
 			print('error in database connection')

@@ -47,8 +47,14 @@ class Task():
 			return False
 
 	def update(self):
-		data = { "id" : self.id , "name" : self.name , 'description' : self.description }
-		sql_query = "UPDATE tasks SET name=:name , description = :description WHERE id = :id"
+		data = { "id" : self.id , "name" : self.name , 'description' : self.description , 'status' : self.status }
+		sql_query = """UPDATE tasks 
+						SET 
+							name=:name, 
+							description = :description , 
+							status = :status 
+						WHERE 
+							id = :id"""
 		self.database.cursor.execute( sql_query , data )
 		self.database.connection.commit()
 
@@ -74,6 +80,7 @@ class Task():
 			self.node_id = result[1]
 			self.name = result[2]
 			self.description = result[3]
+			self.status = result[4]
 			return self
 
 

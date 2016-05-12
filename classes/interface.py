@@ -58,8 +58,6 @@ class Interface(Frame):
 		self._init_context_menu()
 		self._tree()
 
-		
-
 		self.fenetre.mainloop()
 
 
@@ -106,10 +104,8 @@ class Interface(Frame):
 		
 		self.tree = ttk.Treeview(self)
 
-		self.buttons = Frame(self)
-
 		for task in Task.all():
-			self.tree.insert( '', 'end' , "task_{}".format(task.id) , value=task.id , text=task.name, tag='font')
+			self.tree.insert( '', 'end' , "task_{}".format(task.id) , value=task.id , text=task.name, tag='font', open=True)
 
 			if task.node_id != 0:
 				self.tree.move("task_{}".format(task.id), "task_{}".format(task.node_id), 'end')
@@ -141,18 +137,41 @@ class Interface(Frame):
 				foreground=self.TXT_COLOR, background=self.BKG_COLOR
 			)
 			if task:
+				status_value = IntVar()
+				status_value.set(task.status)
+
+
+				def callback(e=None):
+					task.description = self.details.description.get("1.0",END)
+					task.status = status_value.get()
+					task.update()
+
+				# status_value.set(task.status)
+
+				self.details.status = Checkbutton(self.details, text="done", variable=status_value, 
+					font=self.STYLE_TEXT , 
+					fg=self.TXT_COLOR, 
+					background=self.BKG_COLOR, selectcolor='red' , command=callback).pack(side=LEFT)
+
 				self.details.description = Text(self.details, 
 					font=self.STYLE_TEXT , 
 					foreground=self.TXT_COLOR, 
-					background=self.INP_COLOR)
+					background=self.INP_COLOR, 
+					# height=5
+					)
 				self.details.description.insert("1.0", task.description)
 				self.details.description.pack(fill=X)
 
-				# Checkbutton(self.details, text="done").grid(row=1, sticky=W)
 
-				def callback(e):
-					task.description = self.details.description.get("1.0",END)
+				def cb_callback(a,b,c):
+
 					task.update()
+
+
+
+				
+
+
 
 				self.details.description.bind('<Key>' , callback )
 
