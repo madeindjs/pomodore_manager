@@ -233,7 +233,11 @@ class Interface(Frame):
 		try:
 			id = int(item_properties['values'][0])
 			task = Task(id)
-			task.name = askstring('Rename', 'set a new name:' , initialvalue=task.name)
+			try:
+				task.name = tkMessageBox.askstring('Rename', 'set a new name:' , initialvalue=task.name)
+			except Exception, e:
+				task.name = askstring('Rename', 'set a new name:' , initialvalue=task.name)
+			
 			task.update()
 		except:
 			messagebox.showerror('Error','An error occur..')
