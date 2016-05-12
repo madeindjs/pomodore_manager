@@ -150,6 +150,8 @@ class Interface(Frame):
 
 			if task:
 
+
+
 				#add variables values for checkbox & entry
 				status_value = IntVar()
 				name_value = StringVar()
@@ -172,11 +174,21 @@ class Interface(Frame):
 					font=self.FONT_TITLE ,
 					foreground=self.COLOR_TXT, background=self.COLOR_BKG)
 
+				self.details.actions = Frame(self.details , background=self.COLOR_BKG)
+
+
 				#checkbox for task.status
-				self.details.status = Checkbutton(self.details, text="done", variable=status_value, 
+				self.details.status = Checkbutton(self.details.actions, text="done", variable=status_value, 
 					font=self.FONT_TEXT , 
 					fg=self.COLOR_TXT, 
-					background=self.COLOR_BKG, selectcolor=self.COLOR_INP , command=callback).pack(side=BOTTOM)
+					background=self.COLOR_BKG, selectcolor=self.COLOR_INP , command=callback).pack()
+
+				Button(self.details.actions, text="start").pack(fill=X)
+				Button(self.details.actions, text="subtask", command=self.add).pack(fill=X)
+				Button(self.details.actions, text="delete", command=self.delete).pack(fill=X)
+
+				self.details.actions.pack(fill=X, side=RIGHT)
+
 
 				#Entry for task.name
 				self.details.name = Entry(self.details, textvariable=name_value,
@@ -197,6 +209,11 @@ class Interface(Frame):
 				name_value.trace("w", callback )
 				self.details.description.bind('<Key>' , callback )
 				self.details.pack(fill=X )
+
+
+
+
+
 			else:
 				print('task not found')
 		except IndexError:
