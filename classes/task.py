@@ -19,7 +19,7 @@ class Task():
 	def __del__(self):
 		del(self)
 
-
+	@staticmethod
 	def all():
 		tasks=[]
 		database = Database()
