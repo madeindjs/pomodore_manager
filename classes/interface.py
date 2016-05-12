@@ -226,25 +226,6 @@ class Interface(Frame):
 		self._tree()
 
 
-	def rename(self):
-		# I get value
-		item_properties = self.tree.item( self.tree.focus() )
-
-		try:
-			id = int(item_properties['values'][0])
-			task = Task(id)
-			try:
-				task.name = tkMessageBox.askstring('Rename', 'set a new name:' , initialvalue=task.name)
-			except Exception, e:
-				task.name = askstring('Rename', 'set a new name:' , initialvalue=task.name)
-			
-			task.update()
-		except:
-			messagebox.showerror('Error','An error occur..')
-
-		self._tree()
-
-
 
 	def delete(self):
 		item_properties = self.tree.item( self.tree.focus() )
