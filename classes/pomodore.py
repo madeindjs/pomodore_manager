@@ -9,7 +9,10 @@ except ImportError:
     from tkinter import *
     from tkinter import ttk
 
+import time
+import datetime
 
+from classes.database import Database
 
 class Pomodore(Frame):
 
@@ -57,6 +60,7 @@ class Pomodore(Frame):
 		self.button = Button(self.fenetre , text="start", command=self.start)
 		self.button.pack()
 
+		self.task = task
 		self.time_spend = 0
 
 		self.fenetre.mainloop()
@@ -69,12 +73,11 @@ class Pomodore(Frame):
 			self.progress["value"] = self.time_spend
 			self.after(100, self.start)
 		else:
-
+			data = { "task_id" : self.task.id , "date" : datetime.datetime.today() }
+			
 			database = Database()
-			data = { "name" : self.name , "node_id" : self.node_id }
-			self.database.cursor.execute("INSERT INTO pomodores(node_id, name) VALUES(:node_id, :name)" , data )
+			database.cursor.execute("INSERT INTO pomodores(task_id, date) VALUES(:task_id, :date)" , data )
+			database.connection.commit()
 
-
-			print("pomodore finished")
 			self.fenetre.destroy()
 			self.destroy()
