@@ -102,3 +102,7 @@ class Task():
 			# return "{} # {}".format(self.id, self.name)
 		except AttributeError:
 			print('object not set')
+
+	def start(self):
+		if Pomodore(self):
+			print('task finished')
