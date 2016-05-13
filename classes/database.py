@@ -4,25 +4,29 @@ import sqlite3
 
 
 class Database:
-	"""
-	This is a Parent class for:
-		* Categoy
-		* Task
-		* Pomodore
-	She is used to reduce similar code between theses classes and make cleaner code
-	"""
 
+	def loud_decorator(func):
+		def decorated(*args, **kwargs):
+			print("Now calling {0} with {1},{2}".format(func, args, kwargs))
+			return func(*args, **kwargs)
+		return decorated
+
+	
 	def __init__(self):
 		try:
 			self.connection = sqlite3.connect('databases.sqlite')
 			self.cursor = self.connection.cursor()
-			self.cursor.execute(
-				""" CREATE TABLE IF NOT EXISTS tasks( 
+			self.cursor.execute(""" CREATE TABLE IF NOT EXISTS tasks( 
 					id INTEGER PRIMARY KEY,
 					node_id INTERGER NOT NULL default 0,
 					name TEXT NOT NULL, 
 					description TEXT default '',
 					status INTEGER DEFAULT 0
+					) """ )
+			self.cursor.execute(""" CREATE TABLE IF NOT EXISTS pomodores( 
+					id INTEGER PRIMARY KEY,
+					task_id INTERGER NOT NULL,
+					date TEXT NOT NULL
 					) """ )
 		except:
 			print('error in database connection')
@@ -30,3 +34,7 @@ class Database:
 
 	def __del__(self):
 		self.cursor.close()
+
+	@loud_decorator
+	def read(self , query , data=None):
+		print('called')

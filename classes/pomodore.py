@@ -69,6 +69,12 @@ class Pomodore(Frame):
 			self.progress["value"] = self.time_spend
 			self.after(100, self.start)
 		else:
+
+			database = Database()
+			data = { "name" : self.name , "node_id" : self.node_id }
+			self.database.cursor.execute("INSERT INTO pomodores(node_id, name) VALUES(:node_id, :name)" , data )
+
+
 			print("pomodore finished")
 			self.fenetre.destroy()
 			self.destroy()
