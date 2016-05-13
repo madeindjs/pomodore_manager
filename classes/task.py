@@ -93,7 +93,15 @@ class Task():
 			self.name = result[2]
 			self.description = result[3]
 			self.status = result[4]
+			self.nb_pomodores = self.count_pomodores()
 			return self
+
+	def count_pomodores(self):
+		data = { 'task_id' : self.id }
+		sql_command = "SELECT COUNT(*) FROM pomodores WHERE task_id = :task_id"
+		result = self.database.cursor.execute( sql_command , data ).fetchone()
+		return result[0]
+
 
 
 	def describe(self):

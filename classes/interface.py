@@ -237,6 +237,7 @@ class Interface(Frame):
 			id = int(item_properties['values'][0])
 			task = Task(id)
 			if task:
+				print("nb pomodores = {}".format(task.nb_pomodores))
 				return task
 			else:
 				return False
