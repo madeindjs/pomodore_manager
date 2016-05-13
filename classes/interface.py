@@ -113,10 +113,16 @@ class Interface(Frame):
 		
 		self.tree = ttk.Treeview(self.tree_holder)
 
+		self.tree["columns"]=("id","pomodores")
+		self.tree["displaycolumns"]=("pomodores")
+		self.tree.column("pomodores", width=100 )
+
+		self.tree.heading("pomodores", text="pomodores")
+
 		# and each tasks in cascade
 		for task in Task.all():
 			self.tree.insert( '', 'end', "task_{}".format(task.id), 
-				value=task.id, text=task.name, tag='status_{}'.format(task.status), open=not bool(task.status))
+				value=(task.id, task.nb_pomodores), text=task.name, tag='status_{}'.format(task.status), open=not bool(task.status))
 
 			if task.node_id != 0:
 				self.tree.move("task_{}".format(task.id), "task_{}".format(task.node_id), 'end')
