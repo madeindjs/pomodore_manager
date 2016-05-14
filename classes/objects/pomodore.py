@@ -12,26 +12,12 @@ except ImportError:
 import time
 import datetime
 
-from classes.database import Database
+from classes.objects.database import Database
+from classes.ui.setting import Setting
+
 
 class Pomodore(Frame):
 
-	WIDTH=500
-
-	FONT_TITLE = ("Helvetica", 16)
-	FONT_TEXT = ("Helvetica", 12)
-
-	FONT_DONE = ("Helvetica", 10 , 'overstrike')
-	FONT_UNDONE = FONT_TEXT
-
-	PADDING= 5
-
-	COLOR_BKG='#34495E'
-	COLOR_TXT='#ECF0F1'
-	COLOR_INP='#22313F'
-
-	COLOR_DONE='#1E824C'
-	COLOR_UNDONE=''
 
 	TIMER=20
 	INTERVAL=1
@@ -41,17 +27,17 @@ class Pomodore(Frame):
 
 		#init the main view
 		self.fenetre = Tk()
-		self.fenetre.configure(background=self.COLOR_BKG)
+		self.fenetre.configure(background=Setting.COLOR_BKG)
 		self.fenetre.title("Pomodore for {}".format(task.name))
 
-		Frame.__init__(self , background=self.COLOR_BKG)
+		Frame.__init__(self , background=Setting.COLOR_BKG)
 		self.pack(fill=BOTH)
 
 		#checkbox for task.status
 		Label(self.fenetre, text="done",
-			font=self.FONT_TEXT , 
-			foreground=self.COLOR_TXT, 
-			background=self.COLOR_BKG ).pack()
+			font=Setting.FONT_TEXT , 
+			foreground=Setting.COLOR_TXT, 
+			background=Setting.COLOR_BKG ).pack()
 
 		self.progress = ttk.Progressbar(self.fenetre, orient="horizontal", length=500, mode="determinate")
 		self.progress["maximum"] = self.TIMER

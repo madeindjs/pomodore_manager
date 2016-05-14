@@ -25,49 +25,33 @@ except:
 
 
 import re # for regex
-from classes.task import Task
+from classes.objects.task import Task
+from classes.ui.setting import Setting
 
 
 
 class Interface(Frame):
-	WIDTH = 300
-	HEIGHT = 400
 
-	FONT_TITLE = ("Helvetica", 16)
-	FONT_TEXT = ("Helvetica", 12)
-
-	FONT_DONE = ("Helvetica", 10 , 'overstrike')
-	FONT_UNDONE = FONT_TEXT
-
-	PADDING= 5
-
-	COLOR_BKG='#34495E'
-	COLOR_TXT='#ECF0F1'
-	COLOR_INP='#22313F'
-
-	COLOR_DONE='#1E824C'
-	COLOR_UNDONE=''
 
 
 	def __init__(self):
 
 		#init the main view
 		self.fenetre = Tk()
-		self.fenetre.configure(background=self.COLOR_BKG)
+		self.fenetre.configure(background=Setting.COLOR_BKG)
 		self.fenetre.title("Pomodores manager")
-		self.fenetre.geometry("{}x{}".format(self.WIDTH , self.HEIGHT))
+		self.fenetre.geometry("{}x{}".format(Setting.WIDTH , Setting.HEIGHT))
 
-		Frame.__init__(self , background=self.COLOR_BKG)
+		Frame.__init__(self , background=Setting.COLOR_BKG)
 		self.pack(fill=BOTH)
 		self._init_menu()
 		self._init_context_menu()
 
 		#init the tree
-		ttk.Style().configure(
-			"Treeview", 
-			background=self.COLOR_BKG, 
-			foreground=self.COLOR_TXT, 
-			fieldbackground=self.COLOR_BKG)
+		ttk.Style().configure( "Treeview", 
+			background=Setting.COLOR_BKG, 
+			foreground=Setting.COLOR_TXT, 
+			fieldbackground=Setting.COLOR_BKG)
 		self.tree_holder = Frame(self)
 		self.tree_holder.pack(fill=BOTH)
 		self._tree()
@@ -87,7 +71,7 @@ class Interface(Frame):
 
 		menu_edit = Menu(menubar, tearoff=0)
 		menu_edit.add_separator()
-		menu_edit.add_command(label="settings" )
+		menu_edit.add_command(label="Setting" )
 		menubar.add_cascade(label="Edit", menu=menu_edit)
 
 		menu_help = Menu(menubar, tearoff=0)
@@ -128,8 +112,8 @@ class Interface(Frame):
 				self.tree.move("task_{}".format(task.id), "task_{}".format(task.node_id), 'end')
 
 		#I begin to apply different style for different status
-		self.tree.tag_configure('status_0', font=self.FONT_UNDONE , foreground=self.COLOR_UNDONE )
-		self.tree.tag_configure('status_1', font=self.FONT_DONE , foreground=self.COLOR_DONE)
+		self.tree.tag_configure('status_0', font=Setting.FONT_UNDONE , foreground=Setting.COLOR_UNDONE )
+		self.tree.tag_configure('status_1', font=Setting.FONT_DONE , foreground=Setting.COLOR_DONE)
 
 		self.tree.bind('<ButtonRelease-3>' , self.show_context_menu )
 		self.tree.bind('<ButtonRelease-1>' , self.show_details )
@@ -164,18 +148,18 @@ class Interface(Frame):
 
 			self.details = LabelFrame(self, text='Details', 
 				relief=FLAT,
-				padx=self.PADDING, pady=self.PADDING, 
-				font=self.FONT_TITLE ,
-				foreground=self.COLOR_TXT, background=self.COLOR_BKG)
+				padx=Setting.PADDING, pady=Setting.PADDING, 
+				font=Setting.FONT_TITLE ,
+				foreground=Setting.COLOR_TXT, background=Setting.COLOR_BKG)
 
-			self.details.actions = Frame(self.details , background=self.COLOR_BKG)
+			self.details.actions = Frame(self.details , background=Setting.COLOR_BKG)
 
 
 			#checkbox for task.status
 			self.details.status = Checkbutton(self.details.actions, text="done", variable=status_value, 
-				font=self.FONT_TEXT , 
-				fg=self.COLOR_TXT, 
-				background=self.COLOR_BKG, selectcolor=self.COLOR_INP , command=callback).pack()
+				font=Setting.FONT_TEXT , 
+				fg=Setting.COLOR_TXT, 
+				background=Setting.COLOR_BKG, selectcolor=Setting.COLOR_INP , command=callback).pack()
 
 			Button(self.details.actions, text="start", command=self.start).pack(fill=X)
 			Button(self.details.actions, text="subtask", command=self.add).pack(fill=X)
@@ -186,16 +170,16 @@ class Interface(Frame):
 
 			#Entry for task.name
 			self.details.name = Entry(self.details, textvariable=name_value,
-				font=self.FONT_TITLE , 
-				foreground=self.COLOR_TXT, 
-				background=self.COLOR_INP )
+				font=Setting.FONT_TITLE , 
+				foreground=Setting.COLOR_TXT, 
+				background=Setting.COLOR_INP )
 			self.details.name.pack(fill=X)
 
 			#Text for task.description
 			self.details.description = Text(self.details, 
-				font=self.FONT_TEXT , 
-				foreground=self.COLOR_TXT, 
-				background=self.COLOR_INP,  # height=5
+				font=Setting.FONT_TEXT , 
+				foreground=Setting.COLOR_TXT, 
+				background=Setting.COLOR_INP,  # height=5
 				)
 			self.details.description.insert("1.0", task.description)
 			self.details.description.pack(fill=X)

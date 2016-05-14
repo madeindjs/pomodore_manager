@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from classes.database import Database
-from classes.pomodore import Pomodore
+from classes.objects.database import Database
+from classes.objects.pomodore import Pomodore
 
 class Task():
 

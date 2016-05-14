@@ -14,7 +14,7 @@ class Database:
 	
 	def __init__(self):
 		try:
-			self.connection = sqlite3.connect('databases.sqlite')
+			self.connection = sqlite3.connect('data/databases.sqlite')
 			self.cursor = self.connection.cursor()
 			self.cursor.execute(""" CREATE TABLE IF NOT EXISTS tasks( 
 					id INTEGER PRIMARY KEY,
