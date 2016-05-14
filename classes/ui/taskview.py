@@ -14,10 +14,11 @@ except ImportError:
 import re # for regex
 from classes.objects.task import Task
 from classes.ui.setting import Setting
+from classes.ui.pomodoreview import PomodoreView
 
 
 
-class Taskview(Frame):
+class TaskView(Frame):
 
 
 
@@ -27,6 +28,8 @@ class Taskview(Frame):
 		Frame.__init__(self , background=Setting.COLOR_BKG)
 		self.pack(fill=BOTH)
 		self._init_context_menu()
+
+		
 
 		#init the tree
 		ttk.Style().configure( "Treeview", 
@@ -189,8 +192,5 @@ class Taskview(Frame):
 			return False
 
 
-
-
 	def start(self):
-		task = self._get_select_item()
-		task.start()
+		self.taskview = PomodoreView(self._get_select_item())

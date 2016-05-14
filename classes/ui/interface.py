@@ -24,8 +24,7 @@ except:
 	print('messagebox not initialize..')
 
 
-from classes.objects.task import Task
-from classes.ui.taskview import Taskview
+from classes.ui.taskview import TaskView
 from classes.ui.setting import Setting
 
 
@@ -46,7 +45,7 @@ class Interface(Frame):
 		self.pack(fill=BOTH)
 		self._init_menu()
 
-		self.task_view = Taskview().pack()
+		self.task_view = TaskView().pack()
 
 		self.window.mainloop()
 
