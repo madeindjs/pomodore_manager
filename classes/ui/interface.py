@@ -3,25 +3,54 @@
 
 #import tkinter interface
 try:
-    from Tkinter import *
-    import ttk
-    print('import Tkinter')
+	from Tkinter import *
+	import ttk
 except ImportError:
-    from tkinter import *
-    from tkinter import ttk
-    print('import tkinter')
+  	from tkinter import *
+  	from tkinter import ttk
 
 
 try:
-	import tkMessageBox
-except:
-	print('tkMessageBox not initialize..')
-
+	from Tix import *
+except ImportError:
+  	from tkinter.tix import *
+# try:
+# 	from ttk import *
+# except ImportError:
+#   	from tkinter.ttk import *
 try:
-	from tkinter import messagebox
-	from tkinter.simpledialog import askstring
-except:
-	print('messagebox not initialize..')
+	from tkMessageBox import *
+except ImportError:
+  	from tkinter.messagebox import *
+# try:
+# 	from tkColorChooser import *
+# except ImportError:
+#   	from tkinter.colorchooser import *
+# try:
+# 	from tkFileDialog import *
+# except ImportError:
+#   	from tkinter.filedialog import *
+# try:
+# 	from tkCommonDialog import *
+# except ImportError:
+#   	from tkinter.commondialog import *
+try:
+	from tkSimpleDialog import *
+except ImportError:
+  	from tkinter.simpledialog import *
+# try:
+# 	from tkFont import *
+# except ImportError:
+#   	from tkinter.font import *
+# try:
+# 	from Tkdnd import *
+# except ImportError:
+#   	from tkinter.dnd import *
+# try:
+# 	from ScrolledText import *
+# except ImportError:
+#   	from tkinter.scrolledtext import *
+
 
 
 from classes.ui.taskview import TaskView
