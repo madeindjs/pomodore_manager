@@ -9,22 +9,20 @@ class Task(Model):
 	attrs = ['id', 'node_id', 'name', 'description', 'status']
 
 
-	def delete(self):
-		for task in self.subtasks():
-			task.delete()
+	# def delete(self):
+	# 	for task in self.subtasks():
+	# 		task.delete()
 
-		Model(self).delete()
+	# 	Model(self).delete()
 
 
 
 	def subtasks(self):
 		data = { "id" : self.id}
-		tasks = []
 		sql_query = "SELECT id FROM tasks WHERE node_id = :id"
 		result = self.database.cursor.execute( sql_query , data ).fetchall()
 		for id in result:
-			tasks.append(Task(id[0]))
-		return tasks
+			yield tasks.append(Task(id[0]))
 
 
 	def count_pomodores(self):

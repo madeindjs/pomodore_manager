@@ -12,9 +12,10 @@ class Database:
 	# 	return decorated
 
 	
-	def __init__(self):
+	def __init__(self , file='data/data.sqlite'):
+		self.file = file
 		try:
-			self.connection = sqlite3.connect('data.sqlite')
+			self.connection = sqlite3.connect(self.file)
 			self.cursor = self.connection.cursor()
 			self.cursor.execute(""" CREATE TABLE IF NOT EXISTS tasks( 
 					id INTEGER PRIMARY KEY,

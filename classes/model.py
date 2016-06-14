@@ -46,10 +46,9 @@ class Model():
 	def delete(self):
 		try:
 			data = {'id': self.id}
-			sql_query = "DELETE FROM {0} WHERE id = :id".format(self.table_name)
+			sql_query = "DELETE FROM {} WHERE id = :id".format(self.table_name)
 			self.database.cursor.execute( sql_query , data )
 			self.database.connection.commit()
-			del(self)
 			return True
 
 		except AttributeError:
