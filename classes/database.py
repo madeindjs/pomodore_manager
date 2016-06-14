@@ -43,8 +43,19 @@ class Database:
 
 	def cursor_execute(self, sql_query , data=None):
 		"""an overwride function for `cursos.execute` to print each query"""
+		
+		# if verbose mod is active, I print query
 		if self.verbose:
-			print(sql_query)
+			complete_sql_query = sql_query
+
+			# if data exists , I replace them into `complete_sql_query`
+			if data:
+				for key, value in data.items():
+					search = ':{}'.format(key)
+					replace = '`{}`'.format(value)
+					complete_sql_query = complete_sql_query.replace(search, replace)
+
+			print(complete_sql_query)
 
 		# run SQL query normally
 		if data:
