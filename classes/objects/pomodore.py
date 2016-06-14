@@ -9,8 +9,9 @@ import datetime
 
 class Pomodore():
 
+	database = Database()
+
 	def __init__(self, task):
-		self.database = Database()
 		self.task = task
 
 	def add(self):
