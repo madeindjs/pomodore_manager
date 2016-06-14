@@ -16,10 +16,9 @@ from classes.task import Task
 from view.setting import Setting
 from view.pomodoreview import PomodoreView
 
-
+from view.writter import Writter
 
 class TaskView(Frame):
-
 
 
 	def __init__(self):
@@ -87,6 +86,7 @@ class TaskView(Frame):
 			pass
 			
 		task = self._get_select_item()
+		Writter.event('clicked on => {}'.format(self.tree.focus()))
 		if task:
 
 			#add variables values for checkbox & entry
@@ -187,7 +187,6 @@ class TaskView(Frame):
 			id = int(item_properties['values'][0])
 			task = Task(id)
 			if task:
-				print("nb pomodores = {}".format(task.count_pomodores()))
 				return task
 			else:
 				return False
