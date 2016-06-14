@@ -1,4 +1,4 @@
-#pomodore_manager
+# pomodore_manager
 
 
 A simply pomodore manager written with Python and his Tkinter & Sqlite3 librairy.
@@ -12,11 +12,11 @@ The purpose is simple:
 
 
 
-##Instalation
+## Instalation
 
 This project is written with standards packages. To launch it, you just have to run in your terminal:
 
-    python main.py
+    python __main__.py
 
 But if you have an older version that Python 2.5, be sure to install sqlite library before:
 
@@ -34,6 +34,7 @@ I try to support old and new version. This is why I run it on old version on my 
 I love TDD approach. You can run all test with this command `python -m unittest test.task_test`
 
 
-##future
+## future
 
-I want to implement markdown editing in tkinter view.
+- [] implement markdown editing in tkinter view.
+- [] create a verbose mode
