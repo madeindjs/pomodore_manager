@@ -58,7 +58,7 @@ class TaskView(Frame):
 		# and each tasks in cascade
 		for task in Task.all():
 			self.tree.insert( '', 'end', "task_{}".format(task.id), 
-				value=(task.id, task.nb_pomodores), text=task.name, tag='status_{}'.format(task.status), open=not bool(task.status))
+				value=(task.id, task.count_pomodores()), text=task.name, tag='status_{}'.format(task.status), open=not bool(task.status))
 
 			if task.node_id != 0:
 				self.tree.move("task_{}".format(task.id), "task_{}".format(task.node_id), 'end')
@@ -166,7 +166,12 @@ class TaskView(Frame):
 		except:
 			node_id = 0
 
-		Task(node_id=node_id)
+		new_task = Task()
+		new_task.name = 'no name'
+		new_task.description = 'no description'
+		new_task.node_id = node_id
+		new_task.status = 0
+		new_task.add()
 		self._tree()
 
 
@@ -182,7 +187,7 @@ class TaskView(Frame):
 			id = int(item_properties['values'][0])
 			task = Task(id)
 			if task:
-				print("nb pomodores = {}".format(task.nb_pomodores))
+				print("nb pomodores = {}".format(task.count_pomodores()))
 				return task
 			else:
 				return False
