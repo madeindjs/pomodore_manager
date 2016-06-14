@@ -9,11 +9,18 @@ class Task(Model):
 	attrs = ['id', 'node_id', 'name', 'description', 'status']
 
 
-	# def delete(self):
-	# 	for task in self.subtasks():
-	# 		task.delete()
+	def delete(self):
+		"""delete task and also subtasks"""
+		try:
+			data = {'id': self.id , 'node_id': self.id}
+			sql_query = "DELETE FROM {} WHERE id = :id OR node_id = :node_id".format(self.table_name)
+			self.database.cursor.execute( sql_query , data )
+			self.database.connection.commit()
+			return True
 
-	# 	Model(self).delete()
+		except AttributeError:
+			print('Object have not id property')
+			return False
 
 
 

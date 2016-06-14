@@ -32,7 +32,7 @@ class ModelTest(unittest.TestCase):
 
 
 
-	def test_check_object_add_to_database(self):
+	def test_model_can_be_added_in_database(self):
 		"""check number of rows before and after insertion"""
 		sql_query = "SELECT COUNT(id) FROM {}".format(self.model.table_name)
 		old_count = self.model.database.cursor.execute( sql_query ).fetchone()
@@ -42,7 +42,7 @@ class ModelTest(unittest.TestCase):
 
 
 
-	def test_if_object_can_be_finded(self):
+	def test_model_can_be_finded(self):
 		"""add an object find a random id in database and check if find() method can find it"""
 		sql_query = "SELECT id FROM {} LIMIT 1".format( self.model.table_name)
 		id = self.model.database.cursor.execute( sql_query ).fetchone()
@@ -51,7 +51,7 @@ class ModelTest(unittest.TestCase):
 
 
 	
-	def test_check_object_delete_to_database(self):
+	def test_model_can_be_deleted_to_database(self):
 		"""check if number of rows before and after delete change"""
 		sql_query = "SELECT COUNT(id) FROM {}".format(self.model.table_name)
 		old_count = self.model.database.cursor.execute( sql_query ).fetchone()
@@ -59,6 +59,24 @@ class ModelTest(unittest.TestCase):
 		self.model.delete()
 		new_count = self.model.database.cursor.execute( sql_query ).fetchone()
 		self.assertEqual(old_count[0], new_count[0])
+
+
+
+	def test_task_delete_also_subtasks_to_database(self):
+		"""check if number of rows before and after delete change"""
+		# add task & subtasks
+		self.model.add()
+		subtasks = Task()
+		subtasks.name = "subtask_test"
+		subtasks.node_id = self.model.id
+		subtasks.add()
+		subtasks.add()
+		# delete and search tasks
+		data = {'node_id': self.model.id}
+		self.model.delete()
+		sql_query = "SELECT COUNT(*) FROM {} WHERE node_id = :node_id".format(self.model.table_name)
+		count = self.model.database.cursor.execute( sql_query, data ).fetchone()
+		self.assertEqual(count[0], 0)
 
 
 
