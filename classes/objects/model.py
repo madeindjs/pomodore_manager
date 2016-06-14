@@ -88,6 +88,7 @@ class Model():
 		then execute it and return True or False"""
 		
 		# build data into a dictionnary like `{'foo': self.foo, 'bar': self.bar}`
+		data = dict()
 		for attr in list(self.attrs):
 			data[attr] = getattr(self, attr)
 		
@@ -96,18 +97,21 @@ class Model():
 		updated_columns.pop(0)# remove `id` column
 		sql_query = 'UPDATE {table} SET '.format(table=self.table_name)
 		for updated_column in updated_columns:
-			sql_query += '{column} = :{column}, '.format(updated_column)
+			sql_query += '{column} = :{column}, '.format(column=updated_column)
+
 
 		# finish to build sql_query
-		sql_query = sql_query[:-1] # delete last `,`
-		sql_query += 'WHERE id = :id'
+		sql_query = sql_query[:-2] # delete last `,`
+		sql_query += ' WHERE id = :id'
+		print(sql_query)
+		print(data)
 
 		# execute SQL query and find id inserted to update self Model
 		try:
 			self.database.cursor.execute( sql_query , data )
 			self.database.connection.commit()
 			return True
-		except Exception:
+		except Exception as e:
 			raise e
 			return False
 
