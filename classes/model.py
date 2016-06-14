@@ -26,7 +26,7 @@ class Model():
 		"""find one item  by colum name & value"""
 		data = {column : value}
 		sql_query = "SELECT * FROM {0} WHERE {1} = :{1} LIMIT 1".format(self.table_name, column)
-		data = self.database.cursor.execute( sql_query , data ).fetchone()
+		data = self.database.cursor_execute( sql_query , data ).fetchone()
 
 		if data:
 			self.set_from_sql_row(data)
@@ -47,7 +47,7 @@ class Model():
 		try:
 			data = {'id': self.id}
 			sql_query = "DELETE FROM {} WHERE id = :id".format(self.table_name)
-			self.database.cursor.execute( sql_query , data )
+			self.database.cursor_execute( sql_query , data )
 			self.database.connection.commit()
 			return True
 
@@ -73,9 +73,9 @@ class Model():
 			columns_with_dots=", :".join(inserted_columns)
 		)
 		# execute SQL query and find id inserted to update self Model
-		if self.database.cursor.execute( sql_query , data ):
+		if self.database.cursor_execute( sql_query , data ):
 			sql_query = "SELECT id FROM {} ORDER BY id DESC LIMIT 1".format(self.table_name)
-			id = self.database.cursor.execute(sql_query).fetchone()
+			id = self.database.cursor_execute(sql_query).fetchone()
 			self.id = id[0]
 			self.database.connection.commit()
 		else:
@@ -107,7 +107,7 @@ class Model():
 
 		# execute SQL query and find id inserted to update self Model
 		try:
-			self.database.cursor.execute( sql_query , data )
+			self.database.cursor_execute( sql_query , data )
 			self.database.connection.commit()
 			return True
 		except Exception as e:
@@ -120,5 +120,5 @@ class Model():
 	def all(cls):
 		"""return all self object present in database"""
 		sql_query = "SELECT id FROM {}".format(cls.table_name)
-		for id in cls.database.cursor.execute("SELECT id FROM tasks").fetchall():
+		for id in cls.database.cursor_execute("SELECT id FROM tasks").fetchall():
 			yield cls(id=id[0]) 

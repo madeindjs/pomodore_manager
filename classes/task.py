@@ -14,7 +14,7 @@ class Task(Model):
 		try:
 			data = {'id': self.id , 'node_id': self.id}
 			sql_query = "DELETE FROM {} WHERE id = :id OR node_id = :node_id".format(self.table_name)
-			self.database.cursor.execute( sql_query , data )
+			self.database.cursor_execute( sql_query , data )
 			self.database.connection.commit()
 			return True
 
@@ -27,7 +27,7 @@ class Task(Model):
 	def subtasks(self):
 		data = { "id" : self.id}
 		sql_query = "SELECT id FROM tasks WHERE node_id = :id"
-		result = self.database.cursor.execute( sql_query , data ).fetchall()
+		result = self.database.cursor_execute( sql_query , data ).fetchall()
 		for id in result:
 			yield tasks.append(Task(id[0]))
 
@@ -35,7 +35,7 @@ class Task(Model):
 	def count_pomodores(self):
 		data = { 'task_id' : self.id }
 		sql_command = "SELECT COUNT(*) FROM pomodores WHERE task_id = :task_id"
-		result = self.database.cursor.execute( sql_command , data ).fetchone()
+		result = self.database.cursor_execute( sql_command , data ).fetchone()
 		return result[0]
 
 
