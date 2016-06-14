@@ -53,8 +53,8 @@ except ImportError:
 
 
 
-from classes.ui.taskview import TaskView
-from classes.ui.setting import Setting
+from view.taskview import TaskView
+from view.setting import Setting
 
 
 

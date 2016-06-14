@@ -12,8 +12,8 @@ except ImportError:
 import time
 import datetime
 
-from classes.objects.pomodore import Pomodore
-from classes.ui.setting import Setting
+from classes.pomodore import Pomodore
+from view.setting import Setting
 
 
 class PomodoreView(Frame):

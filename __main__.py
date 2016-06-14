@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from classes.objects.task import Task
-from classes.ui.interface import Interface
+from view.interface import Interface
 
-from classes.objects.database import Database
 import argparse
 
 

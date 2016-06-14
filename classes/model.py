@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from classes.objects.database import Database
+from classes.database import Database
 
 class Model():
 	"""

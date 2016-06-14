@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from classes.objects.model import Model
-from classes.objects.pomodore import Pomodore
+from classes.model import Model
+from classes.pomodore import Pomodore
 
 class Task(Model):
 

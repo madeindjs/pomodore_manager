@@ -12,9 +12,9 @@ except ImportError:
     print('import tkinter')
 
 import re # for regex
-from classes.objects.task import Task
-from classes.ui.setting import Setting
-from classes.ui.pomodoreview import PomodoreView
+from classes.task import Task
+from view.setting import Setting
+from view.pomodoreview import PomodoreView
 
 
 
