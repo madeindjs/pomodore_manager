@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from view.writter import Writter
 from classes.database import Database
 
 class Model():
@@ -24,6 +25,8 @@ class Model():
 
 	def find_by(self, column, value):
 		"""find one item  by colum name & value"""
+		Writter.event('find model where `{}` is `{}`'.format(column, value))
+
 		data = {column : value}
 		sql_query = "SELECT * FROM {0} WHERE {1} = :{1} LIMIT 1".format(self.table_name, column)
 		data = self.database.cursor_execute( sql_query , data ).fetchone()
@@ -44,6 +47,9 @@ class Model():
 
 
 	def delete(self):
+		"""delete a model in database"""
+		Writter.event('delete model n°{}'.format(self.id))
+
 		try:
 			data = {'id': self.id}
 			sql_query = "DELETE FROM {} WHERE id = :id".format(self.table_name)
@@ -58,6 +64,7 @@ class Model():
 
 	def add(self):
 		"""add the current object in the database"""
+		Writter.event('add model')
 
 		# get columns name & delete id (because it will be set automatiquelly by SQLite)
 		inserted_columns = list(self.attrs)
@@ -85,6 +92,7 @@ class Model():
 		"""update all columns from the current object values
 		begin to build SQL query like `UPDATE tasks SET foo=:foo, bar=:bar WHERE id = :id`
 		then execute it and return True or False"""
+		Writter.event('update model #{}'.format(self.id))
 		
 		# build data into a dictionnary like `{'foo': self.foo, 'bar': self.bar}`
 		data = dict()
@@ -102,8 +110,6 @@ class Model():
 		# finish to build sql_query
 		sql_query = sql_query[:-2] # delete last `,`
 		sql_query += ' WHERE id = :id'
-		print(sql_query)
-		print(data)
 
 		# execute SQL query and find id inserted to update self Model
 		try:

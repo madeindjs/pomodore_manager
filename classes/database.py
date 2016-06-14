@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import sqlite3
+from view.writter import Writter
 
 
 class Database:
-
-	verbose = False
 
 	def __init__(self , file='data/data.sqlite'):
 		self.file = file
@@ -43,19 +42,8 @@ class Database:
 
 	def cursor_execute(self, sql_query , data=None):
 		"""an overwride function for `cursos.execute` to print each query"""
-		
-		# if verbose mod is active, I print query
-		if self.verbose:
-			complete_sql_query = sql_query
 
-			# if data exists , I replace them into `complete_sql_query`
-			if data:
-				for key, value in data.items():
-					search = ':{}'.format(key)
-					replace = '`{}`'.format(value)
-					complete_sql_query = complete_sql_query.replace(search, replace)
-
-			print(complete_sql_query)
+		Writter.sql_log(sql_query , data) 
 
 		# run SQL query normally
 		if data:

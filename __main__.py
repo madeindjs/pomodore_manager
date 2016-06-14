@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import argparse
 
+from view.writter import Writter
 from view.interface import Interface
 from classes.database import Database
 
@@ -14,8 +15,6 @@ if __name__ == '__main__':
 	args = parser.parse_args()
 
 	if args.verbose:
-		Database.verbose = True
+		Writter.verbose = True
 
 	interface = Interface()
-
-	# Database().read('hello')
