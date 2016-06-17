@@ -87,9 +87,3 @@ class ModelTest(unittest.TestCase):
 		model_class = self.model.__class__
 		self.assertEqual( count[0] , len(list(model_class.all())))
 
-
-
-
-
-if __name__ == '__main__':
-	unittest.main()

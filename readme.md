@@ -46,7 +46,8 @@ Developpment
 
 I love TDD approach. i try to write unit tests before write code. You can run test with this command:
 
-    python -m unittest test.task_test
+    cd pomodore_manager
+    python tests.py
 
 Unit Test will create a test database `/data/test.sqlite` to ensure all function will work properly in production environment.
 
