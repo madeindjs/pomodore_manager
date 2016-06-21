@@ -11,7 +11,7 @@ from classes.task import Task
 
 
 
-class ModelTest(unittest.TestCase):
+class TaskTest(unittest.TestCase):
 
 	model = None
 

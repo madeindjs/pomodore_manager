@@ -1,6 +1,7 @@
 import unittest
 
-from tests.task_tests import ModelTest
+from tests.task_test import TaskTest
+from tests.pomodore_test import PomodoreTest
 
 if __name__ == '__main__': 
 	unittest.main()
