@@ -32,7 +32,8 @@ class TaskView(Frame):
 		ttk.Style().configure( "Treeview", 
 			background=Setting.COLOR_BKG, 
 			foreground=Setting.COLOR_TXT, 
-			fieldbackground=Setting.COLOR_BKG)
+			fieldbackground=Setting.COLOR_BKG,
+			rowheight=30)
 		self.tree_holder = Frame(self)
 		self.tree_holder.pack(fill=BOTH)
 		self._tree()
