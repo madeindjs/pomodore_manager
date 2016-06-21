@@ -3,7 +3,7 @@
 
 class Setting():
 	WIDTH = 300
-	HEIGHT = 400
+	HEIGHT = 600
 
 	FONT_TITLE = ("Helvetica", 16)
 	FONT_TEXT = ("Helvetica", 12)
