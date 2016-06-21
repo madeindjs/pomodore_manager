@@ -57,7 +57,8 @@ class TaskView(Frame):
 		# and each tasks in cascade
 		for task in Task.all():
 			self.tree.insert( '', 'end', "task_{}".format(task.id), 
-				value=task.id, text=task.name, tag='status_{}'.format(task.status), open=not bool(task.status))
+				value=(task.id, task.spended_time), text=task.name, 
+				tag='status_{}'.format(task.status), open=not bool(task.status))
 
 			if task.node_id != 0:
 				self.tree.move("task_{}".format(task.id), "task_{}".format(task.node_id), 'end')
@@ -235,6 +236,7 @@ class TaskView(Frame):
 			def callback():
 				self.new_worktime.add()
 				self.show_details()
+				self._tree()
 
 
 

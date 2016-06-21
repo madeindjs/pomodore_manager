@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from tests.task_tests import ModelTest
+from tests.task_tests import TaskTest
 from tests.worktime_tests import WorkTimeTest
 
 if __name__ == '__main__':

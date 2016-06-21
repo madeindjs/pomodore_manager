@@ -8,15 +8,17 @@ import re
 import classes
 from classes.database import Database
 from classes.task import Task
+from classes.worktime import WorkTime
 
 
 
-class ModelTest(unittest.TestCase):
+class TaskTest(unittest.TestCase):
 
 	model = None
 
 	def setUp(self):
 		Task.database = Database('data/test.sqlite')
+		WorkTime.database = Database('data/test.sqlite')
 		self.model = Task()
 		self.model.name = "task_test"
 		self.model.node_id = 0
@@ -87,3 +89,15 @@ class ModelTest(unittest.TestCase):
 		model_class = self.model.__class__
 		self.assertEqual( count[0] , len(list(model_class.all())))
 
+
+
+	def test_worktimes_property(self):
+		"""check if wortimes property return same qty objects than COUNT(*)"""
+		self.model.add()
+		WorkTime(self.model).add()
+		WorkTime(self.model).add()
+		WorkTime(self.model).add()
+		data = {'task_id':self.model.id}
+		sql_query = "SELECT COUNT(*) FROM worktimes WHERE task_id=:task_id"
+		count = self.model.database.cursor.execute( sql_query, data ).fetchone()
+		self.assertEqual( count[0] , len(list(self.model.worktimes)))

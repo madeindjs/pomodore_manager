@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import datetime
+
 from view.writter import Writter
 
 from classes.model import Model
+from classes.worktime import WorkTime
 
 class Task(Model):
 
@@ -36,3 +39,25 @@ class Task(Model):
 		result = self.database.cursor_execute( sql_query , data ).fetchall()
 		for id in result:
 			yield tasks.append(Task(id[0]))
+
+
+	@property
+	def worktimes(self):
+		"""generator wortimes"""
+		data = { "task_id" : self.id}
+		sql_query = "SELECT id, task_id FROM worktimes WHERE task_id=:task_id"
+		result = self.database.cursor_execute( sql_query , data ).fetchall()
+		for id in result:
+			yield WorkTime(id=id[0])
+
+
+
+	@property
+	def spended_time(self):
+		"""return the total time spend on this task"""
+		time_delta = 0
+		for worktime in self.worktimes:
+			time_delta += worktime.end - worktime.begin
+
+		return datetime.timedelta(seconds=time_delta)
+	
