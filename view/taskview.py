@@ -13,6 +13,7 @@ except ImportError:
 
 import re # for regex
 from classes.task import Task
+from classes.worktime import WorkTime
 from view.setting import Setting
 
 from view.writter import Writter
@@ -46,16 +47,16 @@ class TaskView(Frame):
 		
 		self.tree = ttk.Treeview(self.tree_holder)
 
-		self.tree["columns"]=("id","pomodores")
-		self.tree["displaycolumns"]=("pomodores")
-		self.tree.column("pomodores", width=100 )
+		self.tree["columns"]=("id","time")
+		self.tree["displaycolumns"]=("time")
+		self.tree.column("time", width=100 )
 
-		self.tree.heading("pomodores", text="pomodores")
+		self.tree.heading("time", text="time")
 
 		# and each tasks in cascade
 		for task in Task.all():
 			self.tree.insert( '', 'end', "task_{}".format(task.id), 
-				value=(task.id, task.count_pomodores()), text=task.name, tag='status_{}'.format(task.status), open=not bool(task.status))
+				value=task.id, text=task.name, tag='status_{}'.format(task.status), open=not bool(task.status))
 
 			if task.node_id != 0:
 				self.tree.move("task_{}".format(task.id), "task_{}".format(task.node_id), 'end')
@@ -207,5 +208,57 @@ class TaskView(Frame):
 
 
 	def start(self):
-		"""start a pomodore"""
-		new_worktime = WorkTime(self._get_select_item())
+		"""start a work time.
+
+		update details view for timer and a stop button"""
+
+		#refresh the view
+		try:
+			self.details.destroy()
+		except AttributeError:
+			pass
+
+		task = self._get_select_item()
+		
+		
+		Writter.event('start to work on {}'.format(task.name))
+
+
+		if task:
+
+			self.new_worktime = WorkTime(task)
+
+			#call back stop button clicked
+			def callback():
+				self.new_worktime.add()
+				self.show_details(None)
+
+			self.details = LabelFrame(self, text='"{}" in progress...'.format(task.name), 
+				relief=FLAT,
+				padx=Setting.PADDING, pady=Setting.PADDING, 
+				font=Setting.FONT_TITLE ,
+				foreground=Setting.COLOR_TXT, background=Setting.COLOR_BKG)
+
+			time_value = StringVar()
+
+
+			time_value.set("Tâche en cours")
+
+			Label(self.details , textvariable=time_value).pack(fill=X)
+			Button(self.details, text="stop", command=callback).pack(fill=X)
+
+			running = True
+
+
+
+
+
+			self.details.pack(fill=X )
+
+		else:
+			print('task not found')
+
+
+
+	def end(self):
+		pass

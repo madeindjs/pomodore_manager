@@ -36,18 +36,3 @@ class Task(Model):
 		result = self.database.cursor_execute( sql_query , data ).fetchall()
 		for id in result:
 			yield tasks.append(Task(id[0]))
-
-
-	def count_pomodores(self):
-		"""return count of pomodores linked"""
-		data = { 'task_id' : self.id }
-		sql_command = "SELECT COUNT(*) FROM pomodores WHERE task_id = :task_id"
-		result = self.database.cursor_execute( sql_command , data ).fetchone()
-		return result[0]
-
-
-
-
-	def start(self):
-		if Pomodore(self):
-			print('task finished')

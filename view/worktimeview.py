@@ -12,11 +12,11 @@ except ImportError:
 import time
 import datetime
 
-from classes.pomodore import Pomodore
+from classes.worktime import WorkTime
 from view.setting import Setting
 
 
-class PomodoreView(Frame):
+class WorkTimeView(Frame):
 	"""a pomodore view"""
 
 	TIMER=20
