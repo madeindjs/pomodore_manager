@@ -1,0 +1,13 @@
+{
+	"width" : 300,
+	"HEIGHT" : 400,
+
+	"color" : {
+		"backgorund" : "#34495E",
+		"text" : "#ECF0F1",
+		"input" : "#22313F",
+		"done" : "#1E824C",
+		"undone" : ""
+	}
+
+}
