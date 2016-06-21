@@ -19,16 +19,14 @@ from view.pomodoreview import PomodoreView
 from view.writter import Writter
 
 class TaskView(Frame):
+	"""a treeview for tasks with a detailed bottom panel"""
 
 
 	def __init__(self):
-
 		#init the main view
 		Frame.__init__(self , background=Setting.COLOR_BKG)
 		self.pack(fill=BOTH)
 		self._init_context_menu()
-
-		
 
 		#init the tree
 		ttk.Style().configure( "Treeview", 
@@ -40,8 +38,8 @@ class TaskView(Frame):
 		self._tree()
 
 
-	def _tree(self):
 
+	def _tree(self):
 		#I begin to destroy the old treeview if he exist
 		for widget in self.tree_holder.winfo_children():
 			widget.destroy()
@@ -71,6 +69,8 @@ class TaskView(Frame):
 
 		self.tree.pack(fill=X , side=TOP)
 
+
+
 	def _init_context_menu(self):
 		self.context_menu = Menu(self, tearoff=0)
 		self.context_menu.add_command( label ='add', command=self.add)
@@ -78,7 +78,10 @@ class TaskView(Frame):
 		self.context_menu.add_command( label ='delete', command=self.delete)
 		self.pack()
 
+
+
 	def show_details(self, e):
+		"""show a bottom pane for task selected (name, description, status)"""
 		#refresh the view
 		try:
 			self.details.destroy()
@@ -153,16 +156,18 @@ class TaskView(Frame):
 
 
 	def show_context_menu(self ,e):
+		"""show context menu with a right click"""
 		self.context_menu.post(e.x_root, e.y_root)
 
 
+
 	def add(self):
-		# I retrive what object selected is
-		item_properties = self.tree.item( self.tree.focus() )
+		"""add a new task"""
+		task = self._get_select_item()
 
 		node_id = 0
 		try:
-			node_id = int(item_properties['values'][0])
+			node_id = task.id
 		except:
 			node_id = 0
 
@@ -177,11 +182,15 @@ class TaskView(Frame):
 
 
 	def delete(self):
+		"""delete the selected task"""
 		task = self._get_select_item()
 		task.delete()
 		self._tree()
 
+
+
 	def _get_select_item(self):
+		"""get the selected item on Tasks treeview"""
 		try:
 			item_properties = self.tree.item( self.tree.focus() )
 			id = int(item_properties['values'][0])
@@ -196,5 +205,7 @@ class TaskView(Frame):
 			return False
 
 
+
 	def start(self):
+		"""start a pomodore"""
 		self.taskview = PomodoreView(self._get_select_item())

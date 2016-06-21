@@ -17,6 +17,7 @@ from view.setting import Setting
 
 
 class PomodoreView(Frame):
+	"""a pomodore view"""
 
 	TIMER=20
 	INTERVAL=1
@@ -54,6 +55,7 @@ class PomodoreView(Frame):
 
 
 	def start(self):
+		"""start the pomodore"""
 
 		if self.time_spend < self.TIMER:
 			self.time_spend += self.INTERVAL

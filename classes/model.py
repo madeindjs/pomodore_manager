@@ -4,12 +4,11 @@ from view.writter import Writter
 from classes.database import Database
 
 class Model():
-	"""
-	Model class is the parent class for all object will contact database
-	"""
+	"""Model class is the parent class for all object will contact database"""
 	table_name = None # set by child
 	attrs = list() # attributes will be set automatiquelly
 	database = Database()
+
 
 
 	def __init__(self, id=None, sql_row=None):
@@ -21,6 +20,7 @@ class Model():
 		else:
 			for attr in self.attrs:
 				setattr(self, attr, None)
+
 
 
 	def find_by(self, column, value):
@@ -38,12 +38,14 @@ class Model():
 			return None
 
 
+
 	def set_from_sql_row(self, sql_row):
 		"""set all attributes from sql query data"""
 		i = 0
 		for column in sql_row:
 			setattr(self, self.attrs[i], column)
 			i += 1
+
 
 
 	def delete(self):
@@ -60,6 +62,7 @@ class Model():
 		except AttributeError:
 			print('Object have not id property')
 			return False
+
 
 
 	def add(self):
@@ -87,6 +90,8 @@ class Model():
 			self.database.connection.commit()
 		else:
 			return False
+
+
 
 	def update(self):
 		"""update all columns from the current object values

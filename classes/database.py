@@ -5,6 +5,9 @@ from view.writter import Writter
 
 
 class Database:
+	"""database class to create an object for the sqlite file"""
+
+
 
 	def __init__(self , file='data/data.sqlite'):
 		self.file = file
@@ -23,6 +26,7 @@ class Database:
 
 
 	def _init_tables(self):
+		"""check if tables exists and create them if not"""
 		try:
 			self.cursor_execute(""" CREATE TABLE IF NOT EXISTS tasks( 
 					id INTEGER PRIMARY KEY,
@@ -40,6 +44,7 @@ class Database:
 			raise e
 
 
+
 	def cursor_execute(self, sql_query , data=None):
 		"""an overwride function for `cursos.execute` to print each query"""
 
@@ -50,8 +55,3 @@ class Database:
 			return self.cursor.execute(sql_query, data)
 		else:
 			return self.cursor.execute(sql_query)
-
-
-
-
-
