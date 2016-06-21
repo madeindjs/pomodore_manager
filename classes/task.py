@@ -47,8 +47,3 @@ class Task(Model):
 		return result[0]
 
 
-
-
-	def start(self):
-		if Pomodore(self):
-			print('task finished')

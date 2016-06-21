@@ -13,6 +13,7 @@ except ImportError:
 
 import re # for regex
 from classes.task import Task
+from classes.pomodore import Pomodore
 from view.setting import Setting
 from view.pomodoreview import PomodoreView
 
@@ -208,5 +209,8 @@ class TaskView(Frame):
 
 
 	def start(self):
-		"""start a pomodore"""
-		self.taskview = PomodoreView(self._get_select_item())
+		"""get the task start a pomodore"""
+		task = self._get_select_item()
+		pomodore = Pomodore(task)
+		if pomodore.start():
+			self._tree()

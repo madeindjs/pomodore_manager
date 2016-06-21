@@ -19,18 +19,16 @@ from view.setting import Setting
 class PomodoreView(Frame):
 	"""a pomodore view"""
 
-	TIMER=20
-	INTERVAL=1
 
 
-	def __init__(self, task):
+	def __init__(self, pomodore):
 
-		self.pomodore = Pomodore(task)
+		self.pomodore = pomodore
 
 		#init the main view
 		self.fenetre = Tk()
 		self.fenetre.configure(background=Setting.COLOR_BKG)
-		self.fenetre.title("Pomodore for {}".format(task.name))
+		self.fenetre.title("Pomodore for {}".format(self.pomodore.task.name))
 
 		Frame.__init__(self , background=Setting.COLOR_BKG)
 		self.pack(fill=BOTH)
@@ -42,13 +40,12 @@ class PomodoreView(Frame):
 			background=Setting.COLOR_BKG ).pack()
 
 		self.progress = ttk.Progressbar(self.fenetre, orient="horizontal", length=500, mode="determinate")
-		self.progress["maximum"] = self.TIMER
+		self.progress["maximum"] = Pomodore.timer
 		self.progress.pack()
 
 		self.button = Button(self.fenetre , text="start", command=self.start)
 		self.button.pack()
 
-		self.task = task
 		self.time_spend = 0
 
 		self.fenetre.mainloop()
@@ -57,8 +54,8 @@ class PomodoreView(Frame):
 	def start(self):
 		"""start the pomodore"""
 
-		if self.time_spend < self.TIMER:
-			self.time_spend += self.INTERVAL
+		if self.time_spend < Pomodore.timer :
+			self.time_spend += Pomodore.interval
 			self.progress["value"] = self.time_spend
 			self.after(100, self.start)
 
