@@ -3,7 +3,6 @@
 from view.writter import Writter
 
 from classes.model import Model
-from classes.pomodore import Pomodore
 
 class Task(Model):
 

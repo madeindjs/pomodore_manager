@@ -14,7 +14,6 @@ except ImportError:
 import re # for regex
 from classes.task import Task
 from view.setting import Setting
-from view.pomodoreview import PomodoreView
 
 from view.writter import Writter
 
@@ -209,4 +208,4 @@ class TaskView(Frame):
 
 	def start(self):
 		"""start a pomodore"""
-		self.taskview = PomodoreView(self._get_select_item())
+		new_worktime = WorkTime(self._get_select_item())
