@@ -12,6 +12,7 @@ except ImportError:
     print('import tkinter')
 
 import re # for regex
+import time # for regex
 from classes.task import Task
 from classes.worktime import WorkTime
 from view.setting import Setting
@@ -81,7 +82,7 @@ class TaskView(Frame):
 
 
 
-	def show_details(self, e):
+	def show_details(self, e=None):
 		"""show a bottom pane for task selected (name, description, status)"""
 		#refresh the view
 		try:
@@ -228,28 +229,44 @@ class TaskView(Frame):
 
 			self.new_worktime = WorkTime(task)
 
+			started_time = time.localtime(self.new_worktime.begin )
+
 			#call back stop button clicked
 			def callback():
 				self.new_worktime.add()
-				self.show_details(None)
-
-			self.details = LabelFrame(self, text='"{}" in progress...'.format(task.name), 
-				relief=FLAT,
-				padx=Setting.PADDING, pady=Setting.PADDING, 
-				font=Setting.FONT_TITLE ,
-				foreground=Setting.COLOR_TXT, background=Setting.COLOR_BKG)
-
-			time_value = StringVar()
+				self.show_details()
 
 
-			time_value.set("Tâche en cours")
 
-			Label(self.details , textvariable=time_value).pack(fill=X)
+			self.details = LabelFrame(self, text='"{}" in progress...'.
+				format(task.name), 
+					relief=FLAT,
+					padx=Setting.PADDING, pady=Setting.PADDING, 
+					font=Setting.FONT_TITLE ,
+					foreground=Setting.COLOR_TXT, background=Setting.COLOR_BKG)
+
+			self.time_value = StringVar()
+
+
+			self.time_value.set("Tâche en cours")
+			Label(self.details , 
+				text='Started @{}'.format(time.strftime('%H:%M',started_time)),
+				font=Setting.FONT_TEXT , 
+				foreground=Setting.COLOR_TXT, 
+				background=Setting.COLOR_BKG).pack(fill=X)
+			Label(self.details , textvariable=self.time_value,font=Setting.FONT_TEXT , 
+				foreground=Setting.COLOR_TXT, 
+				background=Setting.COLOR_BKG).pack(fill=X)
 			Button(self.details, text="stop", command=callback).pack(fill=X)
 
-			running = True
 
 
+			def update_time():
+				"""get time delat & update string var"""
+				self.time_value.set( self.new_worktime.spend_from_now() )
+				self.after(100, update_time)
+
+			update_time()
 
 
 
