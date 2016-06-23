@@ -18,9 +18,12 @@ class WorkTime(Model):
 
 
 
-	def __init__(self, task=None, id=None):
+	def __init__(self, task=None, id=None, sql_row=None):
 		if id:
 			self.find_by('id', id)
+
+		elif sql_row:
+			self.set_from_sql_row(sql_row)
 
 		elif task:
 			self.task_id = task.id
@@ -51,5 +54,11 @@ class WorkTime(Model):
 		"""return a string in HH:MM:SS spend from now"""
 		time_delta = time.time() - self.begin
 		return datetime.timedelta(seconds=time_delta)
+
+
+	@property
+	def time(self):
+		"""return time spend on this work time in seconds"""
+		return self.end - self.begin
 
 

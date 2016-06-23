@@ -55,9 +55,9 @@ class Task(Model):
 	@property
 	def spended_time(self):
 		"""return the total time spend on this task"""
-		time_delta = 0
+		spended_time = 0
 		for worktime in self.worktimes:
-			time_delta += worktime.end - worktime.begin
+			spended_time += worktime.time
 
-		return datetime.timedelta(seconds=time_delta)
+		return datetime.timedelta(seconds=spended_time)
 	
