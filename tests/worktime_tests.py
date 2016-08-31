@@ -5,10 +5,10 @@ import shutil
 import json
 import re
 
-import classes
-from classes.database import Database
-from classes.task import Task
-from classes.worktime import WorkTime
+import pomodore_manager
+from pomodore_manager.database import Database
+from pomodore_manager.task import Task
+from pomodore_manager.worktime import WorkTime
 
 
 

@@ -1,20 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import argparse
+from bottle import route, run, template
 
-from view.writter import Writter
-from view.interface import Interface
-from classes.database import Database
+def main():
 
+	@route('/hello/<name>')
+	def index(name):
+		return template('<b>Hello {{name}}</b>!', name=name)
+
+	run(host='localhost', port=12345)
 
 
 if __name__ == '__main__':
-
-	parser = argparse.ArgumentParser()
-	parser.add_argument("-v", "--verbose", action="store_true", help="Show SQL calls")
-	args = parser.parse_args()
-
-	if args.verbose:
-		Writter.verbose = True
-
-	interface = Interface()
+	main()
