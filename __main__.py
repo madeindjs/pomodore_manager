@@ -1,18 +1,24 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from bottle import route, run, template
+from bottle import run, view, route, template
+
+
 
 def main():
 
-	@route('/home')
-	def home():
-		return template('<h1>{{content}}</h1>', content='Reload works!')
 
-		
+	@route('/')
+	def tasks():
+		name = "tasks"
+		return template('<b>Hello {{name}}</b>!', name=name)
+
+
 
 	@route('/hello/<name>')
+	@view('index.tpl')
 	def index(name):
-		return template('<b>Hello {{name}}</b>!', name=name)
+		context = {'name' : name}
+		return context
 
 	run(host='localhost', port=12345, reloader=True)
 
