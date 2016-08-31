@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 import argparse
 
-from view.writter import Writter
-from view.interface import Interface
-from classes.database import Database
+from time_manager.view.writter import Writter
+from time_manager.view.interface import Interface
+from time_manager.classes.database import Database
 
 
 
