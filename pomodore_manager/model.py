@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from view.writter import Writter
-from classes.database import Database
+from writer import Writer
+from .database import Database
 
 class Model():
 	"""Model class is the parent class for all object will contact database"""
@@ -25,7 +25,7 @@ class Model():
 
 	def find_by(self, column, value):
 		"""find one item  by colum name & value"""
-		Writter.event('find model where `{}` is `{}`'.format(column, value))
+		Writer.event('find model where `{}` is `{}`'.format(column, value))
 
 		data = {column : value}
 		sql_query = "SELECT * FROM {0} WHERE {1} = :{1} LIMIT 1".format(self.table_name, column)
@@ -50,7 +50,7 @@ class Model():
 
 	def delete(self):
 		"""delete a model in database"""
-		Writter.event('delete model n°{}'.format(self.id))
+		Writer.event('delete model n°{}'.format(self.id))
 
 		try:
 			data = {'id': self.id}
@@ -67,7 +67,7 @@ class Model():
 
 	def add(self):
 		"""add the current object in the database"""
-		Writter.event('add model')
+		Writer.event('add model')
 
 		# get columns name & delete id (because it will be set automatiquelly by SQLite)
 		inserted_columns = list(self.attrs)
@@ -97,7 +97,7 @@ class Model():
 		"""update all columns from the current object values
 		begin to build SQL query like `UPDATE tasks SET foo=:foo, bar=:bar WHERE id = :id`
 		then execute it and return True or False"""
-		Writter.event('update model #{}'.format(self.id))
+		Writer.event('update model #{}'.format(self.id))
 		
 		# build data into a dictionnary like `{'foo': self.foo, 'bar': self.bar}`
 		data = dict()

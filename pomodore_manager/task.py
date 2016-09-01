@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 import datetime
 
-from view.writter import Writter
+from writer import Writer
 
-from classes.model import Model
-from classes.worktime import WorkTime
+from .model import Model
+from .worktime import WorkTime
 
 class Task(Model):
 
@@ -15,7 +15,7 @@ class Task(Model):
 
 	def delete(self):
 		"""delete task and also subtasks"""
-		Writter.event('delete task n°{} and subtasks linked'.format(self.id))
+		Writer.event('delete task n°{} and subtasks linked'.format(self.id))
 
 		try:
 			data = {'id': self.id , 'node_id': self.id}
@@ -32,7 +32,7 @@ class Task(Model):
 
 	def subtasks(self):
 		"""return all subtasks linked to this task"""
-		Writter.event('delete task n°{} and subtasks linked'.format(self.id))
+		Writer.event('delete task n°{} and subtasks linked'.format(self.id))
 
 		data = { "id" : self.id}
 		sql_query = "SELECT id FROM tasks WHERE node_id = :id"
