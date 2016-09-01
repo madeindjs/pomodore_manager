@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import bottle
 from bottle import run, view, route, template
 
 
@@ -7,20 +8,24 @@ from bottle import run, view, route, template
 def main():
 
 
+	bottle.TEMPLATES.clear()
+
+
 	@route('/')
-	def tasks():
-		name = "tasks"
-		return template('<b>Hello {{name}}</b>!', name=name)
-
-
-
-	@route('/hello/<name>')
 	@view('index.tpl')
-	def index(name):
-		context = {'name' : name}
+	def Index():
+		context = {'name' : "Index"}
 		return context
 
-	run(host='localhost', port=12345, reloader=True)
+
+
+	@route('/tasks/new')
+	@view('new.tpl')
+	def new():
+		context = {'name' : "New"}
+		return context
+
+	run(host='localhost', port=12345, debug=True, reloader=True)
 
 
 if __name__ == '__main__':
