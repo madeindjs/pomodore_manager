@@ -114,10 +114,12 @@ class Model():
 		sql_query = sql_query[:-2] # delete last `,`
 		sql_query += ' WHERE id = :id'
 
+
 		# execute SQL query and find id inserted to update self Model
 		try:
 			self.database.cursor_execute( sql_query , data )
 			self.database.connection.commit()
+			Writer.sql_log(sql_query , data)
 			return True
 		except Exception as e:
 			raise e

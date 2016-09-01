@@ -7,6 +7,7 @@
 		<li>
 			<strong>{{task.name}}</strong> {{task.description}}
 			<ul class="actions">
+				<li><a href="/tasks/update/{{task.id}}"><img src="/static/ic_edit.svg" alt="update"/></a></li>
 				<li><a href="/tasks/delete/{{task.id}}"><img src="/static/ic_delete.svg" alt="add"/></a></li>
 			</ul>
 		</li>

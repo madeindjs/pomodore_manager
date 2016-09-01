@@ -21,10 +21,10 @@ def main():
 
 
 	@get('/tasks/new')
-	@view('new.tpl')
+	@view('edit.tpl')
 	def new():
 		"""form a new task"""
-		context = {'name' : "New"}
+		context = {'task' : None}
 		return context
 
 
@@ -38,6 +38,30 @@ def main():
 		task.node_id     = 0
 		if task.add():
 			redirect('/')
+
+
+
+	@get('/tasks/update/<id>')
+	@view('edit.tpl')
+	def update(id):
+		"""open a form with task's values"""
+		task = Task.find_by('id',id)
+		context = {'task' : task}
+		return context
+
+
+
+	@post('/tasks/update/<id>')
+	def update(id):
+		"""update the task and redirect to root"""
+		task = Task.find_by('id',id)
+		if task:
+			task.name        = request.forms.get('name')
+			task.description = request.forms.get('description')
+			task.status      = request.forms.get('status')
+
+			if task.update():
+				redirect('/')
 
 
 
