@@ -1,23 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Tasks#Index</title>
-	<link rel="stylesheet" type="text/css" href="/static/style.css">
-</head>
-<body>
-	<h1>Tasks</h1>
+% include('_layout_header')
 
-	<ul class="tasks">
-		% for task in tasks:
-			<li>
-				<strong>{{task.name}}</strong> {{task.description}}
-				<ul class="actions">
-					<li><a href="/tasks/delete/{{task.id}}">delete</a></li>
-				</ul>
-			</li>
-		% end
-	</ul>
+<h2>Tasks</h2>
 
-	<a href="/tasks/new">Add a new task</a>
-</body>
-</html>
+<ul class="tasks">
+	% for task in tasks:
+		<li>
+			<strong>{{task.name}}</strong> {{task.description}}
+			<ul class="actions">
+				<li><a href="/tasks/delete/{{task.id}}"><img src="/static/ic_delete.svg" alt="add"/></a></li>
+			</ul>
+		</li>
+	% end
+</ul>
+
+<a id="add" href="/tasks/new"><img src="/static/ic_add.svg" alt="add"/></a>
+
+% include('_layout_footer')
