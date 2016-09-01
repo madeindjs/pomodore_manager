@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import bottle
-from bottle import run, view, route, post, get, template, request, redirect
+from bottle import run, view, route, post, get, template, request, redirect, static_file
 from pomodore_manager.task import Task
 
 
@@ -36,6 +36,13 @@ def main():
 		task.node_id      = 0
 		if task.add():
 			redirect('/')
+
+
+
+
+	@route('/static/<filename:path>')
+	def server_static(filename):
+		return static_file(filename, root='views/static')
 
 
 	run(host='localhost', port=12345, debug=True, reloader=True)

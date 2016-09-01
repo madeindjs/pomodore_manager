@@ -1,0 +1,17 @@
+html{ background-color: #6C7A89; }
+
+body{
+	padding: 10px;
+	width:400px;
+	margin: auto ;
+	background-color: #ececec
+}
+
+ul{
+	list-style: none;
+	padding: 0;
+}
+
+li{
+	margin-bottom: 10px
+}
