@@ -88,6 +88,7 @@ class Model():
 			id = self.database.cursor_execute(sql_query).fetchone()
 			self.id = id[0]
 			self.database.connection.commit()
+			return True
 		else:
 			return False
 
