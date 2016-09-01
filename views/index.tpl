@@ -1,6 +1,6 @@
 % include('_layout_header')
 
-<h2>Tasks</h2>
+<a id="add" href="/tasks/new"><img src="/static/ic_add.svg" alt="add"/></a>
 
 <ul class="tasks">
 	% for task in tasks:
@@ -13,6 +13,6 @@
 	% end
 </ul>
 
-<a id="add" href="/tasks/new"><img src="/static/ic_add.svg" alt="add"/></a>
+
 
 % include('_layout_footer')
