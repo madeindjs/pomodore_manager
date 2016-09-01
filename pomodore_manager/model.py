@@ -11,40 +11,37 @@ class Model():
 
 
 
-	def __init__(self, id=None, sql_row=None):
-		"""initialize object from None or by sql_row if it pased in parameters"""
-		if id:
-			self.find_by('id', id)
-		elif sql_row:
-			self.set_from_sql_row(sql_row)
-		else:
-			for attr in self.attrs:
-				setattr(self, attr, None)
+	def __init__(self):
+		"""initialize object"""
+		for attr in self.attrs:
+			setattr(self, attr, None)
 
 
-
-	def find_by(self, column, value):
+	@classmethod
+	def find_by(cls, column, value):
 		"""find one item  by colum name & value"""
 		Writer.event('find model where `{}` is `{}`'.format(column, value))
 
 		data = {column : value}
-		sql_query = "SELECT * FROM {0} WHERE {1} = :{1} LIMIT 1".format(self.table_name, column)
-		data = self.database.cursor_execute( sql_query , data ).fetchone()
+		sql_query = "SELECT * FROM {0} WHERE {1} = :{1} LIMIT 1".format(cls.table_name, column)
+		data = cls.database.cursor_execute( sql_query , data ).fetchone()
 
 		if data:
-			self.set_from_sql_row(data)
-			return self
+			return cls.set_from_sql_row(data)
 		else:
 			return None
 
 
 
-	def set_from_sql_row(self, sql_row):
+	@classmethod
+	def set_from_sql_row(cls, sql_row):
 		"""set all attributes from sql query data"""
+		new_model = cls()
 		i = 0
 		for column in sql_row:
-			setattr(self, self.attrs[i], column)
+			setattr(new_model, cls.attrs[i], column)
 			i += 1
+		return new_model
 
 
 
@@ -133,4 +130,4 @@ class Model():
 		"""return all self object present in database"""
 		sql_query = "SELECT id FROM {}".format(cls.table_name)
 		for id in cls.database.cursor_execute("SELECT id FROM tasks").fetchall():
-			yield cls(id=id[0]) 
+			yield cls.find_by('id', id[0])
