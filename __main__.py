@@ -13,8 +13,8 @@ def main():
 
 	@route('/')
 	@view('index.tpl')
-	def Index():
-		# build the Task list
+	def index():
+		"""show all tasks"""
 		context = {'tasks' : Task.all()}
 		return context
 
@@ -23,18 +23,29 @@ def main():
 	@get('/tasks/new')
 	@view('new.tpl')
 	def new():
+		"""form a new task"""
 		context = {'name' : "New"}
 		return context
 
 
 	@post('/tasks/new')
 	def new():
+		"""build a new task"""
 		task = Task()
 		task.name        = request.forms.get('name')
 		task.description = request.forms.get('description')
 		task.status      = request.forms.get('status')
-		task.node_id      = 0
+		task.node_id     = 0
 		if task.add():
+			redirect('/')
+
+
+
+	@get('/tasks/delete/<id>')
+	def delete(id):
+		"""delete the given task"""
+		task = Task.find_by('id',id)
+		if task.delete():
 			redirect('/')
 
 

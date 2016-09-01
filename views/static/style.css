@@ -1,4 +1,4 @@
-html{ background-color: #6C7A89; }
+html{ background-color: #22313F; padding: 10px;}
 
 body{
 	padding: 10px;
@@ -7,11 +7,21 @@ body{
 	background-color: #ececec
 }
 
-ul{
+ul.tasks{
 	list-style: none;
 	padding: 0;
 }
 
-li{
+ul.tasks > li{
 	margin-bottom: 10px
+}
+
+ul.actions{
+	list-style: none;
+	display: inline;
+	padding: 0;
+}
+
+ul.actions > li{
+	display: inline;
 }
