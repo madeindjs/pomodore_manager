@@ -14,7 +14,8 @@ def main():
 	@route('/')
 	@view('index.tpl')
 	def Index():
-		context = {'name' : "Index"}
+		# build the Task list
+		context = {'tasks' : Task.all()}
 		return context
 
 
