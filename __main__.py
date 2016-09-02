@@ -57,9 +57,9 @@ def main():
 		"""update the task and redirect to root"""
 		task = Task.find_by('id',id)
 		if task:
-			task.name        = request.forms.get('name')
-			task.description = request.forms.get('description')
-			task.status      = request.forms.get('status')
+			task.name        = request.forms.name
+			task.description = request.forms.description
+			task.status      = request.forms.status
 
 			if task.update():
 				redirect('/')
