@@ -49,7 +49,7 @@ interact('#delete').dropzone({
   // only accept elements matching this CSS selector
   accept: '.task',
   // Require a 75% element overlap for a drop to be possible
-  overlap: 0.75,
+  overlap: 0.60,
 
   // listen for drop related events:
 
@@ -67,14 +67,12 @@ interact('#delete').dropzone({
     // feedback the possibility of a drop
     dropzoneElement.classList.add('drop-target');
     draggableElement.classList.add('can-drop');
-    draggableElement.textContent = 'Dragged in';
   },
   ondragleave: function (event) {
     console.log('ondragleave');
     // remove the drop feedback style
     event.target.classList.remove('drop-target');
     event.relatedTarget.classList.remove('can-drop');
-    event.relatedTarget.textContent = 'Dragged out';
   },
   ondrop: function (event) {
     var task = event.relatedTarget ;
@@ -86,7 +84,6 @@ interact('#delete').dropzone({
        data : 'id=' + task.id ,
        success : function(response, statut){
           // delete the html tag
-          task.parentNode.removeChild(task);
        },
 
        error : function(result, status, error){
@@ -94,7 +91,7 @@ interact('#delete').dropzone({
        },
 
        complete : function(result, statut){
-
+          task.parentNode.removeChild(task);
        }
 
     });

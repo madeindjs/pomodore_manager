@@ -22,14 +22,6 @@ def main():
 
 
 
-	@get('/new')
-	@view('edit.tpl')
-	def new():
-		"""form a new task"""
-		context = {'task' : None}
-		return context
-
-
 	@post('/new')
 	def new():
 		"""build a new task"""
@@ -39,7 +31,7 @@ def main():
 		task.status      = request.forms.status
 		task.node_id     = 0
 		if task.add():
-			redirect('/')
+			return json.dumps({'id':task.id, 'name':task.name, 'description':task.description})
 
 
 
@@ -48,7 +40,7 @@ def main():
 	def update(id):
 		"""open a form with task's values"""
 		task = Task.find_by('id',id)
-		context = {'task' : task}
+		context = {'task':task, 'name':task.name, 'description':task.description}
 		return context
 
 
@@ -67,20 +59,16 @@ def main():
 
 
 
-	@get('/delete/<id>')
-	def delete(id):
-		"""delete the given task"""
-		task = Task.find_by('id',id)
-		if task.delete():
-			redirect('/')
-
-
 	@post('/delete')
 	def delete():
 		"""delete the given task"""
-		task_id = request.forms.id
-		task = Task.find_by('id',task_id)
-		return json.dumps({'result': task.delete() })
+		try:
+			task_id = request.forms.id
+			task = Task.find_by('id',task_id)
+			return json.dumps({'result': task.delete() })
+		except AttributeError:
+			return True
+
 
 
 
