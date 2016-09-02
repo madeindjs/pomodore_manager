@@ -7,7 +7,8 @@ from pomodore_manager.task import Task
 
 def main():
 
-
+	HOST = 'localhost'
+	PORT = 12345
 	bottle.TEMPLATES.clear()
 
 
@@ -20,7 +21,7 @@ def main():
 
 
 
-	@get('/tasks/new')
+	@get('/new')
 	@view('edit.tpl')
 	def new():
 		"""form a new task"""
@@ -28,20 +29,20 @@ def main():
 		return context
 
 
-	@post('/tasks/new')
+	@post('/new')
 	def new():
 		"""build a new task"""
 		task = Task()
-		task.name        = request.forms.get('name')
-		task.description = request.forms.get('description')
-		task.status      = request.forms.get('status')
+		task.name        = request.forms.name
+		task.description = request.forms.description
+		task.status      = request.forms.status
 		task.node_id     = 0
 		if task.add():
 			redirect('/')
 
 
 
-	@get('/tasks/update/<id>')
+	@get('/update/<id>')
 	@view('edit.tpl')
 	def update(id):
 		"""open a form with task's values"""
@@ -51,7 +52,7 @@ def main():
 
 
 
-	@post('/tasks/update/<id>')
+	@post('/update/<id>')
 	def update(id):
 		"""update the task and redirect to root"""
 		task = Task.find_by('id',id)
@@ -65,7 +66,7 @@ def main():
 
 
 
-	@get('/tasks/delete/<id>')
+	@get('/delete/<id>')
 	def delete(id):
 		"""delete the given task"""
 		task = Task.find_by('id',id)
@@ -80,7 +81,7 @@ def main():
 		return static_file(filename, root='views/static')
 
 
-	run(host='localhost', port=12345, debug=True, reloader=True)
+	run(host=HOST, port=PORT, debug=True, reloader=True)
 
 
 if __name__ == '__main__':

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 	<html>
 		<head>
-			<title>Tasks#Index</title>
+			<title>Pomodore Manager</title>
 			<link rel="stylesheet" type="text/css" href="/static/style.css">
+			<meta charset="utf-8">
 		</head>
 
 		<body>
