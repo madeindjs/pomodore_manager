@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import json
 import bottle
 from bottle import run, view, route, post, get, template, request, redirect, static_file
 from pomodore_manager.task import Task
@@ -73,6 +74,13 @@ def main():
 		if task.delete():
 			redirect('/')
 
+
+	@post('/delete')
+	def delete():
+		"""delete the given task"""
+		task_id = request.forms.id
+		task = Task.find_by('id',task_id)
+		return json.dumps({'result': task.delete() })
 
 
 

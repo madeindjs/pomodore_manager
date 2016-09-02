@@ -20,16 +20,19 @@ h1{
 }
 
 
-div.task{
+div.task, #delete{
 	padding: 5px;
 	margin-bottom: 10px;
-	background-color: #D2D7D3 ;
 	border-radius: 0.75em;
 	/*make a small aligned square */
 	display: block;
 	width: 150px;
 	height: 150px;
 	vertical-align: top;
+}
+
+div.task{
+	background-color: #D2D7D3 ;
 }
 
 ul.actions{
@@ -41,6 +44,20 @@ ul.actions{
 	top: 0px;
 }
 	ul.actions > li{display: inline; }
+
+#delete{
+
+	/* create a div with a trash logo in the center*/
+	background-image: url(/static/ic_delete.svg);
+	background-size: 50%;
+	background-repeat: no-repeat;
+	background-position: center;
+	/* fix the div in a corner */
+	position: fixed; 
+	bottom: 0px;
+	right: 0px ;
+
+}
 
 footer{
 	font-size: 12px;
