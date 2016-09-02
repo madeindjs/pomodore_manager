@@ -9,7 +9,7 @@ from pomodore_manager.task import Task
 def main():
 
 	HOST = 'localhost'
-	PORT = 12345
+	PORT = 65000
 	bottle.TEMPLATES.clear()
 
 
