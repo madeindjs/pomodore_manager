@@ -1,5 +1,8 @@
 	<!-- body here -->
 
+	<script type="text/javascript" src="/static/interact.min.js"></script>
+	<script type="text/javascript" src="/static/drag_n_drop.js"></script>
+
 	</body>
 
 	<footer>

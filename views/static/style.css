@@ -19,37 +19,28 @@ h1{
 	text-align: center;
 }
 
-ul.tasks{
-	list-style: none;
-	padding: 0;
-	text-align: center;
-}
 
-ul.tasks > li{
+div.task{
+	padding: 5px;
 	margin-bottom: 10px;
 	background-color: #D2D7D3 ;
+	border-radius: 0.75em;
 	/*make a small aligned square */
-	display: inline-block;
+	display: block;
 	width: 150px;
 	height: 150px;
 	vertical-align: top;
 }
 
 ul.actions{
+	text-align: center ;
 	list-style: none;
 	padding: 0;
-	background-color: #95A5A6 ;
 	/*move to the backround of the task*/
-	position: relative;
-	display: block;
 	width: 100%;
-	top: 100px;
-	bottom: 0px;
+	top: 0px;
 }
-
-ul.actions > li{
-	display: inline;
-}
+	ul.actions > li{display: inline; }
 
 footer{
 	font-size: 12px;
