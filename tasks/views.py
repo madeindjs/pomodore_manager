@@ -1,23 +1,24 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import loader
+from django.views import generic
 from django.urls import reverse
 from .models import Task
 
 
-def index(request):
-    latest_tasks = Task.objects.order_by('id')[:5]
-    template = loader.get_template('tasks/index.html')
-    context = {'latest_tasks': latest_tasks, }
-    return HttpResponse(template.render(context, request))
+
+class IndexView(generic.ListView):
+    template_name = 'tasks/index.html'
+    context_object_name = 'latest_tasks'
+
+    def get_queryset(self):
+        return Task.objects.order_by('id')[:5]
 
 
 
-def detail(request, task_id):
-    task = get_object_or_404(Task, pk=task_id)
-    template = loader.get_template('tasks/details.html')
-    context = {'task': task, }
-    return HttpResponse(template.render(context, request))
+class DetailView(generic.DetailView):
+    model = Task
+    template_name = 'tasks/detail.html'
 
 
 
