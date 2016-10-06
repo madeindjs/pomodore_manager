@@ -1,5 +1,10 @@
 	<!-- body here -->
 
+	<script type="text/javascript" src="/static/jquery-3.1.0.min.js"></script>
+	<script type="text/javascript" src="/static/interact.min.js"></script>
+	<script type="text/javascript" src="/static/drag_n_drop.js"></script>
+	<script type="text/javascript" src="/static/create_task.js"></script>
+
 	</body>
 
 	<footer>
