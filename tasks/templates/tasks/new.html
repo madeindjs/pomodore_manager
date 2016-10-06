@@ -1,0 +1,15 @@
+<h1>Create a new task</h1>
+
+<form action="{% url 'tasks:new' %}" method="post">
+    {% csrf_token %}
+
+    <label>Parent task</label>
+    <select name="parent_id">{% for tasks in tasks %}
+        <option value="{{task.id}}" >{{ task.name }}</option>
+    {% endfor %}</select><br/>
+
+    <label>Name</label><input type="text" name="name"><br/>
+    <label>Description</label><input type="text" name="description"><br/>
+
+    <input type="submit" />
+</form>
