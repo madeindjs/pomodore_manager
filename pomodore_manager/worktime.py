@@ -3,8 +3,8 @@
 
 #import tkinter interface
 
-from classes.database import Database
-from classes.model import Model
+from .database import Database
+from .model import Model
 
 import time
 import datetime

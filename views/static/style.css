@@ -1,0 +1,57 @@
+html{ background-color: #22313F; padding: 10px;height: 100% ;}
+
+body, footer{
+	background-color: #ECF0F1;
+	width:400px;
+}
+
+body{
+	margin: auto ;
+	background-color: #ECF0F1;
+	font-size: 18px; 
+}
+
+h1{
+	background-color: #D91E18 ;
+	margin: 0px;
+	padding: 0px;
+	color: #ECF0F1 ;
+	text-align: center;
+}
+
+ul.tasks{
+	list-style: none;
+	padding: 0;
+	text-align: center;
+}
+
+ul.tasks > li{
+	margin-bottom: 10px;
+	background-color: #D2D7D3 ;
+	/*make a small aligned square */
+	display: inline-block;
+	width: 150px;
+	height: 150px;
+	vertical-align: top;
+}
+
+ul.actions{
+	list-style: none;
+	padding: 0;
+	background-color: #95A5A6 ;
+	/*move to the backround of the task*/
+	position: relative;
+	display: block;
+	width: 100%;
+	top: 100px;
+	bottom: 0px;
+}
+
+ul.actions > li{
+	display: inline;
+}
+
+footer{
+	font-size: 12px;
+	text-align: right;
+}

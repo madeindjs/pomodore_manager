@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import sqlite3
-from view.writter import Writter
 
 
 class Database:
@@ -48,8 +47,6 @@ class Database:
 
 	def cursor_execute(self, sql_query , data=None):
 		"""an overwride function for `cursos.execute` to print each query"""
-
-		Writter.sql_log(sql_query , data) 
 
 		# run SQL query normally
 		if data:

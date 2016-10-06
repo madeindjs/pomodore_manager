@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from view.writter import Writter
-from classes.database import Database
+from writer import Writer
+from .database import Database
 
 class Model():
 	"""Model class is the parent class for all object will contact database"""
@@ -11,46 +11,43 @@ class Model():
 
 
 
-	def __init__(self, id=None, sql_row=None):
-		"""initialize object from None or by sql_row if it pased in parameters"""
-		if id:
-			self.find_by('id', id)
-		elif sql_row:
-			self.set_from_sql_row(sql_row)
-		else:
-			for attr in self.attrs:
-				setattr(self, attr, None)
+	def __init__(self):
+		"""initialize object"""
+		for attr in self.attrs:
+			setattr(self, attr, None)
 
 
-
-	def find_by(self, column, value):
+	@classmethod
+	def find_by(cls, column, value):
 		"""find one item  by colum name & value"""
-		Writter.event('find model where `{}` is `{}`'.format(column, value))
+		Writer.event('find model where `{}` is `{}`'.format(column, value))
 
 		data = {column : value}
-		sql_query = "SELECT * FROM {0} WHERE {1} = :{1} LIMIT 1".format(self.table_name, column)
-		data = self.database.cursor_execute( sql_query , data ).fetchone()
+		sql_query = "SELECT * FROM {0} WHERE {1} = :{1} LIMIT 1".format(cls.table_name, column)
+		data = cls.database.cursor_execute( sql_query , data ).fetchone()
 
 		if data:
-			self.set_from_sql_row(data)
-			return self
+			return cls.set_from_sql_row(data)
 		else:
 			return None
 
 
 
-	def set_from_sql_row(self, sql_row):
+	@classmethod
+	def set_from_sql_row(cls, sql_row):
 		"""set all attributes from sql query data"""
+		new_model = cls()
 		i = 0
 		for column in sql_row:
-			setattr(self, self.attrs[i], column)
+			setattr(new_model, cls.attrs[i], column)
 			i += 1
+		return new_model
 
 
 
 	def delete(self):
 		"""delete a model in database"""
-		Writter.event('delete model n°{}'.format(self.id))
+		Writer.event('delete model n°{}'.format(self.id))
 
 		try:
 			data = {'id': self.id}
@@ -67,7 +64,7 @@ class Model():
 
 	def add(self):
 		"""add the current object in the database"""
-		Writter.event('add model')
+		Writer.event('add model')
 
 		# get columns name & delete id (because it will be set automatiquelly by SQLite)
 		inserted_columns = list(self.attrs)
@@ -88,6 +85,7 @@ class Model():
 			id = self.database.cursor_execute(sql_query).fetchone()
 			self.id = id[0]
 			self.database.connection.commit()
+			return True
 		else:
 			return False
 
@@ -97,7 +95,7 @@ class Model():
 		"""update all columns from the current object values
 		begin to build SQL query like `UPDATE tasks SET foo=:foo, bar=:bar WHERE id = :id`
 		then execute it and return True or False"""
-		Writter.event('update model #{}'.format(self.id))
+		Writer.event('update model #{}'.format(self.id))
 		
 		# build data into a dictionnary like `{'foo': self.foo, 'bar': self.bar}`
 		data = dict()
@@ -116,10 +114,12 @@ class Model():
 		sql_query = sql_query[:-2] # delete last `,`
 		sql_query += ' WHERE id = :id'
 
+
 		# execute SQL query and find id inserted to update self Model
 		try:
 			self.database.cursor_execute( sql_query , data )
 			self.database.connection.commit()
+			Writer.sql_log(sql_query , data)
 			return True
 		except Exception as e:
 			raise e
@@ -132,4 +132,4 @@ class Model():
 		"""return all self object present in database"""
 		sql_query = "SELECT id FROM {}".format(cls.table_name)
 		for id in cls.database.cursor_execute("SELECT id FROM tasks").fetchall():
-			yield cls(id=id[0]) 
+			yield cls.find_by('id', id[0])
