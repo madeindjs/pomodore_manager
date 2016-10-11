@@ -11,28 +11,24 @@ var App = {
 
 		http.createServer(function(request, response){
 
-			
-
 			// create the function to render an Html file
 			response.render = function(file, items){
 
+				response.writeHead(200, {"Content-Type": "text/html"});
+
 				//open the file
 				fs.readFile(file, 'utf-8' ,function(errors, file_data){
-					
 					if(errors){throw errors;}
+					
 					// replace data file_data
-					for(var key in items){
-						// an ugly trick to imitate an `String.replaceAll()` method
+					for(var key in items){// an ugly trick to imitate an `String.replaceAll()` method
 						file_data = file_data.split('{{'+key+'}}').join(items[key]);
 					}
 					response.write(file_data);
-					// close 
 					response.end();
-
 				})// close file
 
 			}
-
 
 			// parse url
 			var url_array = request.url.split('/') ;
@@ -43,14 +39,12 @@ var App = {
 			console.log(data);
 
 			//emit the signal
-			var signal_name = controller+'#'+action;
-			emiter.emit(signal_name, response, data );
-
-
-
-			console.log(response.render)
-
-			
+			var event_name = controller+'#'+action;
+			// if no one listen this event, we raise a 404 error
+			if(!emiter.emit(event_name, response, data )){
+				response.writeHead(400);
+				response.end();
+			}		
 
 		}).listen(port);
 
